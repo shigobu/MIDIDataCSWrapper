@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -121,6 +122,18 @@ namespace MIDIDataCSWrapper
         }
         #endregion
 
+        #region 定数
+
+        //ファイル拡張子
+        private const string midiExt = ".mid";
+        private const string skjExt = ".skj";
+        private const string cherryExt = ".chy";
+        private const string midiCsvExt = ".csv";
+        private const string cakewalkExt = ".wrk";
+        private const string mabinogiMMLExt = ".mmml";
+
+        #endregion
+
         /// <summary>
         /// MIDIDataオブジェクトのポインタ
         /// </summary>
@@ -154,10 +167,65 @@ namespace MIDIDataCSWrapper
         /// <summary>
         /// MIDIデータのポインタを指定して、オブジェクトを初期化します。
         /// </summary>
-        /// <param name="MIDIData">MIDIデータのポインタ</param>
-        private MIDIData(IntPtr MIDIData)
+        /// <param name="midiData">MIDIデータのポインタ</param>
+        private MIDIData(IntPtr midiData)
         {
-            MIDIDataInstance = MIDIData;
+            MIDIDataInstance = midiData;
+        }
+
+        /// <summary>
+        /// ファイル名を指定してMIDIデータを初期化します。
+        /// 拡張子で読み込み処理を分岐させます。
+        /// 対応拡張子は、skj,mid,chy,csv,wrk,mmmlです。
+        /// </summary>
+        /// <param name="fileName">ファイル名</param>
+        private MIDIData(string fileName)
+        {
+            //ファイルが無い場合
+            if (!File.Exists(fileName))
+            {
+                throw new FileNotFoundException(null, nameof(fileName));
+            }
+
+            //拡張子取得
+            string extension = Path.GetExtension(fileName);
+
+            //拡張子に応じて分岐
+            switch (extension)
+            {
+                case midiExt:
+                    MIDIDataInstance = MIDIData_LoadFromSMF(fileName);
+                    break;
+
+                case skjExt:
+                    MIDIDataInstance = MIDIData_LoadFromBinary(fileName);
+                    break;
+
+                case cherryExt:
+                    MIDIDataInstance = MIDIData_LoadFromCherry(fileName);
+                    break;
+
+                case midiCsvExt:
+                    MIDIDataInstance = MIDIData_LoadFromMIDICSV(fileName);
+                    break;
+
+                case cakewalkExt:
+                    MIDIDataInstance = MIDIData_LoadFromWR(fileName);
+                    break;
+
+                case mabinogiMMLExt:
+                    MIDIDataInstance = MIDIData_LoadFromMabiMML(fileName);
+                    break;
+                
+                default:
+                    throw new ArgumentException("非対応の拡張子です。", nameof(fileName));
+                    break;
+            }
+
+            if (MIDIDataInstance == IntPtr.Zero)
+            {
+                throw new MIDIDataLibException("ファイル読み込みに失敗しました。");
+            }
         }
 
         #region IDisposable Support
