@@ -136,103 +136,25 @@ namespace MIDIDataCSWrapper
 
         #endregion
 
+        #region プロパティ
         /// <summary>
         /// MIDIDataオブジェクトのポインタ
         /// </summary>
         private IntPtr MIDIDataInstance { get; set; }
 
+        #endregion
+
+        #region 静的メソッド
+        /// <summary>
+        /// MIDIDataライブラリのテキストエンコーダで用いるデフォルトの文字コードを設定する。
+        /// </summary>
+        /// <param name="charCode"></param>
         public static void SetDefaultCharCode(CharCode charCode)
         {
             int err = MIDIDataLib_SetDefaultCharCode((int)charCode);
             if (err == 0)
             {
                 throw new MIDIDataLibException("規定文字コードの設定に失敗しました。");
-            }
-        }
-
-        /// <summary>
-        /// MIDIデータをメモリ上に新規生成します
-        /// </summary>
-        /// <param name="format">フォーマット</param>
-        /// <param name="numTrack">初期トラック数(0～)</param>
-        /// <param name="timeMode">タイムモード</param>
-        /// <param name="timeResolution">タイムレゾリューション</param>
-        public MIDIData(Format format, int numTrack, TimeMode timeMode, int timeResolution)
-        {
-            MIDIDataInstance = MIDIData_Create((int)format, numTrack, (int)timeMode, timeResolution);
-            if (MIDIDataInstance == IntPtr.Zero)
-            {
-                throw new MIDIDataLibException("MIDIデータの作成に失敗しました。");
-            }
-        }
-
-        /// <summary>
-        /// MIDIデータのポインタを指定して、オブジェクトを初期化します。
-        /// </summary>
-        /// <param name="midiData">MIDIデータのポインタ</param>
-        private MIDIData(IntPtr midiData)
-        {
-            MIDIDataInstance = midiData;
-        }
-
-        /// <summary>
-        /// ファイル名を指定してMIDIデータを初期化します。
-        /// 拡張子で読み込み処理を分岐させます。
-        /// 対応拡張子は、skj,mid,chy,csv,wrk,mmmlです。
-        /// これ以外の拡張子の場合、ArgumentExceptionが投げられます。
-        /// </summary>
-        /// <param name="fileName">ファイル名</param>
-        public MIDIData(string fileName)
-        {
-            if (fileName == null)
-            {
-                throw new ArgumentNullException(nameof(fileName));
-            }
-
-            //ファイルが無い場合
-            if (!File.Exists(fileName))
-            {
-                throw new FileNotFoundException(null, nameof(fileName));
-            }
-
-            //拡張子取得
-            string extension = Path.GetExtension(fileName);
-
-            //拡張子に応じて分岐
-            switch (extension)
-            {
-                case midiExt:
-                    MIDIDataInstance = MIDIData_LoadFromSMF(fileName);
-                    break;
-
-                case skjExt:
-                    MIDIDataInstance = MIDIData_LoadFromBinary(fileName);
-                    break;
-
-                case cherryExt:
-                    MIDIDataInstance = MIDIData_LoadFromCherry(fileName);
-                    break;
-
-                case midiCsvExt:
-                    MIDIDataInstance = MIDIData_LoadFromMIDICSV(fileName);
-                    break;
-
-                case cakewalkExt:
-                    MIDIDataInstance = MIDIData_LoadFromWRK(fileName);
-                    break;
-
-                case mabinogiMMLExt:
-                    MIDIDataInstance = MIDIData_LoadFromMabiMML(fileName);
-                    break;
-                
-                default:
-                    throw new ArgumentException("非対応の拡張子です。", nameof(fileName));
-                    break;
-            }
-
-            if (MIDIDataInstance == IntPtr.Zero)
-            {
-                throw new MIDIDataLibException("ファイル読み込みに失敗しました。");
             }
         }
 
@@ -402,6 +324,93 @@ namespace MIDIDataCSWrapper
             }
 
             return new MIDIData(midiDataPtr);
+        }
+        #endregion
+
+        /// <summary>
+        /// MIDIデータのポインタを指定して、オブジェクトを初期化します。
+        /// </summary>
+        /// <param name="midiData">MIDIデータのポインタ</param>
+        private MIDIData(IntPtr midiData)
+        {
+            MIDIDataInstance = midiData;
+        }
+
+        /// <summary>
+        /// MIDIデータをメモリ上に新規生成します
+        /// </summary>
+        /// <param name="format">フォーマット</param>
+        /// <param name="numTrack">初期トラック数(0～)</param>
+        /// <param name="timeMode">タイムモード</param>
+        /// <param name="timeResolution">タイムレゾリューション</param>
+        public MIDIData(Format format, int numTrack, TimeMode timeMode, int timeResolution)
+        {
+            MIDIDataInstance = MIDIData_Create((int)format, numTrack, (int)timeMode, timeResolution);
+            if (MIDIDataInstance == IntPtr.Zero)
+            {
+                throw new MIDIDataLibException("MIDIデータの作成に失敗しました。");
+            }
+        }
+
+        /// <summary>
+        /// ファイル名を指定してMIDIデータを初期化します。
+        /// 拡張子で読み込み処理を分岐させます。
+        /// 対応拡張子は、skj,mid,chy,csv,wrk,mmmlです。
+        /// これ以外の拡張子の場合、ArgumentExceptionが投げられます。
+        /// </summary>
+        /// <param name="fileName">ファイル名</param>
+        public MIDIData(string fileName)
+        {
+            if (fileName == null)
+            {
+                throw new ArgumentNullException(nameof(fileName));
+            }
+
+            //ファイルが無い場合
+            if (!File.Exists(fileName))
+            {
+                throw new FileNotFoundException(null, nameof(fileName));
+            }
+
+            //拡張子取得
+            string extension = Path.GetExtension(fileName);
+
+            //拡張子に応じて分岐
+            switch (extension)
+            {
+                case midiExt:
+                    MIDIDataInstance = MIDIData_LoadFromSMF(fileName);
+                    break;
+
+                case skjExt:
+                    MIDIDataInstance = MIDIData_LoadFromBinary(fileName);
+                    break;
+
+                case cherryExt:
+                    MIDIDataInstance = MIDIData_LoadFromCherry(fileName);
+                    break;
+
+                case midiCsvExt:
+                    MIDIDataInstance = MIDIData_LoadFromMIDICSV(fileName);
+                    break;
+
+                case cakewalkExt:
+                    MIDIDataInstance = MIDIData_LoadFromWRK(fileName);
+                    break;
+
+                case mabinogiMMLExt:
+                    MIDIDataInstance = MIDIData_LoadFromMabiMML(fileName);
+                    break;
+                
+                default:
+                    throw new ArgumentException("非対応の拡張子です。", nameof(fileName));
+                    break;
+            }
+
+            if (MIDIDataInstance == IntPtr.Zero)
+            {
+                throw new MIDIDataLibException("ファイル読み込みに失敗しました。");
+            }
         }
 
         #region IDisposable Support
