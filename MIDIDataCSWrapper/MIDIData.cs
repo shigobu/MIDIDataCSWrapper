@@ -13,14 +13,45 @@ namespace MIDIDataCSWrapper
     public class MIDIData : IDisposable
     {
         #region DLLImport
+
+        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+        private static extern int MIDIDataLib_SetDefaultCharCode(int lCharCode);
+
         [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
         private static extern IntPtr MIDIData_Create(int lFormat, int lNumTrack, int lTimeMode, int lTimeResolution);
 
         [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
         private static extern void MIDIData_Delete(IntPtr pMIDIData);
 
+        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+        private static extern IntPtr MIDIData_LoadFromBinary(string pszFileName);
 
         #endregion
+
+        public enum CharCode
+        {
+            /// <summary>
+            /// 指定なし。
+            /// Windowsのコントロールパネルで指定されている文字コード(ANSI Code Page)でテキストエンコードするものとみなされる。
+            /// </summary>
+            NoCharCod = 0,
+            /// <summary>
+            /// {@LATIN} (ANSI)
+            /// </summary>
+            LATIN = 1252,
+            /// <summary>
+            /// {@JP} (Shift-JIS)
+            /// </summary>
+            JP = 932,
+            /// <summary>
+            /// UTF16リトルエンディアン
+            /// </summary>
+            UTF16LE = 1200,
+            /// <summary>
+            /// UTF16ビッグエンディアン
+            /// </summary>
+            UTF16BE = 1201
+        }
 
         /// <summary>
         /// MIDIデータのフォーマット
@@ -48,6 +79,15 @@ namespace MIDIDataCSWrapper
         /// MIDIDataオブジェクトのポインタ
         /// </summary>
         private IntPtr MIDIDataInstance { get; set; }
+
+        public static void SetDefaultCharCode(CharCode charCode)
+        {
+            int err = MIDIDataLib_SetDefaultCharCode((int)charCode);
+            if (err == 0)
+            {
+                throw new MIDIDataLibException("規定文字コードの設定に失敗しました。");
+            }
+        }
 
         /// <summary>
         /// MIDIデータをメモリ上に新規生成します
