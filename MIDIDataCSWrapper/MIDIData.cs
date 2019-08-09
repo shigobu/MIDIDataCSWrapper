@@ -71,6 +71,8 @@ namespace MIDIDataCSWrapper
         /// <returns>MIDIデータへのポインタ</returns>
         [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
         private static extern IntPtr MIDIData_LoadFromMabiMML(string pszFileName);
+
+
         #endregion
 
         #region 列挙型
@@ -179,8 +181,13 @@ namespace MIDIDataCSWrapper
         /// 対応拡張子は、skj,mid,chy,csv,wrk,mmmlです。
         /// </summary>
         /// <param name="fileName">ファイル名</param>
-        private MIDIData(string fileName)
+        public MIDIData(string fileName)
         {
+            if (fileName == null)
+            {
+                throw new ArgumentNullException(nameof(fileName));
+            }
+
             //ファイルが無い場合
             if (!File.Exists(fileName))
             {
@@ -226,6 +233,34 @@ namespace MIDIDataCSWrapper
             {
                 throw new MIDIDataLibException("ファイル読み込みに失敗しました。");
             }
+        }
+
+        /// <summary>
+        /// 世界樹シーケンスファイル(*.skj)からMIDIデータを読み込み、MIDIデータオブジェクトを作成します。
+        /// </summary>
+        /// <param name="fileName">ファイル名</param>
+        /// <returns></returns>
+        public static MIDIData LoadFromBinary(string fileName)
+        {
+            if (fileName == null)
+            {
+                throw new ArgumentNullException(nameof(fileName));
+            }
+
+            if (File.Exists(fileName))
+            {
+                throw new FileNotFoundException(null, fileName);
+            }
+
+            //ロード
+            IntPtr midiDataPtr = MIDIData_LoadFromBinary(fileName);
+
+            if (midiDataPtr == IntPtr.Zero)
+            {
+                throw new MIDIDataLibException("ファイルの読み込みに失敗しました。");
+            }
+
+            return new MIDIData(midiDataPtr);
         }
 
         #region IDisposable Support
