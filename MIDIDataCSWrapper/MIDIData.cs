@@ -23,11 +23,56 @@ namespace MIDIDataCSWrapper
         [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
         private static extern void MIDIData_Delete(IntPtr pMIDIData);
 
+        /// <summary>
+        /// 世界樹シーケンスファイル(*.skj)からMIDIデータを読み込む。
+        /// </summary>
+        /// <param name="pszFileName">ファイル名</param>
+        /// <returns>MIDIデータへのポインタ</returns>
         [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
         private static extern IntPtr MIDIData_LoadFromBinary(string pszFileName);
 
+        /// <summary>
+        /// スタンダードMIDIファイル(*.mid)からMIDIデータを読み込む。
+        /// </summary>
+        /// <param name="pszFileName">ファイル名</param>
+        /// <returns>MIDIデータへのポインタ</returns>
+        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+        private static extern IntPtr MIDIData_LoadFromSMF(string pszFileName);
+
+        /// <summary>
+        /// Cherryシーケンスファイル(*.chy)からMIDIデータを読み込む。
+        /// </summary>
+        /// <param name="pszFileName">ファイル名</param>
+        /// <returns>MIDIデータへのポインタ</returns>
+        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+        private static extern IntPtr MIDIData_LoadFromCherry(string pszFileName);
+
+        /// <summary>
+        /// MIDICSVファイル(*.csv)からMIDIデータを読み込む。
+        /// </summary>
+        /// <param name="pszFileName">ファイル名</param>
+        /// <returns>MIDIデータへのポインタ</returns>
+        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+        private static extern IntPtr MIDIData_LoadFromMIDICSV(string pszFileName);
+
+        /// <summary>
+        /// 旧Cakewalkシーケンスファイル(*.wrk)からMIDIデータを読み込む。
+        /// </summary>
+        /// <param name="pszFileName">ファイル名</param>
+        /// <returns>MIDIデータへのポインタ</returns>
+        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+        private static extern IntPtr MIDIData_LoadFromWR(string pszFileName);
+
+        /// <summary>
+        /// マビノギMMLファイル(*.mmml)からMIDIデータを読み込む。
+        /// </summary>
+        /// <param name="pszFileName">ファイル名</param>
+        /// <returns>MIDIデータへのポインタ</returns>
+        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+        private static extern IntPtr MIDIData_LoadFromMabiMML(string pszFileName);
         #endregion
 
+        #region 列挙型
         public enum CharCode
         {
             /// <summary>
@@ -74,6 +119,7 @@ namespace MIDIDataCSWrapper
             SMPTE29 = 29,
             SMPTE30 = 30
         }
+        #endregion
 
         /// <summary>
         /// MIDIDataオブジェクトのポインタ
