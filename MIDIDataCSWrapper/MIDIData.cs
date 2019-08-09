@@ -56,7 +56,7 @@ namespace MIDIDataCSWrapper
             MIDIDataInstance = MIDIData_Create((int)format, numTrack, (int)timeMode, timeResolution);
             if (MIDIDataInstance == IntPtr.Zero)
             {
-                throw new MIDIDataException("MIDIデータの作成に失敗しました。");
+                throw new MIDIDataLibException("MIDIデータの作成に失敗しました。");
             }
         }
     }
