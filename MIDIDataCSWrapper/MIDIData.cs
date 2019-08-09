@@ -154,7 +154,7 @@ namespace MIDIDataCSWrapper
             int err = MIDIDataLib_SetDefaultCharCode((int)charCode);
             if (err == 0)
             {
-                throw new MIDIDataLibException("規定文字コードの設定に失敗しました。");
+                throw new MIDIDataLibException("デフォルト文字コードの設定に失敗しました。");
             }
         }
 
