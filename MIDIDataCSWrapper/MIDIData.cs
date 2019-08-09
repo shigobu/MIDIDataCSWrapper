@@ -10,11 +10,16 @@ namespace MIDIDataCSWrapper
     /// <summary>
     /// MIDIデータは、フォーマット、トラック数、タイムベース(タイムモード及び分解能)の情報を持ち、子に単数又は複数のトラックを持つことができる。
     /// </summary>
-    public class MIDIData
+    public class MIDIData : IDisposable
     {
         #region DLLImport
-        [DllImport("MIDIData.dll")]
+        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
         private static extern IntPtr MIDIData_Create(int lFormat, int lNumTrack, int lTimeMode, int lTimeResolution);
+
+        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+        private static extern void MIDIData_Delete(IntPtr pMIDIData);
+
+
         #endregion
 
         /// <summary>
@@ -42,7 +47,7 @@ namespace MIDIDataCSWrapper
         /// <summary>
         /// MIDIDataオブジェクトのポインタ
         /// </summary>
-        IntPtr MIDIDataInstance = IntPtr.Zero;
+        private IntPtr MIDIDataInstance { get; set; }
 
         /// <summary>
         /// MIDIデータをメモリ上に新規生成します
@@ -59,5 +64,53 @@ namespace MIDIDataCSWrapper
                 throw new MIDIDataLibException("MIDIデータの作成に失敗しました。");
             }
         }
+
+        /// <summary>
+        /// MIDIデータのポインタを指定して、オブジェクトを初期化します。
+        /// </summary>
+        /// <param name="MIDIData">MIDIデータのポインタ</param>
+        private MIDIData(IntPtr MIDIData)
+        {
+            MIDIDataInstance = MIDIData;
+        }
+
+        #region IDisposable Support
+        private bool disposedValue = false; // 重複する呼び出しを検出するには
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    // TODO: マネージド状態を破棄します (マネージド オブジェクト)。
+                }
+
+                // TODO: アンマネージド リソース (アンマネージド オブジェクト) を解放し、下のファイナライザーをオーバーライドします。
+                // TODO: 大きなフィールドを null に設定します。
+
+                MIDIData_Delete(MIDIDataInstance);
+                MIDIDataInstance = IntPtr.Zero;
+
+                disposedValue = true;
+            }
+        }
+
+        // TODO: 上の Dispose(bool disposing) にアンマネージド リソースを解放するコードが含まれる場合にのみ、ファイナライザーをオーバーライドします。
+        ~MIDIData()
+        {
+            // このコードを変更しないでください。クリーンアップ コードを上の Dispose(bool disposing) に記述します。
+            Dispose(false);
+        }
+
+        // このコードは、破棄可能なパターンを正しく実装できるように追加されました。
+        void IDisposable.Dispose()
+        {
+            // このコードを変更しないでください。クリーンアップ コードを上の Dispose(bool disposing) に記述します。
+            Dispose(true);
+            // TODO: 上のファイナライザーがオーバーライドされる場合は、次の行のコメントを解除してください。
+            GC.SuppressFinalize(this);
+        }
+        #endregion
     }
 }
