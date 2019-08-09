@@ -72,7 +72,14 @@ namespace MIDIDataCSWrapper
         [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
         private static extern IntPtr MIDIData_LoadFromMabiMML(string pszFileName);
 
-
+        /// <summary>
+        /// MIDIデータを世界樹シーケンスファイル(*.skj)として保存する。
+        /// </summary>
+        /// <param name="pMIDIData">MIDIデータオブジェクトのポインタ</param>
+        /// <param name="pszFileName">ファイル名</param>
+        /// <returns></returns>
+        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+        private static extern int MIDIData_SaveAsBinary(IntPtr pMIDIData, string pszFileName);
         #endregion
 
         #region 列挙型
