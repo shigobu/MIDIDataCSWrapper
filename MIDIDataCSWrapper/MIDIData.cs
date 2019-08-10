@@ -72,18 +72,57 @@ namespace MIDIDataCSWrapper
         [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
         private static extern IntPtr MIDIData_LoadFromMabiMML(string pszFileName);
 
-        /// <summary>
-        /// MIDIデータを世界樹シーケンスファイル(*.skj)として保存する。
-        /// </summary>
-        /// <param name="pMIDIData">MIDIデータオブジェクトのポインタ</param>
-        /// <param name="pszFileName">ファイル名</param>
-        /// <returns></returns>
+		/// <summary>
+		/// MIDIデータを世界樹シーケンスファイル(*.skj)として保存する。
+		/// </summary>
+		/// <param name="pMIDIData">MIDIデータオブジェクトのポインタ</param>
+		/// <param name="pszFileName">ファイル名</param>
+		/// <returns>
+		/// 正常終了:1
+		/// 異常終了:0
+		/// </returns>
         [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
         private static extern int MIDIData_SaveAsBinary(IntPtr pMIDIData, string pszFileName);
-        #endregion
 
-        #region 列挙型
-        public enum CharCode
+		/// <summary>
+		/// MIDIデータをスタンダードMIDIファイル(*.mid)として保存する。
+		/// </summary>
+		/// <param name="pMIDIData">MIDIデータオブジェクトのポインタ</param>
+		/// <param name="pszFileName">ファイル名</param>
+		/// <returns>
+		/// 正常終了:1
+		/// 異常終了:0
+		/// </returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIData_SaveAsSMF(IntPtr pMIDIData, string pszFileName);
+
+		/// <summary>
+		/// MIDIデータをCherryシーケンスファイル(*.chy)として保存する。
+		/// </summary>
+		/// <param name="pMIDIData">MIDIデータオブジェクトのポインタ</param>
+		/// <param name="pszFileName">ファイル名</param>
+		/// <returns>
+		/// 正常終了:1
+		/// 異常終了:0
+		/// </returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIData_SaveAsCherry(IntPtr pMIDIData, string pszFileName);
+
+		/// <summary>
+		/// MIDIデータをMIDICSVファイル(*.csv)として保存する。
+		/// </summary>
+		/// <param name="pMIDIData">MIDIデータオブジェクトのポインタ</param>
+		/// <param name="pszFileName">ファイル名</param>
+		/// <returns>
+		/// 正常終了:1
+		/// 異常終了:0
+		/// </returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIData_SaveAsMIDICSV(IntPtr pMIDIData, string pszFileName);
+		#endregion
+
+		#region 列挙型
+		public enum CharCode
         {
             /// <summary>
             /// 指定なし。
@@ -420,8 +459,80 @@ namespace MIDIDataCSWrapper
             }
         }
 
-        #region IDisposable Support
-        private bool disposedValue = false; // 重複する呼び出しを検出するには
+		/// <summary>
+		/// MIDIデータを世界樹シーケンスファイル(*.skj)として保存する。
+		/// </summary>
+		/// <param name="fileName">ファイル名</param>
+		public void SaveAsBinary(string fileName)
+		{
+			if (fileName == null)
+			{
+				throw new ArgumentNullException(nameof(fileName));
+			}
+
+			int err = MIDIData_SaveAsBinary(MIDIDataInstance, fileName);
+			if (err == 0)
+			{
+				throw new MIDIDataLibException("ファイルの保存に失敗しました。");
+			}
+		}
+
+		/// <summary>
+		/// MIDIデータをスタンダードMIDIファイル(*.mid)として保存する。
+		/// </summary>
+		/// <param name="fileName">ファイル名</param>
+		public void SaveAsSMF(string fileName)
+		{
+			if (fileName == null)
+			{
+				throw new ArgumentNullException(nameof(fileName));
+			}
+
+			int err = MIDIData_SaveAsSMF(MIDIDataInstance, fileName);
+			if (err == 0)
+			{
+				throw new MIDIDataLibException("ファイルの保存に失敗しました。");
+			}
+		}
+
+		/// <summary>
+		/// MIDIデータをCherryシーケンスファイル(*.chy)
+		/// </summary>
+		/// <param name="fileName">ファイル名</param>
+		public void SaveAsCherry(string fileName)
+		{
+			if (fileName == null)
+			{
+				throw new ArgumentNullException(nameof(fileName));
+			}
+
+			int err = MIDIData_SaveAsCherry(MIDIDataInstance, fileName);
+			if (err == 0)
+			{
+				throw new MIDIDataLibException("ファイルの保存に失敗しました。");
+			}
+		}
+
+		/// <summary>
+		/// MIDIデータをMIDICSVファイル(*.csv)として保存する。
+		/// </summary>
+		/// <param name="fileName">ファイル名</param>
+		public void SaveAsMIDICSV(string fileName)
+		{
+			if (fileName == null)
+			{
+				throw new ArgumentNullException(nameof(fileName));
+			}
+
+			int err = MIDIData_SaveAsMIDICSV(MIDIDataInstance, fileName);
+			if (err == 0)
+			{
+				throw new MIDIDataLibException("ファイルの保存に失敗しました。");
+			}
+		}
+
+		#region IDisposable Support
+		private bool disposedValue = false; // 重複する呼び出しを検出するには
 
         protected virtual void Dispose(bool disposing)
         {
