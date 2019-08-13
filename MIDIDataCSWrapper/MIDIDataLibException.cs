@@ -5,7 +5,7 @@ namespace MIDIDataCSWrapper
     /// <summary>
     /// MIDIDataLibの関数が失敗したときにスローされます。
     /// </summary>
-    class MIDIDataLibException : Exception
+    public class MIDIDataLibException : Exception
     {
         public MIDIDataLibException() : base()
         {
