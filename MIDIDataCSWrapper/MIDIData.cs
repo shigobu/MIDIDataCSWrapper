@@ -75,7 +75,7 @@ namespace MIDIDataCSWrapper
 		/// <summary>
 		/// MIDIデータを世界樹シーケンスファイル(*.skj)として保存する。
 		/// </summary>
-		/// <param name="pMIDIData">MIDIデータオブジェクトのポインタ</param>
+		/// <param name="pMIDIData">MIDIデータへのポインタ</param>
 		/// <param name="pszFileName">ファイル名</param>
 		/// <returns>
 		/// 正常終了:1
@@ -87,7 +87,7 @@ namespace MIDIDataCSWrapper
 		/// <summary>
 		/// MIDIデータをスタンダードMIDIファイル(*.mid)として保存する。
 		/// </summary>
-		/// <param name="pMIDIData">MIDIデータオブジェクトのポインタ</param>
+		/// <param name="pMIDIData">MIDIデータへのポインタ</param>
 		/// <param name="pszFileName">ファイル名</param>
 		/// <returns>
 		/// 正常終了:1
@@ -99,7 +99,7 @@ namespace MIDIDataCSWrapper
 		/// <summary>
 		/// MIDIデータをCherryシーケンスファイル(*.chy)として保存する。
 		/// </summary>
-		/// <param name="pMIDIData">MIDIデータオブジェクトのポインタ</param>
+		/// <param name="pMIDIData">MIDIデータへのポインタ</param>
 		/// <param name="pszFileName">ファイル名</param>
 		/// <returns>
 		/// 正常終了:1
@@ -111,7 +111,7 @@ namespace MIDIDataCSWrapper
 		/// <summary>
 		/// MIDIデータをMIDICSVファイル(*.csv)として保存する。
 		/// </summary>
-		/// <param name="pMIDIData">MIDIデータオブジェクトのポインタ</param>
+		/// <param name="pMIDIData">MIDIデータへのポインタ</param>
 		/// <param name="pszFileName">ファイル名</param>
 		/// <returns>
 		/// 正常終了:1
@@ -123,7 +123,7 @@ namespace MIDIDataCSWrapper
 		/// <summary>
 		/// ターゲットトラックの直前にpMIDITrackで示すトラックを挿入する。
 		/// </summary>
-		/// <param name="pMIDIData">MIDIデータオブジェクトのポインタ</param>
+		/// <param name="pMIDIData">MIDIデータへのポインタ</param>
 		/// <param name="pMIDITrack">挿入するMIDIトラックオブジェクトのポインタ</param>
 		/// <param name="pTarget">ターゲットトラックのポインタ</param>
 		/// <returns>
@@ -136,7 +136,7 @@ namespace MIDIDataCSWrapper
 		/// <summary>
 		/// ターゲットトラックの直後にpMIDITrackで示すトラックを挿入する。
 		/// </summary>
-		/// <param name="pMIDIData">MIDIデータオブジェクトのポインタ</param>
+		/// <param name="pMIDIData">MIDIデータへのポインタ</param>
 		/// <param name="pMIDITrack">挿入するMIDIトラックオブジェクトのポインタ</param>
 		/// <param name="pTarget">ターゲットトラックのポインタ</param>
 		/// <returns>
@@ -149,7 +149,7 @@ namespace MIDIDataCSWrapper
 		/// <summary>
 		/// MIDIデータ内の全トラックの最後にpMIDITrackで示すトラックを挿入する。
 		/// </summary>
-		/// <param name="pMIDIData">MIDIデータオブジェクトのポインタ</param>
+		/// <param name="pMIDIData">MIDIデータへのポインタ</param>
 		/// <param name="pMIDITrack">挿入するMIDIトラックオブジェクトのポインタ</param>
 		/// <returns>
 		/// 正常終了:1
@@ -161,7 +161,7 @@ namespace MIDIDataCSWrapper
 		/// <summary>
 		/// MIDIデータから指定のMIDIトラックを除外する。
 		/// </summary>
-		/// <param name="pMIDIData">MIDIデータオブジェクトのポインタ</param>
+		/// <param name="pMIDIData">MIDIデータへのポインタ</param>
 		/// <param name="pMIDITrack">除外するMIDIトラックオブジェクトのポインタ</param>
 		/// <returns></returns>
 		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
@@ -170,7 +170,7 @@ namespace MIDIDataCSWrapper
 		/// <summary>
 		/// MIDIデータのフォーマットを返す。
 		/// </summary>
-		/// <param name="pMIDIData">MIDIデータオブジェクトのポインタ</param>
+		/// <param name="pMIDIData">MIDIデータへのポインタ</param>
 		/// <returns>
 		/// MIDIDATA_FORMAT0(=0), MIDIDATA_FORMAT1(=1), MIDIDATA_FORMAT2(=2)のいずれか。
 		/// </returns>
@@ -180,7 +180,7 @@ namespace MIDIDataCSWrapper
 		/// <summary>
 		/// MIDIデータのトラック数を返す。
 		/// </summary>
-		/// <param name="pMIDIData">MIDIデータオブジェクトのポインタ</param>
+		/// <param name="pMIDIData">MIDIデータへのポインタ</param>
 		/// <returns>MIDIデータのトラック数</returns>
 		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
 		private static extern int MIDIData_GetNumTrack(IntPtr pMIDIData);
@@ -188,7 +188,7 @@ namespace MIDIDataCSWrapper
 		/// <summary>
 		/// MIDIデータのタイムモードを返す。
 		/// </summary>
-		/// <param name="pMIDIData">MIDIデータオブジェクトのポインタ</param>
+		/// <param name="pMIDIData">MIDIデータへのポインタ</param>
 		/// <returns>
 		/// MIDIDATA_TPQNBASE(=0), 
 		/// MIDIDATA_SMPTE24BASE(=24), 
@@ -203,7 +203,7 @@ namespace MIDIDataCSWrapper
 		/// <summary>
 		/// MIDIデータのタイムレゾリューション(分解能)を返す。
 		/// </summary>
-		/// <param name="pMIDIData">MIDIデータオブジェクトのポインタ</param>
+		/// <param name="pMIDIData">MIDIデータへのポインタ</param>
 		/// <returns>
 		/// タイムモードがMIDIDATA_TQPNBASE(=0)の場合、MIDIDATA_MINTPQNRESOLUTION(=1)以上、MIDIDATA_MAXTPQNRESOLUTION(=32767)以下の値である。
 		/// タイムモードがその他の場合、MIDIDATA_MINSMPTERESOLUTION(=1)以上、MIDIDATA_MAXSMPTERESOLUTION(=255)以下の値である。
@@ -214,12 +214,99 @@ namespace MIDIDataCSWrapper
 		/// <summary>
 		/// MIDIデータのタイムベース、すなわちタイムモードとタイムレゾリューション(分解能)を同時に取得する。
 		/// </summary>
-		/// <param name="pMIDIData"></param>
-		/// <param name="pMode"></param>
-		/// <param name="pResolution"></param>
-		/// <returns></returns>
+		/// <param name="pMIDIData">MIDIデータへのポインタ</param>
+		/// <param name="pMode">タイムモード</param>
+		/// <param name="pResolution">タイムレゾリューション(分解能)</param>
+		/// <returns>
+		/// 正常終了:1
+		/// 異常終了:0
+		/// </returns>
 		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
 		private static extern int MIDIData_GetTimeBase(IntPtr pMIDIData, out int pMode, out int pResolution);
+
+		/// <summary>
+		/// MIDIデータのタイトルを調べ、指定のバッファに格納する。
+		/// ここでいうMIDIデータのタイトルとは、MIDIデータ内の最初のトラックの、最初のトラック名イベントに含まれる文字列である。
+		/// </summary>
+		/// <param name="pMIDIData">MIDIデータへのポインタ</param>
+		/// <param name="pBuf">タイトル文字列を格納するバッファ</param>
+		/// <param name="lLen">最大取り込み長さ[文字]</param>
+		/// <returns>pBuf</returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern IntPtr MIDIData_GetTitle(IntPtr pMIDIData, StringBuilder pBuf, int lLen);
+
+		/// <summary>
+		/// MIDIデータの著作権を調べ、指定のバッファに格納する。
+		/// ここでいうMIDIデータの著作権とは、MIDIデータ内の最初のトラックの、最初の著作権イベントに含まれる文字列である。
+		/// </summary>
+		/// <param name="pMIDIData">MIDIデータへのポインタ</param>
+		/// <param name="pBuf">著作権文字列を格納するバッファ</param>
+		/// <param name="lLen">最大取り込み長さ[文字]</param>
+		/// <returns>pBuf</returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern IntPtr MIDIData_GetCopyright(IntPtr pMIDIData, StringBuilder pBuf, int lLen);
+
+		/// <summary>
+		/// MIDIデータのコメントを調べ、指定のバッファに格納する。
+		/// ここでいうMIDIデータのコメントとは、MIDIデータ内の最初のトラックの、最初のテキストイベントに含まれる文字列である。
+		/// </summary>
+		/// <param name="pMIDIData">MIDIデータへのポインタ</param>
+		/// <param name="pBuf">コメント文字列を格納するバッファ</param>
+		/// <param name="lLen">最大取り込み長さ[文字]</param>
+		/// <returns>pBuf</returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern IntPtr MIDIData_GetComment(IntPtr pMIDIData, StringBuilder pBuf, int lLen);
+
+		/// <summary>
+		/// 最初のトラックへのポインタを返す。なければNULLを返す。
+		/// </summary>
+		/// <param name="pMIDIData">MIDIデータへのポインタ</param>
+		/// <returns>最初のトラックへのポインタ</returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern IntPtr MIDIData_GetFirstTrack(IntPtr pMIDIData);
+
+		/// <summary>
+		/// 最後のトラックへのポインタを返す。なければNULLを返す。
+		/// </summary>
+		/// <param name="pMIDIData">MIDIデータへのポインタ</param>
+		/// <returns>最後のトラックへのポインタ</returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern IntPtr MIDIData_GetLastTrack(IntPtr pMIDIData);
+
+		/// <summary>
+		/// 指定トラック番号のトラックへのポインタを返す。なければNULLを返す。
+		/// この関数は低速であるので、あまり頻繁に使ってはならない。
+		/// </summary>
+		/// <param name="pMIDIData">MIDIデータへのポインタ</param>
+		/// <param name="lTrackIndex">トラック番号(0～)</param>
+		/// <returns>指定トラック番号のトラックへのポインタ</returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern IntPtr MIDIData_GetTrack(IntPtr pMIDIData, int lTrackIndex);
+
+		/// <summary>
+		/// MIDIデータの開始時刻を返す。開始時刻とは、全トラック中における最も最初のイベントの時刻である。
+		/// </summary>
+		/// <param name="pMIDIData">MIDIデータへのポインタ</param>
+		/// <returns>MIDIデータの開始時刻</returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIData_GetBeginTime(IntPtr pMIDIData);
+
+		/// <summary>
+		/// MIDIデータの終了時刻を返す。終了時刻とは、全トラック中における最も最後のイベントの時刻である。
+		/// </summary>
+		/// <param name="pMIDIData">MIDIデータへのポインタ</param>
+		/// <returns>MIDIデータの終了時刻</returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIData_GetEndTime(IntPtr pMIDIData);
+
+		/// <summary>
+		/// このMIDIデータにXFデータ(YAMAHAの拡張形式)であることを示すシーケンサ独自のイベントが含まれている場合、XFのヴァージョンを取得する。
+		/// </summary>
+		/// <param name="pMIDIData">MIDIデータへのポインタ</param>
+		/// <returns>XFデータ(YAMAHAの拡張形式)のヴァージョン。XFデータでない場合は0。</returns>
+		/// <remarks>具体的には、シーケンサ固有のイベントで、{43 7B 00 58 46 Mj Mn S1 S0} を探し、(Mj | (Mn &lt;&lt; 8) | (S1 &lt;&lt; 16) | (S0 &lt;&lt; 24)) を返す。XFデータでない場合は0を返す。</remarks>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIData_GetXFVersion(IntPtr pMIDIData);
 		#endregion
 
 		#region 列挙型
