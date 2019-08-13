@@ -224,7 +224,7 @@ namespace MIDIDataCSWrapper
         /// <summary>
         /// MIDIDataオブジェクトのポインタ
         /// </summary>
-        private IntPtr MIDIDataInstance { get; set; }
+        private IntPtr UnManagedObjectPointer { get; set; }
 
         #endregion
 
@@ -417,7 +417,7 @@ namespace MIDIDataCSWrapper
         /// <param name="midiData">MIDIデータのポインタ</param>
         private MIDIData(IntPtr midiData)
         {
-            MIDIDataInstance = midiData;
+            UnManagedObjectPointer = midiData;
         }
 
         /// <summary>
@@ -429,8 +429,8 @@ namespace MIDIDataCSWrapper
         /// <param name="timeResolution">タイムレゾリューション</param>
         public MIDIData(Format format, int numTrack, TimeMode timeMode, int timeResolution)
         {
-            MIDIDataInstance = MIDIData_Create((int)format, numTrack, (int)timeMode, timeResolution);
-            if (MIDIDataInstance == IntPtr.Zero)
+            UnManagedObjectPointer = MIDIData_Create((int)format, numTrack, (int)timeMode, timeResolution);
+            if (UnManagedObjectPointer == IntPtr.Zero)
             {
                 throw new MIDIDataLibException("MIDIデータの作成に失敗しました。");
             }
@@ -463,27 +463,27 @@ namespace MIDIDataCSWrapper
             switch (extension)
             {
                 case midiExt:
-                    MIDIDataInstance = MIDIData_LoadFromSMF(fileName);
+                    UnManagedObjectPointer = MIDIData_LoadFromSMF(fileName);
                     break;
 
                 case skjExt:
-                    MIDIDataInstance = MIDIData_LoadFromBinary(fileName);
+                    UnManagedObjectPointer = MIDIData_LoadFromBinary(fileName);
                     break;
 
                 case cherryExt:
-                    MIDIDataInstance = MIDIData_LoadFromCherry(fileName);
+                    UnManagedObjectPointer = MIDIData_LoadFromCherry(fileName);
                     break;
 
                 case midiCsvExt:
-                    MIDIDataInstance = MIDIData_LoadFromMIDICSV(fileName);
+                    UnManagedObjectPointer = MIDIData_LoadFromMIDICSV(fileName);
                     break;
 
                 case cakewalkExt:
-                    MIDIDataInstance = MIDIData_LoadFromWRK(fileName);
+                    UnManagedObjectPointer = MIDIData_LoadFromWRK(fileName);
                     break;
 
                 case mabinogiMMLExt:
-                    MIDIDataInstance = MIDIData_LoadFromMabiMML(fileName);
+                    UnManagedObjectPointer = MIDIData_LoadFromMabiMML(fileName);
                     break;
                 
                 default:
@@ -491,7 +491,7 @@ namespace MIDIDataCSWrapper
                     break;
             }
 
-            if (MIDIDataInstance == IntPtr.Zero)
+            if (UnManagedObjectPointer == IntPtr.Zero)
             {
                 throw new MIDIDataLibException("ファイル読み込みに失敗しました。");
             }
@@ -508,7 +508,7 @@ namespace MIDIDataCSWrapper
 				throw new ArgumentNullException(nameof(fileName));
 			}
 
-			int err = MIDIData_SaveAsBinary(MIDIDataInstance, fileName);
+			int err = MIDIData_SaveAsBinary(UnManagedObjectPointer, fileName);
 			if (err == 0)
 			{
 				throw new MIDIDataLibException("ファイルの保存に失敗しました。");
@@ -526,7 +526,7 @@ namespace MIDIDataCSWrapper
 				throw new ArgumentNullException(nameof(fileName));
 			}
 
-			int err = MIDIData_SaveAsSMF(MIDIDataInstance, fileName);
+			int err = MIDIData_SaveAsSMF(UnManagedObjectPointer, fileName);
 			if (err == 0)
 			{
 				throw new MIDIDataLibException("ファイルの保存に失敗しました。");
@@ -544,7 +544,7 @@ namespace MIDIDataCSWrapper
 				throw new ArgumentNullException(nameof(fileName));
 			}
 
-			int err = MIDIData_SaveAsCherry(MIDIDataInstance, fileName);
+			int err = MIDIData_SaveAsCherry(UnManagedObjectPointer, fileName);
 			if (err == 0)
 			{
 				throw new MIDIDataLibException("ファイルの保存に失敗しました。");
@@ -562,7 +562,7 @@ namespace MIDIDataCSWrapper
 				throw new ArgumentNullException(nameof(fileName));
 			}
 
-			int err = MIDIData_SaveAsMIDICSV(MIDIDataInstance, fileName);
+			int err = MIDIData_SaveAsMIDICSV(UnManagedObjectPointer, fileName);
 			if (err == 0)
 			{
 				throw new MIDIDataLibException("ファイルの保存に失敗しました。");
@@ -579,11 +579,11 @@ namespace MIDIDataCSWrapper
 			int err = 0;
 			if (target == null)
 			{
-				err = MIDIData_InsertTrackBefore(MIDIDataInstance, midiTrack.UnManagedObjectPointer, IntPtr.Zero);
+				err = MIDIData_InsertTrackBefore(UnManagedObjectPointer, midiTrack.UnManagedObjectPointer, IntPtr.Zero);
 			}
 			else
 			{
-				err = MIDIData_InsertTrackBefore(MIDIDataInstance, midiTrack.UnManagedObjectPointer, target.UnManagedObjectPointer);
+				err = MIDIData_InsertTrackBefore(UnManagedObjectPointer, midiTrack.UnManagedObjectPointer, target.UnManagedObjectPointer);
 			}
 
 			if (err == 0)
@@ -602,11 +602,11 @@ namespace MIDIDataCSWrapper
 			int err = 0;
 			if (target == null)
 			{
-				err = MIDIData_InsertTrackAfter(MIDIDataInstance, midiTrack.UnManagedObjectPointer, IntPtr.Zero);
+				err = MIDIData_InsertTrackAfter(UnManagedObjectPointer, midiTrack.UnManagedObjectPointer, IntPtr.Zero);
 			}
 			else
 			{
-				err = MIDIData_InsertTrackAfter(MIDIDataInstance, midiTrack.UnManagedObjectPointer, target.UnManagedObjectPointer);
+				err = MIDIData_InsertTrackAfter(UnManagedObjectPointer, midiTrack.UnManagedObjectPointer, target.UnManagedObjectPointer);
 			}
 
 			if (err == 0)
@@ -622,7 +622,7 @@ namespace MIDIDataCSWrapper
 		public void AddTrack(MIDITrack midiTrack)
 		{
 			int err = 0;
-			err = MIDIData_AddTrack(MIDIDataInstance, midiTrack.UnManagedObjectPointer);
+			err = MIDIData_AddTrack(this.UnManagedObjectPointer, midiTrack.UnManagedObjectPointer);
 			if (err == 0)
 			{
 				throw new MIDIDataLibException("トラックの挿入に失敗しました。");
@@ -644,8 +644,8 @@ namespace MIDIDataCSWrapper
                 // TODO: アンマネージド リソース (アンマネージド オブジェクト) を解放し、下のファイナライザーをオーバーライドします。
                 // TODO: 大きなフィールドを null に設定します。
 
-                MIDIData_Delete(MIDIDataInstance);
-                MIDIDataInstance = IntPtr.Zero;
+                MIDIData_Delete(UnManagedObjectPointer);
+                UnManagedObjectPointer = IntPtr.Zero;
 
                 disposedValue = true;
             }
