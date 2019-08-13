@@ -166,6 +166,60 @@ namespace MIDIDataCSWrapper
 		/// <returns></returns>
 		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
 		private static extern int MIDIData_RemoveTrack(IntPtr pMIDIData, IntPtr pMIDITrack);
+
+		/// <summary>
+		/// MIDIデータのフォーマットを返す。
+		/// </summary>
+		/// <param name="pMIDIData">MIDIデータオブジェクトのポインタ</param>
+		/// <returns>
+		/// MIDIDATA_FORMAT0(=0), MIDIDATA_FORMAT1(=1), MIDIDATA_FORMAT2(=2)のいずれか。
+		/// </returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIData_GetFormat(IntPtr pMIDIData);
+
+		/// <summary>
+		/// MIDIデータのトラック数を返す。
+		/// </summary>
+		/// <param name="pMIDIData">MIDIデータオブジェクトのポインタ</param>
+		/// <returns>MIDIデータのトラック数</returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIData_GetNumTrack(IntPtr pMIDIData);
+
+		/// <summary>
+		/// MIDIデータのタイムモードを返す。
+		/// </summary>
+		/// <param name="pMIDIData">MIDIデータオブジェクトのポインタ</param>
+		/// <returns>
+		/// MIDIDATA_TPQNBASE(=0), 
+		/// MIDIDATA_SMPTE24BASE(=24), 
+		/// MIDIDATA_SMPTE25BASE(=25), 
+		/// MIDIDATA_SMPTE29BASE(=29), 
+		/// MIDIDATA_SMPTE30BASE(=30)
+		/// のうちのいずれか。
+		/// </returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIData_GetTimeMode(IntPtr pMIDIData);
+
+		/// <summary>
+		/// MIDIデータのタイムレゾリューション(分解能)を返す。
+		/// </summary>
+		/// <param name="pMIDIData">MIDIデータオブジェクトのポインタ</param>
+		/// <returns>
+		/// タイムモードがMIDIDATA_TQPNBASE(=0)の場合、MIDIDATA_MINTPQNRESOLUTION(=1)以上、MIDIDATA_MAXTPQNRESOLUTION(=32767)以下の値である。
+		/// タイムモードがその他の場合、MIDIDATA_MINSMPTERESOLUTION(=1)以上、MIDIDATA_MAXSMPTERESOLUTION(=255)以下の値である。
+		/// </returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIData_GetTimeResolution(IntPtr pMIDIData);
+
+		/// <summary>
+		/// MIDIデータのタイムベース、すなわちタイムモードとタイムレゾリューション(分解能)を同時に取得する。
+		/// </summary>
+		/// <param name="pMIDIData"></param>
+		/// <param name="pMode"></param>
+		/// <param name="pResolution"></param>
+		/// <returns></returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIData_GetTimeBase(IntPtr pMIDIData, out int pMode, out int pResolution);
 		#endregion
 
 		#region 列挙型
