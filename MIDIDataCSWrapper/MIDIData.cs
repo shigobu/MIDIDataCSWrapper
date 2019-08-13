@@ -569,6 +569,66 @@ namespace MIDIDataCSWrapper
 			}
 		}
 
+		/// <summary>
+		/// ターゲットトラックの直前にmidiTrackで示すトラックを挿入する。
+		/// </summary>
+		/// <param name="midiTrack">挿入するMIDIトラック</param>
+		/// <param name="target">ターゲットトラック</param>
+		public void InsertTrackBefore(MIDITrack midiTrack, MIDITrack target)
+		{
+			int err = 0;
+			if (target == null)
+			{
+				err = MIDIData_InsertTrackBefore(MIDIDataInstance, midiTrack.UnManagedObjectPointer, IntPtr.Zero);
+			}
+			else
+			{
+				err = MIDIData_InsertTrackBefore(MIDIDataInstance, midiTrack.UnManagedObjectPointer, target.UnManagedObjectPointer);
+			}
+
+			if (err == 0)
+			{
+				throw new MIDIDataLibException("トラックの挿入に失敗しました。");
+			}
+		}
+
+		/// <summary>
+		/// ターゲットトラックの直後にmidiTrackで示すトラックを挿入する。
+		/// </summary>
+		/// <param name="midiTrack">挿入するMIDIトラック</param>
+		/// <param name="target">ターゲットトラック</param>
+		public void InsertTrackAfter(MIDITrack midiTrack, MIDITrack target)
+		{
+			int err = 0;
+			if (target == null)
+			{
+				err = MIDIData_InsertTrackAfter(MIDIDataInstance, midiTrack.UnManagedObjectPointer, IntPtr.Zero);
+			}
+			else
+			{
+				err = MIDIData_InsertTrackAfter(MIDIDataInstance, midiTrack.UnManagedObjectPointer, target.UnManagedObjectPointer);
+			}
+
+			if (err == 0)
+			{
+				throw new MIDIDataLibException("トラックの挿入に失敗しました。");
+			}
+		}
+
+		/// <summary>
+		/// MIDIデータ内の全トラックの最後にmidiTrackで示すトラックを挿入する。
+		/// </summary>
+		/// <param name="midiTrack">挿入するMIDIトラック</param>
+		public void AddTrack(MIDITrack midiTrack)
+		{
+			int err = 0;
+			err = MIDIData_AddTrack(MIDIDataInstance, midiTrack.UnManagedObjectPointer);
+			if (err == 0)
+			{
+				throw new MIDIDataLibException("トラックの挿入に失敗しました。");
+			}
+		}
+
 		#region IDisposable Support
 		private bool disposedValue = false; // 重複する呼び出しを検出するには
 

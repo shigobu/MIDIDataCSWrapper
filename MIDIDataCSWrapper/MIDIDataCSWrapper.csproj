@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="MIDIData.cs" />
     <Compile Include="MIDIDataLibException.cs" />
+    <Compile Include="MIDITrack.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
