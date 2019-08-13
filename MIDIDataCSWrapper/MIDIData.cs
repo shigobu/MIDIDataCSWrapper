@@ -640,6 +640,20 @@ namespace MIDIDataCSWrapper
 				throw new MIDIDataLibException("トラックの挿入に失敗しました。");
 			}
 		}
+
+		/// <summary>
+		/// MIDIデータから指定のMIDIトラックを除外する。
+		/// </summary>
+		/// <param name="midiTrack">除外するMIDIトラック</param>
+		public void RemoveTrack(MIDITrack midiTrack)
+		{
+			int err = 0;
+			err = MIDIData_RemoveTrack(this.UnManagedObjectPointer, midiTrack.UnManagedObjectPointer);
+			if (err == 0)
+			{
+				throw new MIDIDataLibException("トラックの除外に失敗しました。");
+			}
+		}
 		#endregion
 
 		#region IDisposable Support
