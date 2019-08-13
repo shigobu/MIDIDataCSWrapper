@@ -119,6 +119,44 @@ namespace MIDIDataCSWrapper
 		/// </returns>
 		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
 		private static extern int MIDIData_SaveAsMIDICSV(IntPtr pMIDIData, string pszFileName);
+
+		/// <summary>
+		/// ターゲットトラックの直前にpMIDITrackで示すトラックを挿入する。
+		/// </summary>
+		/// <param name="pMIDIData">MIDIデータオブジェクトのポインタ</param>
+		/// <param name="pMIDITrack">挿入するMIDIトラックオブジェクトのポインタ</param>
+		/// <param name="pTarget">ターゲットトラックのポインタ</param>
+		/// <returns>
+		/// 正常終了:1
+		/// 異常終了:0
+		/// </returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIData_InsertTrackBefore(IntPtr pMIDIData, IntPtr pMIDITrack, IntPtr pTarget);
+
+		/// <summary>
+		/// ターゲットトラックの直後にpMIDITrackで示すトラックを挿入する。
+		/// </summary>
+		/// <param name="pMIDIData">MIDIデータオブジェクトのポインタ</param>
+		/// <param name="pMIDITrack">挿入するMIDIトラックオブジェクトのポインタ</param>
+		/// <param name="pTarget">ターゲットトラックのポインタ</param>
+		/// <returns>
+		/// 正常終了:1
+		/// 異常終了:0
+		/// </returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIData_InsertTrackAfter(IntPtr pMIDIData, IntPtr pMIDITrack, IntPtr pTarget);
+
+		/// <summary>
+		/// MIDIデータ内の全トラックの最後にpMIDITrackで示すトラックを挿入する。
+		/// </summary>
+		/// <param name="pMIDIData">MIDIデータオブジェクトのポインタ</param>
+		/// <param name="pMIDITrack">挿入するMIDIトラックオブジェクトのポインタ</param>
+		/// <returns>
+		/// 正常終了:1
+		/// 異常終了:0
+		/// </returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIData_AddTrack(IntPtr pMIDIData, IntPtr pMIDITrack);
 		#endregion
 
 		#region 列挙型
