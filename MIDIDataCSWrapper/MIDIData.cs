@@ -157,6 +157,15 @@ namespace MIDIDataCSWrapper
 		/// </returns>
 		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
 		private static extern int MIDIData_AddTrack(IntPtr pMIDIData, IntPtr pMIDITrack);
+
+		/// <summary>
+		/// MIDIデータから指定のMIDIトラックを除外する。
+		/// </summary>
+		/// <param name="pMIDIData">MIDIデータオブジェクトのポインタ</param>
+		/// <param name="pMIDITrack">除外するMIDIトラックオブジェクトのポインタ</param>
+		/// <returns></returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIData_RemoveTrack(IntPtr pMIDIData, IntPtr pMIDITrack);
 		#endregion
 
 		#region 列挙型
@@ -409,13 +418,14 @@ namespace MIDIDataCSWrapper
 
             return new MIDIData(midiDataPtr);
         }
-        #endregion
+		#endregion
 
-        /// <summary>
-        /// MIDIデータのポインタを指定して、オブジェクトを初期化します。
-        /// </summary>
-        /// <param name="midiData">MIDIデータのポインタ</param>
-        private MIDIData(IntPtr midiData)
+		#region コンストラクタ
+		/// <summary>
+		/// MIDIデータのポインタを指定して、オブジェクトを初期化します。
+		/// </summary>
+		/// <param name="midiData">MIDIデータのポインタ</param>
+		private MIDIData(IntPtr midiData)
         {
             UnManagedObjectPointer = midiData;
         }
@@ -496,7 +506,9 @@ namespace MIDIDataCSWrapper
                 throw new MIDIDataLibException("ファイル読み込みに失敗しました。");
             }
         }
+		#endregion
 
+		#region　メソッド
 		/// <summary>
 		/// MIDIデータを世界樹シーケンスファイル(*.skj)として保存する。
 		/// </summary>
@@ -628,6 +640,7 @@ namespace MIDIDataCSWrapper
 				throw new MIDIDataLibException("トラックの挿入に失敗しました。");
 			}
 		}
+		#endregion
 
 		#region IDisposable Support
 		private bool disposedValue = false; // 重複する呼び出しを検出するには
