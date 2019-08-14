@@ -307,6 +307,74 @@ namespace MIDIDataCSWrapper
 		/// <remarks>具体的には、シーケンサ固有のイベントで、{43 7B 00 58 46 Mj Mn S1 S0} を探し、(Mj | (Mn &lt;&lt; 8) | (S1 &lt;&lt; 16) | (S0 &lt;&lt; 24)) を返す。XFデータでない場合は0を返す。</remarks>
 		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
 		private static extern int MIDIData_GetXFVersion(IntPtr pMIDIData);
+
+		/// <summary>
+		/// MIDIデータのフォーマットを設定する。
+		/// </summary>
+		/// <param name="pMIDIData">MIDIデータへのポインタ</param>
+		/// <param name="lFormat">MIDIデータのフォーマット</param>
+		/// <returns>
+		/// 正常終了:1
+		/// 異常終了:0		
+		/// </returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIData_SetFormat(IntPtr pMIDIData, int lFormat);
+
+		/// <summary>
+		/// MIDIデータのタイムモードとタイムレゾリューションを同時に設定する。
+		/// </summary>
+		/// <param name="pMIDIData">MIDIデータへのポインタ</param>
+		/// <param name="lTimeMode">タイムモード</param>
+		/// <param name="lTimeResolution">タイムレゾリューション</param>
+		/// <returns>
+		/// 正常終了:1
+		/// 異常終了:0		
+		/// </returns>
+		/// <remarks>
+		/// この関数はタイムベース変換機能を含んでいる。
+		/// それゆえ、タイムモードとタイムレゾリューションを別々に設定する関数は用意されていない。
+		/// </remarks>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIData_SetTimeBase(IntPtr pMIDIData, int lTimeMode, int lTimeResolution);
+
+		/// <summary>
+		/// MIDIデータのタイトルを設定する。
+		/// </summary>
+		/// <param name="pMIDIData">MIDIデータへのポインタ</param>
+		/// <param name="pszText">タイトル</param>
+		/// <returns>未定義</returns>
+		/// <remarks>
+		/// ここでいうMIDIデータのタイトルとは、MIDIデータ内の最初のトラックの、最初のトラック名イベントに含まれる文字列である。
+		/// 該当イベントが存在しない場合、自動的に追加される。pszTextがNULLの場合、タイトルは削除される。
+		/// </remarks>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIData_SetTitle(IntPtr pMIDIData, string pszText);
+
+		/// <summary>
+		/// MIDIデータの著作権を設定する。
+		/// </summary>
+		/// <param name="pMIDIData">MIDIデータへのポインタ</param>
+		/// <param name="pszText">著作権</param>
+		/// <returns>未定義</returns>
+		/// <remarks>
+		/// ここでいうMIDIデータの著作権とは、MIDIデータ内の最初のトラックの、最初の著作権イベントに含まれる文字列である。
+		/// 該当イベントが存在しない場合、自動的に追加される。pszTextがNULLの場合、著作権は削除される。
+		/// </remarks>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIData_SetCopyright(IntPtr pMIDIData, string pszText);
+
+		/// <summary>
+		/// MIDIデータのコメントを設定する。
+		/// </summary>
+		/// <param name="pMIDIData">MIDIデータへのポインタ</param>
+		/// <param name="pszText">コメント</param>
+		/// <returns>未定義</returns>
+		/// <remarks>
+		/// ここでいうMIDIデータのコメントとは、MIDIデータ内の最初のトラックの、最初のテキストイベントに含まれる文字列である。
+		/// 該当イベントが存在しない場合、自動的に追加される。pszTextがNULLの場合、コメントは削除される。
+		/// </remarks>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIData_SetComment(IntPtr pMIDIData, string pszText);
 		#endregion
 
 		#region 列挙型
