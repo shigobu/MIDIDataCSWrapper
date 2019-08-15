@@ -436,6 +436,7 @@ namespace MIDIDataCSWrapper
         private const string cakewalkExt = ".wrk";
         private const string mabinogiMMLExt = ".mmml";
 
+		private const int bufferSize = 256;
         #endregion
 
         #region プロパティ
@@ -467,6 +468,45 @@ namespace MIDIDataCSWrapper
 			get
 			{
 				return MIDIData_GetNumTrack(this.UnManagedObjectPointer);
+			}
+		}
+
+		/// <summary>
+		/// MIDIデータのタイムモードを取得します。
+		/// </summary>
+		public TimeModes TimeMode
+		{
+			get
+			{
+				return (TimeModes)MIDIData_GetTimeMode(this.UnManagedObjectPointer);
+			}
+		}
+
+		/// <summary>
+		/// MIDIデータのタイムレゾリューション(分解能)を取得します。
+		/// </summary>
+		public int TimeResolution
+		{
+			get
+			{
+				return MIDIData_GetTimeResolution(this.UnManagedObjectPointer);
+			}
+		}
+
+		/// <summary>
+		/// MIDIデータのタイトルを取得、設定します。
+		/// </summary>
+		public string Title
+		{
+			get
+			{
+				StringBuilder stringBuilder = new StringBuilder(bufferSize);
+				MIDIData_GetTitle(this.UnManagedObjectPointer, stringBuilder, bufferSize);
+				return stringBuilder.ToString();
+			}
+			set
+			{
+				MIDIData_SetTitle(this.UnManagedObjectPointer, value);
 			}
 		}
 
