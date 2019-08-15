@@ -511,6 +511,78 @@ namespace MIDIDataCSWrapper
 			}
 		}
 
+		/// <summary>
+		/// MIDIデータの著作権を取得、設定します。
+		/// </summary>
+		public string Copyright
+		{
+			get
+			{
+				StringBuilder stringBuilder = new StringBuilder(bufferSize);
+				MIDIData_GetCopyright(this.UnManagedObjectPointer, stringBuilder, bufferSize);
+				return stringBuilder.ToString();
+			}
+			set
+			{
+				MIDIData_SetCopyright(this.UnManagedObjectPointer, value);
+			}
+		}
+
+		/// <summary>
+		/// MIDIデータのコメントを取得、設定します。
+		/// </summary>
+		public string Comment
+		{
+			get
+			{
+				StringBuilder stringBuilder = new StringBuilder(bufferSize);
+				MIDIData_GetComment(this.UnManagedObjectPointer, stringBuilder, bufferSize);
+				return stringBuilder.ToString();
+			}
+			set
+			{
+				MIDIData_SetComment(this.UnManagedObjectPointer, value);
+			}
+		}
+
+		/// <summary>
+		/// 最初のMIDIトラックを取得します。
+		/// </summary>
+		public MIDITrack FirstTrack
+		{
+			get
+			{
+				IntPtr midiTrack = MIDIData_GetFirstTrack(this.UnManagedObjectPointer);
+				if (midiTrack == IntPtr.Zero)
+				{
+					return null;
+				}
+				else
+				{
+					return new MIDITrack(midiTrack);
+				}
+			}
+		}
+
+		/// <summary>
+		/// 最後のMIDIトラックを取得します。
+		/// </summary>
+		public MIDITrack LastTrack
+		{
+			get
+			{
+				IntPtr midiTrack = MIDIData_GetLastTrack(this.UnManagedObjectPointer);
+				if (midiTrack == IntPtr.Zero)
+				{
+					return null;
+				}
+				else
+				{
+					return new MIDITrack(midiTrack);
+				}
+			}
+		}
+
 		#endregion
 
 		#region 静的メソッド
@@ -929,6 +1001,22 @@ namespace MIDIDataCSWrapper
 			{
 				throw new MIDIDataLibException("トラックの除外に失敗しました。");
 			}
+		}
+
+		/// <summary>
+		/// MIDIデータのタイムベース、すなわちタイムモードとタイムレゾリューション(分解能)を同時に取得する。
+		/// </summary>
+		/// <param name="timeMode"></param>
+		/// <param name="resolution"></param>
+		public void GetTimeBase(out TimeModes timeMode, out int resolution)
+		{
+			int tempTimeMode = 0;
+			int err = MIDIData_GetTimeBase(this.UnManagedObjectPointer, out tempTimeMode, out resolution);
+			if (err == 0)
+			{
+				throw new MIDIDataLibException("タイムベース取得に失敗しました。");
+			}
+			timeMode = (TimeModes)tempTimeMode;
 		}
 		#endregion
 
