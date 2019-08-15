@@ -436,6 +436,7 @@ namespace MIDIDataCSWrapper
         private const string cakewalkExt = ".wrk";
         private const string mabinogiMMLExt = ".mmml";
 
+		//文字列バッファのサイズ
 		private const int bufferSize = 256;
         #endregion
 
@@ -538,7 +539,7 @@ namespace MIDIDataCSWrapper
                 throw new ArgumentNullException(nameof(fileName));
             }
 
-            if (File.Exists(fileName))
+            if (!File.Exists(fileName))
             {
                 throw new FileNotFoundException(null, fileName);
             }
@@ -566,7 +567,7 @@ namespace MIDIDataCSWrapper
                 throw new ArgumentNullException(nameof(fileName));
             }
 
-            if (File.Exists(fileName))
+            if (!File.Exists(fileName))
             {
                 throw new FileNotFoundException(null, fileName);
             }
@@ -594,7 +595,7 @@ namespace MIDIDataCSWrapper
                 throw new ArgumentNullException(nameof(fileName));
             }
 
-            if (File.Exists(fileName))
+            if (!File.Exists(fileName))
             {
                 throw new FileNotFoundException(null, fileName);
             }
@@ -622,7 +623,7 @@ namespace MIDIDataCSWrapper
                 throw new ArgumentNullException(nameof(fileName));
             }
 
-            if (File.Exists(fileName))
+            if (!File.Exists(fileName))
             {
                 throw new FileNotFoundException(null, fileName);
             }
@@ -650,7 +651,7 @@ namespace MIDIDataCSWrapper
                 throw new ArgumentNullException(nameof(fileName));
             }
 
-            if (File.Exists(fileName))
+            if (!File.Exists(fileName))
             {
                 throw new FileNotFoundException(null, fileName);
             }
@@ -678,7 +679,7 @@ namespace MIDIDataCSWrapper
                 throw new ArgumentNullException(nameof(fileName));
             }
 
-            if (File.Exists(fileName))
+            if (!File.Exists(fileName))
             {
                 throw new FileNotFoundException(null, fileName);
             }
