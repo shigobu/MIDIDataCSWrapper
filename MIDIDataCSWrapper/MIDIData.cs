@@ -583,6 +583,39 @@ namespace MIDIDataCSWrapper
 			}
 		}
 
+		/// <summary>
+		/// MIDIデータの開始時刻を取得します。
+		/// </summary>
+		public int BeginTime
+		{
+			get
+			{
+				return MIDIData_GetBeginTime(this.UnManagedObjectPointer);
+			}
+		}
+
+		/// <summary>
+		/// MIDIデータの終了時刻を取得します。
+		/// </summary>
+		public int EndTime
+		{
+			get
+			{
+				return MIDIData_GetEndTime(this.UnManagedObjectPointer);
+			}
+		}
+
+		/// <summary>
+		/// このMIDIデータにXFデータ(YAMAHAの拡張形式)であることを示すシーケンサ独自のイベントが含まれている場合、XFのヴァージョンを取得する。
+		/// </summary>
+		public int XFVersion
+		{
+			get
+			{
+				return MIDIData_GetXFVersion(this.UnManagedObjectPointer);
+			}
+		}
+
 		#endregion
 
 		#region 静的メソッド
@@ -1017,6 +1050,48 @@ namespace MIDIDataCSWrapper
 				throw new MIDIDataLibException("タイムベース取得に失敗しました。");
 			}
 			timeMode = (TimeModes)tempTimeMode;
+		}
+
+		/// <summary>
+		/// 指定トラック番号のトラックを返す。
+		/// </summary>
+		/// <param name="trackIndex">トラック番号</param>
+		/// <returns>指定トラック番号のトラック</returns>
+		/// <remarks>この関数は低速であるので、あまり頻繁に使ってはならない。</remarks>
+		private MIDITrack GetTrack(int trackIndex)
+		{
+			IntPtr track = MIDIData_GetTrack(this.UnManagedObjectPointer, trackIndex);
+			if (track == IntPtr.Zero)
+			{
+				return null;
+			}
+			else
+			{
+				return new MIDITrack(track);
+			}
+		}
+		#endregion
+
+		#region インデクサー
+		/// <summary>
+		/// 指定トラック番号のトラックを返す。低速なので、頻繁な使用禁止。foreachループを使用すること。
+		/// </summary>
+		/// <param name="index">トラック番号</param>
+		/// <returns></returns>
+		public MIDITrack this [int index]
+		{
+			get
+			{
+				MIDITrack midiTrack = GetTrack(index);
+				if (midiTrack == null)
+				{
+					throw new IndexOutOfRangeException();
+				}
+				else
+				{
+					return midiTrack;
+				}
+			}
 		}
 		#endregion
 
