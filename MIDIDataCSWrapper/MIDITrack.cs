@@ -8,9 +8,9 @@ namespace MIDIDataCSWrapper
 {
 	public class MIDITrack
 	{
-		internal MIDITrack(IntPtr ipTrack)
+		internal MIDITrack(IntPtr track)
 		{
-			this.UnManagedObjectPointer = ipTrack;
+			this.UnManagedObjectPointer = track;
 		}
 
 		internal IntPtr UnManagedObjectPointer { get; private set; }
