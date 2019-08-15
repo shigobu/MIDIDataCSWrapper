@@ -1006,8 +1006,8 @@ namespace MIDIDataCSWrapper
 		/// <summary>
 		/// MIDIデータのタイムベース、すなわちタイムモードとタイムレゾリューション(分解能)を同時に取得する。
 		/// </summary>
-		/// <param name="timeMode"></param>
-		/// <param name="resolution"></param>
+		/// <param name="timeMode">タイムモード</param>
+		/// <param name="resolution">タイムレゾリューション(分解能)</param>
 		public void GetTimeBase(out TimeModes timeMode, out int resolution)
 		{
 			int tempTimeMode = 0;
