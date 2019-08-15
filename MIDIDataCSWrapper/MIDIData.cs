@@ -378,7 +378,7 @@ namespace MIDIDataCSWrapper
 		#endregion
 
 		#region 列挙型
-		public enum CharCode
+		public enum CharCodes
         {
             /// <summary>
             /// 指定なし。
@@ -406,7 +406,7 @@ namespace MIDIDataCSWrapper
         /// <summary>
         /// MIDIデータのフォーマット
         /// </summary>
-        public enum Format
+        public enum Formats
         {
             Format0 = 0,
             Format1 = 1,
@@ -416,7 +416,7 @@ namespace MIDIDataCSWrapper
         /// <summary>
         /// MIDIデータのタイムモード
         /// </summary>
-        public enum TimeMode
+        public enum TimeModes
         {
             TPQN = 0,
             SMPTE24 = 24,
@@ -444,14 +444,40 @@ namespace MIDIDataCSWrapper
         /// </summary>
         private IntPtr UnManagedObjectPointer { get; set; }
 
-        #endregion
+		/// <summary>
+		/// MIDIデータのフォーマットを取得、設定します。
+		/// </summary>
+		public Formats Format
+		{
+			get
+			{
+				return (Formats)MIDIData_GetFormat(this.UnManagedObjectPointer);
+			}
+			set
+			{
+				MIDIData_SetFormat(this.UnManagedObjectPointer, (int)value);
+			}
+		}
 
-        #region 静的メソッド
-        /// <summary>
-        /// MIDIDataライブラリのテキストエンコーダで用いるデフォルトの文字コードを設定する。
-        /// </summary>
-        /// <param name="charCode"></param>
-        public static void SetDefaultCharCode(CharCode charCode)
+		/// <summary>
+		/// MIDIデータのトラック数を取得します。
+		/// </summary>
+		public int NumTrack
+		{
+			get
+			{
+				return MIDIData_GetNumTrack(this.UnManagedObjectPointer);
+			}
+		}
+
+		#endregion
+
+		#region 静的メソッド
+		/// <summary>
+		/// MIDIDataライブラリのテキストエンコーダで用いるデフォルトの文字コードを設定する。
+		/// </summary>
+		/// <param name="charCode"></param>
+		public static void SetDefaultCharCode(CharCodes charCode)
         {
             int err = MIDIDataLib_SetDefaultCharCode((int)charCode);
             if (err == 0)
@@ -646,7 +672,7 @@ namespace MIDIDataCSWrapper
         /// <param name="numTrack">初期トラック数(0～)</param>
         /// <param name="timeMode">タイムモード</param>
         /// <param name="timeResolution">タイムレゾリューション</param>
-        public MIDIData(Format format, int numTrack, TimeMode timeMode, int timeResolution)
+        public MIDIData(Formats format, int numTrack, TimeModes timeMode, int timeResolution)
         {
             UnManagedObjectPointer = MIDIData_Create((int)format, numTrack, (int)timeMode, timeResolution);
             if (UnManagedObjectPointer == IntPtr.Zero)
