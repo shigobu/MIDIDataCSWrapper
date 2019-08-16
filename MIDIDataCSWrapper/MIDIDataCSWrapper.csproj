@@ -46,6 +46,7 @@
     <Compile Include="MIDIDataLibException.cs" />
     <Compile Include="MIDITrack.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="structs.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="MIDIData.dll">
