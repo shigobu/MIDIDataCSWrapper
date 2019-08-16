@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace MIDIDataCSWrapper
 {
-	class MIDIEvent
+	public class MIDIEvent
 	{
+		/// <summary>
+		/// 文字コードを表す列挙体
+		/// </summary>
 		public enum CharCodes
 		{
 			/// <summary>
@@ -31,6 +34,21 @@ namespace MIDIDataCSWrapper
 			/// UTF16ビッグエンディアン
 			/// </summary>
 			UTF16BE = 1201
+		}
+
+		/// <summary>
+		/// 長調か短調かを表します。
+		/// </summary>
+		public enum Keys
+		{
+			/// <summary>
+			/// 長調
+			/// </summary>
+			Major = 0,
+			/// <summary>
+			/// 短調
+			/// </summary>
+			Minor = 1
 		}
 	}
 }

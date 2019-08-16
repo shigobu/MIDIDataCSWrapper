@@ -40,7 +40,8 @@ namespace MIDIDataCSWrapper
 	/// <summary>
 	/// 拍子記号を表します。
 	/// </summary>
-	public struct TimeSignature
+	/// <remarks>引数なしのコンストラクタを使われたくないからクラスにした。</remarks>
+	public class TimeSignature
 	{
 		/// <summary>
 		/// 具体的な数値を指定して、オブジェクトを初期化します。
@@ -49,7 +50,7 @@ namespace MIDIDataCSWrapper
 		/// <param name="dd">拍子記号の分母の指数部分</param>
 		/// <param name="cc">1拍あたりのMIDIクロック数</param>
 		/// <param name="bb">1拍の長さを32分音符の数で表す</param>
-		public TimeSignature(int nn, int dd, int cc, int bb) : this()
+		public TimeSignature(int nn, int dd, int cc, int bb)
 		{
 			this.nn = nn;
 			this.dd = dd;
@@ -73,5 +74,25 @@ namespace MIDIDataCSWrapper
 		/// 1拍の長さを32分音符の数で表す
 		/// </summary>
 		public int bb { get; set; }
+	}
+
+	/// <summary>
+	/// 調性記号を表します。
+	/// </summary>
+	public struct KeySignature
+	{
+		/// <summary>
+		/// 値を使用してオブジェクトを初期化します。
+		/// </summary>
+		/// <param name="sf">#又は♭の数</param>
+		/// <param name="mi">長調か短調か</param>
+		public KeySignature(int sf, MIDIEvent.Keys mi) : this()
+		{
+			this.sf = sf;
+			this.mi = mi;
+		}
+
+		public int sf { get; set; }
+		public MIDIEvent.Keys mi { get; set; }
 	}
 }

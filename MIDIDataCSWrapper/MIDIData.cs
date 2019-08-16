@@ -1307,6 +1307,23 @@ namespace MIDIDataCSWrapper
 			}
 			return new TimeSignature(nn, dd, cc, bb);
 		}
+
+		/// <summary>
+		/// timeにおける調性記号(timeに調性記号イベントがない場合は直前の調性記号)を調べ返す。
+		/// </summary>
+		/// <param name="time">時刻</param>
+		/// <returns>調性記号</returns>
+		public KeySignature FindKeySignature(int time)
+		{
+			int sfTemp = 0;
+			int miTemp = 0;
+			int err = MIDIData_FindKeySignature(this.UnManagedObjectPointer, time, out sfTemp, out miTemp);
+			if (err == 0)
+			{
+				throw new MIDIDataLibException("調性記号の取得に失敗しました。");
+			}
+			return new KeySignature(sfTemp, (MIDIEvent.Keys)miTemp);
+		}
 		#endregion
 
 		#region インデクサー
