@@ -375,6 +375,86 @@ namespace MIDIDataCSWrapper
 		/// </remarks>
 		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
 		private static extern int MIDIData_SetComment(IntPtr pMIDIData, string pszText);
+
+		/// <summary>
+		/// 指定したMIDIデータに含まれるMIDIトラックの数を数える。また、m_lNumTrackの値を更新する。
+		/// </summary>
+		/// <param name="pMIDIData">MIDIデータへのポインタ</param>
+		/// <returns>MIDIトラック数</returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIData_CountTrack(IntPtr pMIDIData);
+
+		/// <summary>
+		/// lTimeで示される時刻から、ミリ秒単位の時刻を計算して取得する。
+		/// この関数は、最初のMIDIトラックのみに含まれるテンポイベントを使って計算する。
+		/// </summary>
+		/// <param name="pMIDIData">MIDIデータへのポインタ</param>
+		/// <param name="lTime">時刻</param>
+		/// <returns>ミリ秒単位の時刻</returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIData_TimeToMillisec(IntPtr pMIDIData, int lTime);
+
+		/// <summary>
+		/// lMillisecで示されるミリ秒単位の時刻から、ティック単位の時刻(TPQNベースの場合)又はサブフレーム単位の時刻(SMPTEベースの場合)を取得する。
+		/// </summary>
+		/// <param name="pMIDIData">MIDIデータへのポインタ</param>
+		/// <param name="lMillisec">ミリ秒単位の時刻</param>
+		/// <returns>
+		/// ティック単位の時刻(TPQNベースの場合)
+		/// サブフレーム単位の時刻(SMPTEベースの場合)
+		/// </returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIData_MillisecToTime(IntPtr pMIDIData, int lMillisec);
+
+		/// <summary>
+		/// MIDIデータのタイムモードがTPQNベースの場合、小節：拍：ティックで表されるタイムから、累積ティック単位のタイムを計算してバッファに格納する。
+		/// </summary>
+		/// <param name="pMIDIData">MIDIデータへのポインタ</param>
+		/// <param name="lMeasure">小節番号(0オリジン)</param>
+		/// <param name="lBeat">拍番号(0オリジン)</param>
+		/// <param name="lTick">ティック番号(0オリジン)</param>
+		/// <param name="pTime">累積ティック単位のタイムを格納するバッファ</param>
+		/// <returns>
+		/// 正常終了：0以外
+		/// 異常終了：0
+		/// </returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIData_MakeTime(IntPtr pMIDIData, int lMeasure, int lBeat, int lTick, out int pTime);
+
+		/// <summary>
+		/// この関数はMIDIData_MakeTimeと変わらないが、同時に指定時刻における拍子記号情報を得ることができる。
+		/// </summary>
+		/// <param name="pMIDIData">MIDIデータへのポインタ</param>
+		/// <param name="lMeasure">小節番号(0オリジン)</param>
+		/// <param name="lBeat">拍番号(0オリジン)</param>
+		/// <param name="lTick">ティック番号(0オリジン)</param>
+		/// <param name="pTime">累積ティック単位のタイムを格納するバッファ</param>
+		/// <param name="pnn">最新拍子記号の分子を格納するバッファ</param>
+		/// <param name="pdd">最新拍子記号の分母の指数部分を格納するバッファ</param>
+		/// <param name="pcc">1拍あたりのMIDIクロック数</param>
+		/// <param name="pbb">1拍の長さを32分音符の数で表す</param>
+		/// <returns>
+		/// 正常終了：0以外
+		/// 異常終了：0
+		/// </returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIData_MakeTimeEx(IntPtr pMIDIData, int lMeasure, int lBeat, int lTick, out int pTime, out int pnn, out int pdd, out int pcc, out int pbb);
+
+		/// <summary>
+		/// MIDIデータのタイムモードがTPQNベースの場合、累積ティック単位のタイムから、小節：拍：ティックで表されるタイムを計算してバッファに格納する。
+		/// MIDIデータのタイムモードがSMPTEベースの場合、指定したタイムから、フレーム番号とサブフレーム番号(0以上(分解能-1)以下)を計算してバッファに格納する。
+		/// </summary>
+		/// <param name="pMIDIData">MIDIデータへのポインタ</param>
+		/// <param name="lTime">分解すべき累積タイム</param>
+		/// <param name="pMeasure">小節番号(0オリジン)を格納するバッファ</param>
+		/// <param name="pBeat">拍番号(0オリジン)を格納するバッファ</param>
+		/// <param name="pTick">ティック番号(0オリジン)を格納するバッファ</param>
+		/// <returns>
+		/// 正常終了：0以外
+		/// 異常終了：0
+		/// </returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIData_BreakTime(IntPtr pMIDIData, int lTime, out int pMeasure, out int pBeat, out int pTick);
 		#endregion
 
 		#region 列挙型
@@ -844,7 +924,7 @@ namespace MIDIDataCSWrapper
             //ファイルが無い場合
             if (!File.Exists(fileName))
             {
-                throw new FileNotFoundException(null, nameof(fileName));
+                throw new FileNotFoundException(null, fileName);
             }
 
             //拡張子取得
