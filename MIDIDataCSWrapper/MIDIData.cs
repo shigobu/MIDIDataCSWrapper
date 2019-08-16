@@ -16,9 +16,6 @@ namespace MIDIDataCSWrapper
         #region DLLImport
 
         [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
-        private static extern int MIDIDataLib_SetDefaultCharCode(int lCharCode);
-
-        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
         private static extern IntPtr MIDIData_Create(int lFormat, int lNumTrack, int lTimeMode, int lTimeResolution);
 
         [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
@@ -520,31 +517,6 @@ namespace MIDIDataCSWrapper
 		#endregion
 
 		#region 列挙型
-		public enum CharCodes
-        {
-            /// <summary>
-            /// 指定なし。
-            /// Windowsのコントロールパネルで指定されている文字コード(ANSI Code Page)でテキストエンコードするものとみなされる。
-            /// </summary>
-            NoCharCod = 0,
-            /// <summary>
-            /// {@LATIN} (ANSI)
-            /// </summary>
-            LATIN = 1252,
-            /// <summary>
-            /// {@JP} (Shift-JIS)
-            /// </summary>
-            JP = 932,
-            /// <summary>
-            /// UTF16リトルエンディアン
-            /// </summary>
-            UTF16LE = 1200,
-            /// <summary>
-            /// UTF16ビッグエンディアン
-            /// </summary>
-            UTF16BE = 1201
-        }
-
         /// <summary>
         /// MIDIデータのフォーマット
         /// </summary>
@@ -772,19 +744,6 @@ namespace MIDIDataCSWrapper
 		#endregion
 
 		#region 静的メソッド
-		/// <summary>
-		/// MIDIDataライブラリのテキストエンコーダで用いるデフォルトの文字コードを設定する。
-		/// </summary>
-		/// <param name="charCode"></param>
-		public static void SetDefaultCharCode(CharCodes charCode)
-        {
-            int err = MIDIDataLib_SetDefaultCharCode((int)charCode);
-            if (err == 0)
-            {
-                throw new MIDIDataLibException("デフォルト文字コードの設定に失敗しました。");
-            }
-        }
-
         /// <summary>
         /// 世界樹シーケンスファイル(*.skj)からMIDIデータを読み込み、MIDIデータオブジェクトを作成します。
         /// </summary>
@@ -1317,6 +1276,37 @@ namespace MIDIDataCSWrapper
 			timeSignature = new TimeSignature(nn, dd, cc, bb);
 		}
 
+		/// <summary>
+		/// timeにおけるテンポ(timeにテンポイベントがない場合は直前のテンポ)を調べ返す。
+		/// </summary>
+		/// <param name="time">時刻</param>
+		/// <returns>テンポ</returns>
+		public int FindTempo(int time)
+		{
+			int tempo = 0;
+			int err = MIDIData_FindTempo(this.UnManagedObjectPointer, time, out tempo);
+			if (err == 0)
+			{
+				throw new MIDIDataLibException("テンポ取得に失敗しました。");
+			}
+			return tempo;
+		}
+
+		/// <summary>
+		/// timeにおける拍子記号(timeに拍子記号イベントがない場合は直前の拍子記号)を調べ返す。
+		/// </summary>
+		/// <param name="time">時刻</param>
+		/// <returns></returns>
+		public TimeSignature FindTimeSignature(int time)
+		{
+			int nn, dd, cc, bb;
+			int err = MIDIData_FindTimeSignature(this.UnManagedObjectPointer, time, out nn, out dd, out cc, out bb);
+			if (err == 0)
+			{
+				throw new MIDIDataLibException("拍子記号の取得に失敗しました。");
+			}
+			return new TimeSignature(nn, dd, cc, bb);
+		}
 		#endregion
 
 		#region インデクサー
