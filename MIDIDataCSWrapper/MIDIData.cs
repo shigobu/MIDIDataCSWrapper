@@ -1298,6 +1298,24 @@ namespace MIDIDataCSWrapper
 			return new MeasureBeatTick(measure, beat, tick);
 		}
 
+		/// <summary>
+		/// この関数はMIDIData_BreakTimeと変わらないが、同時に指定時刻における拍子記号情報を返す。
+		/// </summary>
+		/// <param name="time">分解すべき累積タイム</param>
+		/// <param name="measureBeatTick">MeasureBeatTickオブジェクト</param>
+		/// <param name="timeSignature">拍子記号情報</param>
+		public void BreakTimeEx(int time, out MeasureBeatTick measureBeatTick, out TimeSignature timeSignature)
+		{
+			int measure, beat, tick;
+			int nn, dd, cc, bb;
+			int err = MIDIData_BreakTimeEx(this.UnManagedObjectPointer, time, out measure, out beat, out tick, out nn, out dd, out cc, out bb);
+			if (err == 0)
+			{
+				throw new MIDIDataLibException("小節：拍：ティック情報の取得と拍子記号情報の取得に失敗しました。");
+			}
+			measureBeatTick = new MeasureBeatTick(measure, beat, tick);
+			timeSignature = new TimeSignature(nn, dd, cc, bb);
+		}
 
 		#endregion
 
