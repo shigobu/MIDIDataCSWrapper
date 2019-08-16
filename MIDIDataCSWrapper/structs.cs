@@ -37,5 +37,41 @@ namespace MIDIDataCSWrapper
 		public int Tick { get; set; }
 	}
 
+	/// <summary>
+	/// 拍子記号を表します。
+	/// </summary>
+	public struct TimeSignature
+	{
+		/// <summary>
+		/// 具体的な数値を指定して、オブジェクトを初期化します。
+		/// </summary>
+		/// <param name="nn">拍子記号の分子</param>
+		/// <param name="dd">拍子記号の分母の指数部分</param>
+		/// <param name="cc">1拍あたりのMIDIクロック数</param>
+		/// <param name="bb">1拍の長さを32分音符の数で表す</param>
+		public TimeSignature(int nn, int dd, int cc, int bb) : this()
+		{
+			this.nn = nn;
+			this.dd = dd;
+			this.cc = cc;
+			this.bb = bb;
+		}
 
+		/// <summary>
+		/// 拍子記号の分子
+		/// </summary>
+		public int nn { get; set; }
+		/// <summary>
+		/// 拍子記号の分母の指数部分
+		/// </summary>
+		public int dd { get; set; }
+		/// <summary>
+		/// 1拍あたりのMIDIクロック数
+		/// </summary>
+		public int cc { get; set; }
+		/// <summary>
+		/// 1拍の長さを32分音符の数で表す
+		/// </summary>
+		public int bb { get; set; }
+	}
 }

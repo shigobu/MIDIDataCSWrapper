@@ -758,6 +758,17 @@ namespace MIDIDataCSWrapper
 			}
 		}
 
+		/// <summary>
+		/// 指定したMIDIデータに含まれるMIDIトラックの数を数える。
+		/// </summary>
+		public int CountTrack
+		{
+			get
+			{
+				return MIDIData_CountTrack(this.UnManagedObjectPointer);
+			}
+		}
+
 		#endregion
 
 		#region 静的メソッド
@@ -1212,6 +1223,82 @@ namespace MIDIDataCSWrapper
 				return new MIDITrack(track);
 			}
 		}
+
+		/// <summary>
+		/// timeで示される時刻から、ミリ秒単位の時刻を計算して取得する。
+		/// </summary>
+		/// <param name="time">時刻</param>
+		/// <returns>ミリ秒単位の時刻</returns>
+		public int TimeToMillisec(int time)
+		{
+			return MIDIData_TimeToMillisec(this.UnManagedObjectPointer, time);
+		}
+
+		/// <summary>
+		/// millisecで示されるミリ秒単位の時刻から、ティック単位の時刻(TPQNベースの場合)又はサブフレーム単位の時刻(SMPTEベースの場合)を取得する。
+		/// </summary>
+		/// <param name="millisec">ミリ秒単位の時刻</param>
+		/// <returns>
+		/// ティック単位の時刻(TPQNベースの場合)
+		/// サブフレーム単位の時刻(SMPTEベースの場合)
+		/// </returns>
+		public int MillisecToTime(int millisec)
+		{
+			return MIDIData_MillisecToTime(this.UnManagedObjectPointer, millisec);
+		}
+
+		/// <summary>
+		/// MIDIデータのタイムモードがTPQNベースの場合、小節：拍：ティックで表されるタイムから、累積ティック単位のタイムを計算してバッファに格納する。
+		/// </summary>
+		/// <param name="measureBeatTick">小節：拍：ティックオブジェクト</param>
+		/// <returns>累積ティック単位のタイム</returns>
+		public int MakeTime(MeasureBeatTick measureBeatTick)
+		{
+			int tempTime = 0;
+			int err = MIDIData_MakeTime(this.UnManagedObjectPointer, measureBeatTick.Measure, measureBeatTick.Beat, measureBeatTick.Tick, out tempTime);
+			if (err == 0)
+			{
+				throw new MIDIDataLibException("累積ティック単位のタイムの取得に失敗しました。");
+			}
+			return tempTime;
+		}
+
+		/// <summary>
+		/// この関数はMakeTimeと変わらないが、同時に指定時刻における拍子記号情報を得ることができる。
+		/// </summary>
+		/// <param name="measureBeatTick">小節：拍：ティックオブジェクト</param>
+		/// <param name="time">累積ティック単位のタイム</param>
+		/// <param name="timeSignature">拍子記号情報</param>
+		public void MakeTimeEx(MeasureBeatTick measureBeatTick, out int time, out TimeSignature timeSignature)
+		{
+			int nn, dd, cc, bb;
+			int err = MIDIData_MakeTimeEx(this.UnManagedObjectPointer, measureBeatTick.Measure, measureBeatTick.Beat, measureBeatTick.Tick, out time, out nn, out dd, out cc, out bb);
+			if (err == 0)
+			{
+				throw new MIDIDataLibException("累積ティック単位のタイムの取得と拍子記号取得に失敗しました。");
+			}
+			timeSignature = new TimeSignature(nn, dd, cc, bb);
+		}
+
+		/// <summary>
+		/// MIDIデータのタイムモードがTPQNベースの場合、累積ティック単位のタイムから、小節：拍：ティックで表されるタイムを計算して返す
+		/// MIDIデータのタイムモードがSMPTEベースの場合、指定したタイムから、フレーム番号とサブフレーム番号(0以上(分解能-1)以下)を計算して返す。
+		/// フレーム番号はMeasureに、サブフレーム番号はTickに格納され、Beatは常に0となる。。
+		/// </summary>
+		/// <param name="time">分解すべき累積タイム</param>
+		/// <returns>MeasureBeatTickオブジェクト</returns>
+		public MeasureBeatTick BreakTime(int time)
+		{
+			int measure, beat, tick;
+			int err = MIDIData_BreakTime(this.UnManagedObjectPointer, time, out measure, out beat, out tick);
+			if (err == 0)
+			{
+				throw new MIDIDataLibException("小節：拍：ティック情報の取得に失敗しました。");
+			}
+			return new MeasureBeatTick(measure, beat, tick);
+		}
+
+
 		#endregion
 
 		#region インデクサー
