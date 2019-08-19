@@ -37,7 +37,7 @@ namespace MIDIDataCSWrapper
 		private static extern void MIDITrack_Delete(IntPtr pMIDITrack);
 
 		/// <summary>
-		/// MIDIトラックに任意のイベントを挿入する。
+		/// MIDIトラックに任意のイベントを挿入する。挿入位置は、イベントの時刻により自動決定される。
 		/// </summary>
 		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
 		/// <param name="pMIDIEvent">挿入するイベントへのポインタ</param>
@@ -49,14 +49,26 @@ namespace MIDIDataCSWrapper
 		private static extern int MIDITrack_InsertEvent(IntPtr pMIDITrack, IntPtr pMIDIEvent);
 
 		/// <summary>
-		/// MIDIトラックに任意のイベントを挿入する。
+		/// MIDIトラックに任意のイベントを挿入する。挿入位置はターゲットイベントの直前である。
 		/// </summary>
 		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
 		/// <param name="pMIDIEvent">挿入するイベントへのポインタ</param>
 		/// <param name="pTarget">挿入位置指定用ターゲットイベントへのポインタ</param>
-		/// <returns></returns>
+		/// 正常終了:挿入したイベントの数(1以上)
+		/// 異常終了:0
 		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
 		private static extern int MIDITrack_InsertEventBefore(IntPtr pMIDITrack, IntPtr pMIDIEvent, IntPtr pTarget);
+
+		/// <summary>
+		/// MIDIトラックに任意のイベントを挿入する。挿入位置はターゲットイベントの直後である。
+		/// </summary>
+		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+		/// <param name="pMIDIEvent">挿入するイベントへのポインタ</param>
+		/// <param name="pTarget">挿入位置指定用ターゲットイベントへのポインタ</param>
+		/// 正常終了:挿入したイベントの数(1以上)
+		/// 異常終了:0
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDITrack_InsertEventAfter(IntPtr pMIDITrack, IntPtr pMIDIEvent, IntPtr pTarget);
 		#endregion
 
 		#region プロパティ
@@ -111,6 +123,46 @@ namespace MIDIDataCSWrapper
 			this.UnManagedObjectPointer = IntPtr.Zero;
 		}
 
+		/// <summary>
+		/// MIDIトラックに任意のイベントを挿入する。挿入位置は、イベントの時刻により自動決定される。
+		/// </summary>
+		/// <param name="midiEvent">挿入するイベント</param>
+		public void InsertEvent(MIDIEvent midiEvent)
+		{
+			int err = MIDITrack_InsertEvent(this.UnManagedObjectPointer, midiEvent.UnManagedObjectPointer);
+			if (err == 0)
+			{
+				throw new MIDIDataLibException("MIDIイベントの挿入に失敗しました。");
+			}
+		}
+
+		/// <summary>
+		/// MIDIトラックに任意のイベントを挿入する。挿入位置はターゲットイベントの直前である。
+		/// </summary>
+		/// <param name="midiEvent">挿入するイベント</param>
+		/// <param name="target">挿入位置指定用ターゲットイベント</param>
+		public void InsertEventBefore(MIDIEvent midiEvent, MIDIEvent target)
+		{
+			int err = MIDITrack_InsertEventBefore(this.UnManagedObjectPointer, midiEvent.UnManagedObjectPointer, target.UnManagedObjectPointer);
+			if (err == 0)
+			{
+				throw new MIDIDataLibException("MIDIイベントの挿入に失敗しました。");
+			}
+		}
+
+		/// <summary>
+		/// MIDIトラックに任意のイベントを挿入する。挿入位置はターゲットイベントの直後である。
+		/// </summary>
+		/// <param name="midiEvent">挿入するイベント</param>
+		/// <param name="target">挿入位置指定用ターゲットイベント</param>
+		public void InsertEventAfter(MIDIEvent midiEvent, MIDIEvent target)
+		{
+			int err = MIDITrack_InsertEventAfter(this.UnManagedObjectPointer, midiEvent.UnManagedObjectPointer, target.UnManagedObjectPointer);
+			if (err == 0)
+			{
+				throw new MIDIDataLibException("MIDIイベントの挿入に失敗しました。");
+			}
+		}
 		#endregion
 
 		#region ファイナライザー

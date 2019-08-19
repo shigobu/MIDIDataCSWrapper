@@ -8,6 +8,8 @@ namespace MIDIDataCSWrapper
 {
 	public class MIDIEvent
 	{
+		#region 列挙型
+
 		/// <summary>
 		/// 文字コードを表す列挙体
 		/// </summary>
@@ -50,5 +52,12 @@ namespace MIDIDataCSWrapper
 			/// </summary>
 			Minor = 1
 		}
+
+		#endregion
+
+		#region プロパティ
+		internal IntPtr UnManagedObjectPointer { get; private set; }
+		#endregion
+
 	}
 }
