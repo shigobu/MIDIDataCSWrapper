@@ -69,9 +69,79 @@ namespace MIDIDataCSWrapper
 		/// 異常終了:0
 		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
 		private static extern int MIDITrack_InsertEventAfter(IntPtr pMIDITrack, IntPtr pMIDIEvent, IntPtr pTarget);
+
+		/// <summary>
+		/// シーケンス番号イベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
+		/// </summary>
+		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+		/// <param name="lTime">絶対時刻</param>
+		/// <param name="lNum">シーケンス番号(0～65535)</param>
+		/// <returns>
+		/// 正常終了：1
+		/// 異常終了：0
+		/// </returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDITrack_InsertSequenceNumber(IntPtr pMIDITrack, int lTime, int lNum);
+
+		/// <summary>
+		/// テキストイベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
+		/// </summary>
+		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+		/// <param name="lTime">絶対時刻</param>
+		/// <param name="pszText">文字列</param>
+		/// <returns>
+		/// 正常終了：1
+		/// 異常終了：0
+		/// </returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDITrack_InsertTextEvent(IntPtr pMIDITrack, int lTime, string pszText);
+
+		/// <summary>
+		/// 文字コードを指定してテキストイベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
+		/// </summary>
+		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+		/// <param name="lTime">絶対時刻</param>
+		/// <param name="lCharCode">文字コード</param>
+		/// <param name="pszText">文字列</param>
+		/// <returns>
+		/// 正常終了：1
+		/// 異常終了：0
+		/// </returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDITrack_InsertTextEventEx(IntPtr pMIDITrack, int lTime, int lCharCode, string pszText);
+
+		/// <summary>
+		/// 著作権イベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
+		/// </summary>
+		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+		/// <param name="lTime">絶対時刻</param>
+		/// <param name="pszText">文字列</param>
+		/// <returns>
+		/// 正常終了：1
+		/// 異常終了：0
+		/// </returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDITrack_InsertCopyrightNotice(IntPtr pMIDITrack, int lTime, string pszText);
+
+		/// <summary>
+		/// 文字コードを指定して著作権イベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する
+		/// </summary>
+		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+		/// <param name="lTime">絶対時刻</param>
+		/// <param name="lCharCode">文字コード</param>
+		/// <param name="pszText">文字列</param>
+		/// <returns>
+		/// 正常終了：1
+		/// 異常終了：0
+		/// </returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDITrack_InsertCopyrightNoticeEx(IntPtr pMIDITrack, int lTime, int lCharCode, string pszText);
 		#endregion
 
 		#region プロパティ
+		/// <summary>
+		/// アンマネージドのオブジェクトポインタ
+		/// </summary>
 		internal IntPtr UnManagedObjectPointer { get; private set; }
 		#endregion
 
@@ -161,6 +231,83 @@ namespace MIDIDataCSWrapper
 			if (err == 0)
 			{
 				throw new MIDIDataLibException("MIDIイベントの挿入に失敗しました。");
+			}
+		}
+
+		/// <summary>
+		/// シーケンス番号イベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
+		/// </summary>
+		/// <param name="time">絶対時刻</param>
+		/// <param name="num">シーケンス番号(0～65535)</param>
+		public void InsertSequenceNumber(int time, int num)
+		{
+			if (num < 0 || 65535 < num)
+			{
+				throw new ArgumentOutOfRangeException(nameof(num), "シーケンス番号は、0～65535の範囲内である必要があります。");
+			}
+
+			int err = MIDITrack_InsertSequenceNumber(this.UnManagedObjectPointer, time, num);
+			if (err == 0)
+			{
+				throw new MIDIDataLibException("シーケンス番号の挿入に失敗しました。");
+			}
+		}
+
+		/// <summary>
+		/// テキストイベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
+		/// </summary>
+		/// <param name="time">絶対時刻</param>
+		/// <param name="text">文字列</param>
+		public void InsertTextEvent(int time, string text)
+		{
+			int err = MIDITrack_InsertTextEvent(this.UnManagedObjectPointer, time, text);
+			if (err == 0)
+			{
+				throw new MIDIDataLibException("テキストイベントの挿入に失敗しました。");
+			}
+		}
+
+		/// <summary>
+		/// 文字コードを指定してテキストイベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
+		/// </summary>
+		/// <param name="time">絶対時刻</param>
+		/// <param name="charCode">文字コード</param>
+		/// <param name="text">文字列</param>
+		public void InsertTextEventEx(int time, MIDIEvent.CharCodes charCode, string text)
+		{
+			int err = MIDITrack_InsertTextEventEx(this.UnManagedObjectPointer, time, (int)charCode, text);
+			if (err == 0)
+			{
+				throw new MIDIDataLibException("テキストイベントの挿入に失敗しました。");
+			}
+		}
+
+		/// <summary>
+		/// 著作権イベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
+		/// </summary>
+		/// <param name="time">絶対時刻</param>
+		/// <param name="text">文字列</param>
+		public void InsertCopyrightNotice(int time, string text)
+		{
+			int err = MIDITrack_InsertCopyrightNotice(this.UnManagedObjectPointer, time, text);
+			if (err == 0)
+			{
+				throw new MIDIDataLibException("著作権イベントの挿入に失敗しました。");
+			}
+		}
+
+		/// <summary>
+		/// 文字コードを指定して著作権イベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
+		/// </summary>
+		/// <param name="time">絶対時刻</param>
+		/// <param name="charCode">文字コード</param>
+		/// <param name="text">文字列</param>
+		public void InsertCopyrightNoticeEx(int time, MIDIEvent.CharCodes charCode, string text)
+		{
+			int err = MIDITrack_InsertCopyrightNoticeEx(this.UnManagedObjectPointer, time, (int)charCode, text);
+			if (err == 0)
+			{
+				throw new MIDIDataLibException("著作権イベントの挿入に失敗しました。");
 			}
 		}
 		#endregion
