@@ -136,6 +136,114 @@ namespace MIDIDataCSWrapper
 		/// </returns>
 		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
 		private static extern int MIDITrack_InsertCopyrightNoticeEx(IntPtr pMIDITrack, int lTime, int lCharCode, string pszText);
+		
+		/// <summary>
+		/// シーケンス名・トラック名イベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
+		/// </summary>
+		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+		/// <param name="lTime">絶対時刻</param>
+		/// <param name="pszText">文字列</param>
+		/// <returns>
+		/// 正常終了：1
+		/// 異常終了：0
+		/// </returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDITrack_InsertTrackName (IntPtr pMIDITrack, int lTime, string pszText);
+
+		/// <summary>
+		/// 文字コードを指定してシーケンス名・トラック名イベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
+		/// </summary>
+		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+		/// <param name="lTime">絶対時刻</param>
+		/// <param name="lCharCode">文字コード</param>
+		/// <param name="pszText">文字列</param>
+		/// <returns>
+		/// 正常終了：1
+		/// 異常終了：0
+		/// </returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDITrack_InsertTrackNameEx(IntPtr pMIDITrack, int lTime, int lCharCode, string pszText);
+
+		/// <summary>
+		/// インストゥルメント名イベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
+		/// </summary>
+		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+		/// <param name="lTime">絶対時刻</param>
+		/// <param name="pszText">文字列</param>
+		/// <returns>
+		/// 正常終了：1
+		/// 異常終了：0
+		/// </returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDITrack_InsertInstrumentName(IntPtr pMIDITrack, int lTime, string pszText);
+
+		/// <summary>
+		/// 文字コードを指定してインストゥルメント名イベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
+		/// </summary>
+		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+		/// <param name="lTime">絶対時刻</param>
+		/// <param name="lCharCode">文字コード</param>
+		/// <param name="pszText">文字列</param>
+		/// <returns>
+		/// 正常終了：1
+		/// 異常終了：0
+		/// </returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDITrack_InsertInstrumentNameEx(IntPtr pMIDITrack, int lTime, int lCharCode, string pszText);
+
+		/// <summary>
+		/// 歌詞イベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
+		/// </summary>
+		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+		/// <param name="lTime">絶対時間</param>
+		/// <param name="pszText">文字列</param>
+		/// <returns>
+		/// 正常終了：1
+		/// 異常終了：0
+		/// </returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDITrack_InsertLyric(IntPtr pMIDITrack, int lTime, string pszText);
+
+		/// <summary>
+		/// 文字コードを指定して歌詞イベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
+		/// </summary>
+		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+		/// <param name="lTime">絶対時刻</param>
+		/// <param name="lCharCode">文字コード</param>
+		/// <param name="pszText">文字列</param>
+		/// <returns>
+		/// 正常終了：1
+		/// 異常終了：0
+		/// </returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDITrack_InsertLyricEx(IntPtr pMIDITrack, int lTime, int lCharCode, string pszText);
+
+		/// <summary>
+		/// マーカーイベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
+		/// </summary>
+		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+		/// <param name="lTime">絶対時刻</param>
+		/// <param name="pszText">文字列</param>
+		/// <returns>
+		/// 正常終了：1
+		/// 異常終了：0
+		/// </returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDITrack_InsertMarker(IntPtr pMIDITrack, int lTime, string pszText);
+
+		/// <summary>
+		/// 文字コードを指定してマーカーイベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
+		/// </summary>
+		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+		/// <param name="lTime">絶対時刻</param>
+		/// <param name="lCharCode">文字コード</param>
+		/// <param name="pszText">文字列</param>
+		/// <returns>
+		/// 正常終了：1
+		/// 異常終了：0
+		/// </returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDITrack_InsertMarkerEx(IntPtr pMIDITrack, int lTime, int lCharCode, string pszText);
 		#endregion
 
 		#region プロパティ
@@ -310,11 +418,41 @@ namespace MIDIDataCSWrapper
 				throw new MIDIDataLibException("著作権イベントの挿入に失敗しました。");
 			}
 		}
+
+		/// <summary>
+		/// シーケンス名・トラック名イベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
+		/// </summary>
+		/// <param name="time">絶対時刻</param>
+		/// <param name="text">文字列</param>
+		public void InsertTrackName(int time, string text)
+		{
+			int err = MIDITrack_InsertTrackName(this.UnManagedObjectPointer, time, text);
+			if(err == 0)
+			{
+				throw new MIDIDataLibException("シーケンス名・トラック名イベントの挿入に失敗しました。");
+			}
+		}
+
+		/// <summary>
+		/// 文字コードを指定してシーケンス名・トラック名イベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
+		/// </summary>
+		/// <param name="time">絶対時刻</param>
+		/// <param name="charCode">文字コード</param>
+		/// <param name="text">文字列</param>
+		public void InsertTrackNameEx(int time, MIDIEvent.CharCodes charCode, string text)
+		{
+			int err = MIDITrack_InsertTrackNameEx(this.UnManagedObjectPointer, time, (int)charCode, text);
+			if (err == 0)
+			{
+				throw new MIDIDataLibException("シーケンス名・トラック名イベントの挿入に失敗しました。");
+			}
+		}
 		#endregion
 
 		#region ファイナライザー
 		~MIDITrack()
 		{
+			//浮遊トラックだったら消すように変更する。
 			Delete();
 		}
 		#endregion
