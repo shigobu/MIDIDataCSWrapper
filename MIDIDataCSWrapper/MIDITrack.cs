@@ -37,7 +37,7 @@ namespace MIDIDataCSWrapper
 		private static extern void MIDITrack_Delete(IntPtr pMIDITrack);
 
 		/// <summary>
-		/// MIDIトラックに任意のイベントを挿入する。
+		/// MIDIトラックに任意のイベントを挿入する。挿入位置は、イベントの時刻により自動決定される。
 		/// </summary>
 		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
 		/// <param name="pMIDIEvent">挿入するイベントへのポインタ</param>
@@ -49,7 +49,7 @@ namespace MIDIDataCSWrapper
 		private static extern int MIDITrack_InsertEvent(IntPtr pMIDITrack, IntPtr pMIDIEvent);
 
 		/// <summary>
-		/// MIDIトラックに任意のイベントを挿入する。
+		/// MIDIトラックに任意のイベントを挿入する。挿入位置はターゲットイベントの直前である。
 		/// </summary>
 		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
 		/// <param name="pMIDIEvent">挿入するイベントへのポインタ</param>
