@@ -404,7 +404,10 @@ namespace MIDIDataCSWrapper
 		/// <param name="ldd">分母</param>
 		/// <param name="lcc">1拍あたりのMIDIクロック数</param>
 		/// <param name="lbb">1拍当たりの32分音符の数</param>
-		/// <returns></returns>
+		/// <returns>
+		/// 正常終了：1
+		/// 異常終了：0
+		/// </returns>
 		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
 		private static extern int MIDITrack_InsertTimeSignature(IntPtr pMIDITrack, int lTime, int lnn, int ldd, int lcc, int lbb);
 
@@ -415,9 +418,158 @@ namespace MIDIDataCSWrapper
 		/// <param name="lTime">絶対時刻</param>
 		/// <param name="lsf">#又は♭の数(-7～+7)</param>
 		/// <param name="lmi">長調・短調を示す値(0～1)</param>
-		/// <returns></returns>
+		/// <returns>
+		/// 正常終了：1
+		/// 異常終了：0
+		/// </returns>
 		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
 		private static extern int MIDITrack_InsertKeySignature(IntPtr pMIDITrack, int lTime, int lsf, int lmi);
+
+		/// <summary>
+		/// シーケンサー独自のイベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
+		/// </summary>
+		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+		/// <param name="lTime">絶対時刻</param>
+		/// <param name="pBuf">データ部へのポインタ</param>
+		/// <param name="lLen">データ部の長さ[バイト]</param>
+		/// <returns>
+		/// 正常終了：1
+		/// 異常終了：0
+		/// </returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDITrack_InsertSequencerSpecific(IntPtr pMIDITrack, int lTime, sbyte[] pBuf, int lLen);
+
+		/// <summary>
+		/// ノートオフイベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
+		/// </summary>
+		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+		/// <param name="lTime">絶対時刻</param>
+		/// <param name="lCh">チャンネル番号(0～15)</param>
+		/// <param name="lKey">キー値(0～127)</param>
+		/// <param name="lVel">ベロシティ(0～127)</param>
+		/// <returns>
+		/// 正常終了：1
+		/// 異常終了：0
+		/// </returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDITrack_InsertNoteOff(IntPtr pMIDITrack, int lTime, int lCh, int lKey, int lVel);
+
+		/// <summary>
+		/// ノートオンイベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
+		/// </summary>
+		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+		/// <param name="lTime">絶対時刻</param>
+		/// <param name="lCh">チャンネル番号(0～15)</param>
+		/// <param name="lKey">キー値(0～127)</param>
+		/// <param name="lVel">ベロシティ(0～127)</param>
+		/// <returns>
+		/// 正常終了：1
+		/// 異常終了：0
+		/// </returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDITrack_InsertNoteOn(IntPtr pMIDITrack, int lTime, int lCh, int lKey, int lVel);
+
+		/// <summary>
+		/// キーアフタータッチイベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
+		/// </summary>
+		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+		/// <param name="lTime">絶対時刻</param>
+		/// <param name="lCh">チャンネル番号(0～15)</param>
+		/// <param name="lKey">キー値(0～127)</param>
+		/// <param name="lVal">値(0～127)</param>
+		/// <returns>
+		/// 正常終了：1
+		/// 異常終了：0
+		/// </returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDITrack_InsertKeyAftertouch(IntPtr pMIDITrack, int lTime, int lCh, int lKey, int lVal);
+
+		/// <summary>
+		/// コントロールチェンジイベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
+		/// </summary>
+		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+		/// <param name="lTime">絶対時刻</param>
+		/// <param name="lCh">チャンネル番号(0～15)</param>
+		/// <param name="lNum">コントロールナンバー(0～127)</param>
+		/// <param name="lVal">値(0～127)</param>
+		/// <returns>
+		/// 正常終了：1
+		/// 異常終了：0
+		/// </returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDITrack_InsertControlChange(IntPtr pMIDITrack, int lTime, int lCh, int lNum, int lVal);
+
+		/// <summary>
+		/// プログラムチェンジイベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
+		/// </summary>
+		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+		/// <param name="lTime">絶対時刻</param>
+		/// <param name="lCh">チャンネル番号(0～15)</param>
+		/// <param name="lNum">プログラムナンバー(0～127)</param>
+		/// <returns>
+		/// 正常終了：1
+		/// 異常終了：0
+		/// </returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDITrack_InsertProgramChange(IntPtr pMIDITrack, int lTime, int lCh, int lNum);
+
+		/// <summary>
+		/// チャンネルアフタータッチイベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
+		/// </summary>
+		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+		/// <param name="lTime">絶対時刻</param>
+		/// <param name="lCh">チャンネル番号(0～15)</param>
+		/// <param name="lVal">値(0～127)</param>
+		/// <returns>
+		/// 正常終了：1
+		/// 異常終了：0
+		/// </returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDITrack_InsertChannelAftertouch(IntPtr pMIDITrack, int lTime, int lCh, int lVal);
+
+		/// <summary>
+		/// ピッチベンドイベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
+		/// </summary>
+		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+		/// <param name="lTime">絶対時刻</param>
+		/// <param name="lCh">チャンネル番号(0～15)</param>
+		/// <param name="lVal">値(0～16383)</param>
+		/// <returns>
+		/// 正常終了：1
+		/// 異常終了：0
+		/// </returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDITrack_InsertPitchBend(IntPtr pMIDITrack, int lTime, int lCh, int lVal);
+
+		/// <summary>
+		/// システムエクスクルーシブイベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
+		/// </summary>
+		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+		/// <param name="lTime">絶対時刻</param>
+		/// <param name="pBuf">データ部へのポインタ</param>
+		/// <param name="lLen">データ部の長さ</param>
+		/// <returns>
+		/// 正常終了：1
+		/// 異常終了：0
+		/// </returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDITrack_InsertSysExEvent(IntPtr pMIDITrack, int lTime, byte[] pBuf, int lLen);
+
+		/// <summary>
+		/// ノートオンイベント、ノートオフイベントの2つのイベントを生成し、指定トラックに挿入する。
+		/// </summary>
+		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+		/// <param name="lTime">絶対時刻</param>
+		/// <param name="lCh">チャンネル番号(0～15)</param>
+		/// <param name="lKey">キー番号(0～127)</param>
+		/// <param name="lVel">ノートオンイベントのベロシティ</param>
+		/// <param name="lDur">長さ</param>
+		/// <returns>
+		/// 正常終了：2
+		/// 異常終了：0
+		/// </returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDITrack_InsertNote(IntPtr pMIDITrack, int lTime, int lCh, int lKey, int lVel, int lDur);
 		#endregion
 
 		#region プロパティ
@@ -619,6 +771,20 @@ namespace MIDIDataCSWrapper
 			if (err == 0)
 			{
 				throw new MIDIDataLibException("シーケンス名・トラック名イベントの挿入に失敗しました。");
+			}
+		}
+
+		/// <summary>
+		/// インストゥルメント名イベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
+		/// </summary>
+		/// <param name="time">絶対時刻</param>
+		/// <param name="text">文字列</param>
+		public void InsertInstrumentName(int time, string text)
+		{
+			int err = MIDITrack_InsertInstrumentName(this.UnManagedObjectPointer, time, text);
+			if (err == 0)
+			{
+				throw new MIDIDataLibException("インストゥルメント名イベントの挿入に失敗しました。");
 			}
 		}
 		#endregion
