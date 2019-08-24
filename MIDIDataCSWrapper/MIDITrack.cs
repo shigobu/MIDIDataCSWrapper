@@ -787,6 +787,79 @@ namespace MIDIDataCSWrapper
 				throw new MIDIDataLibException("インストゥルメント名イベントの挿入に失敗しました。");
 			}
 		}
+
+		/// <summary>
+		/// 文字コードを指定してインストゥルメント名イベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
+		/// </summary>
+		/// <param name="time">絶対時刻</param>
+		/// <param name="charCode">文字コード</param>
+		/// <param name="text">文字列</param>
+		public void InsertInstrumentNameEx(int time, MIDIEvent.CharCodes charCode, string text)
+		{
+			int err = MIDITrack_InsertInstrumentNameEx(this.UnManagedObjectPointer, time, (int)charCode, text);
+			if (err == 0)
+			{
+				throw new MIDIDataLibException("インストゥルメント名イベントの挿入に失敗しました。");
+			}
+		}
+
+		/// <summary>
+		/// 歌詞イベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
+		/// </summary>
+		/// <param name="time">絶対時刻</param>
+		/// <param name="text">文字列</param>
+		public void InsertLyric(int time, string text)
+		{
+			int err = MIDITrack_InsertLyric(this.UnManagedObjectPointer, time, text);
+			if (err == 0)
+			{
+				throw new MIDIDataLibException("歌詞イベントの挿入に失敗しました。");
+			}
+		}
+
+		/// <summary>
+		/// 文字コードを指定して歌詞イベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
+		/// </summary>
+		/// <param name="time">絶対時刻</param>
+		/// <param name="charCode">文字コード</param>
+		/// <param name="text">文字列</param>
+		public void InsertLyricEx(int time, MIDIEvent.CharCodes charCode, string text)
+		{
+			int err = MIDITrack_InsertLyricEx(this.UnManagedObjectPointer, time, (int)charCode, text);
+			if (err == 0)
+			{
+				throw new MIDIDataLibException("歌詞イベントの挿入に失敗しました。");
+			}
+		}
+
+		/// <summary>
+		/// マーカーイベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
+		/// </summary>
+		/// <param name="time">絶対時刻</param>
+		/// <param name="text">文字列</param>
+		public void InsertMarker(int time, string text)
+		{
+			int err = MIDITrack_InsertMarker(this.UnManagedObjectPointer, time, text);
+			if (err == 0)
+			{
+				throw new MIDIDataLibException("マーカーイベントの挿入に失敗しました。");
+			}
+		}
+
+		/// <summary>
+		/// 文字コードを指定してマーカーイベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
+		/// </summary>
+		/// <param name="time">絶対時刻</param>
+		/// <param name="charCode">文字コード</param>
+		/// <param name="text">文字列</param>
+		public void InsertMarkerEx(int time, MIDIEvent.CharCodes charCode, string text)
+		{
+			int err = MIDITrack_InsertMarkerEx(this.UnManagedObjectPointer, time, (int)charCode, text);
+			if (err == 0)
+			{
+				throw new MIDIDataLibException("マーカーイベントの挿入に失敗しました。");
+			}
+		}
 		#endregion
 
 		#region ファイナライザー
