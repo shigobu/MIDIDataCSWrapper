@@ -903,6 +903,64 @@ namespace MIDIDataCSWrapper
 				throw new MIDIDataLibException("プログラム名イベントの挿入に失敗しました。");
 			}
         }
+
+		/// <summary>
+		/// 文字コードを指定してプログラム名イベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
+		/// </summary>
+		/// <param name="time">絶対時刻</param>
+		/// <param name="charCode">文字コード</param>
+		/// <param name="text">文字列</param>
+		public void InsertProgramNameEx(int time, MIDIEvent.CharCodes charCode, string text)
+		{
+			int err = MIDITrack_InsertProgramNameEx(this.UnManagedObjectPointer, time, (int)charCode, text);
+			if (err == 0)
+			{
+				throw new MIDIDataLibException("プログラム名イベントの挿入に失敗しました。");
+			}
+		}
+
+		/// <summary>
+		/// デバイス名イベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
+		/// </summary>
+		/// <param name="time">絶対時刻</param>
+		/// <param name="text">文字列</param>
+		public void InsertDeviceName(int time, string text)
+		{
+			int err = MIDITrack_InsertDeviceName(this.UnManagedObjectPointer, time, text);
+			if (err == 0)
+			{
+				throw new MIDIDataLibException("デバイス名イベントの挿入に失敗しました。");
+			}
+		}
+
+		/// <summary>
+		/// 文字コードを指定してデバイス名イベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
+		/// </summary>
+		/// <param name="time">絶対時刻</param>
+		/// <param name="charCode">文字コード</param>
+		/// <param name="text">文字列</param>
+		public void InsertDeviceNameEx(int time, MIDIEvent.CharCodes charCode, string text)
+		{
+			int err = MIDITrack_InsertDeviceNameEx(this.UnManagedObjectPointer, time, (int)charCode, text);
+			if (err == 0)
+			{
+				throw new MIDIDataLibException("デバイス名イベントの挿入に失敗しました。");
+			}
+		}
+
+		/// <summary>
+		/// チャンネルプリフィックスイベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
+		/// </summary>
+		/// <param name="time">絶対時刻</param>
+		/// <param name="num">チャンネル番号(0～15)</param>
+		public void InsertChannelPrefix(int time, int num)
+		{
+			int err = MIDITrack_InsertChannelPrefix(this.UnManagedObjectPointer, time, num);
+			if (err == 0)
+			{
+				throw new MIDIDataLibException("チャンネルプリフィックス");
+			}
+		}
 		#endregion
 
 		#region ファイナライザー
