@@ -53,6 +53,17 @@ namespace MIDIDataCSWrapper
 			Minor = 1
 		}
 
+		/// <summary>
+		/// SMPTEフレームモード
+		/// </summary>
+		public enum SMPTE
+		{
+			SMPTE24 = 0x00,
+			SMPTE25 = 0x01,
+			SMPTE30D = 0x02,
+			SMPTE30N = 0x03 
+		}
+
 		#endregion
 
 		#region プロパティ

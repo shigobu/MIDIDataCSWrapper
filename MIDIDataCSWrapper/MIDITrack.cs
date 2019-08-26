@@ -955,10 +955,69 @@ namespace MIDIDataCSWrapper
 		/// <param name="num">チャンネル番号(0～15)</param>
 		public void InsertChannelPrefix(int time, int num)
 		{
+			if (num < 0 || 15 < num)
+			{
+				throw new ArgumentOutOfRangeException(nameof(num), "チャンネル番号は、0から15の間である必要があります。");
+			}
 			int err = MIDITrack_InsertChannelPrefix(this.UnManagedObjectPointer, time, num);
 			if (err == 0)
 			{
-				throw new MIDIDataLibException("チャンネルプリフィックス");
+				throw new MIDIDataLibException("チャンネルプリフィックスイベントの挿入に失敗しました。");
+			}
+		}
+
+		/// <summary>
+		/// ポートプリフィックスイベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
+		/// </summary>
+		/// <param name="time">絶対時間</param>
+		/// <param name="num">ポート番号(0～255)</param>
+		public void InsertPortPrefix(int time, int num)
+		{
+			if (num < 0 || 255 < num)
+			{
+				throw new ArgumentOutOfRangeException(nameof(num), "ポート番号は、0から255の範囲である必要があります。");
+			}
+
+			int err = MIDITrack_InsertPortPrefix(this.UnManagedObjectPointer, time, num);
+			if (err == 0)
+			{
+				throw new MIDIDataLibException("ポートプリフィックスイベントの挿入に失敗しました。");
+			}
+		}
+
+		/// <summary>
+		/// エンドオブトラックイベントを生成し、指定トラックに挿入する。
+		/// </summary>
+		/// <param name="time">絶対時間</param>
+		public void InsertEndofTrack(int time)
+		{
+			int err = MIDITrack_InsertEndofTrack(this.UnManagedObjectPointer, time);
+			if (err == 0)
+			{
+				throw new MIDIDataLibException("エンドオブトラックイベントの挿入に失敗しました。");
+			}
+		}
+
+		/// <summary>
+		/// テンポイベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
+		/// </summary>
+		/// <param name="time">絶対時間</param>
+		/// <param name="tempo">テンポ</param>
+		public void InsertTempo(int time, int tempo)
+		{
+			int err = MIDITrack_InsertTempo(this.UnManagedObjectPointer, time, tempo);
+			if (err == 0)
+			{
+				throw new MIDIDataLibException("テンポイベントの挿入に失敗しました。");
+			}
+		}
+
+		public void InsertSMPTEOffset(int time, SMPTEOffset offset)
+		{
+			int err = MIDITrack_InsertSMPTEOffset(this.UnManagedObjectPointer, time, (int)offset.Mode, offset.Hour, offset.Min, offset.Sec, offset.Frame, offset.SubFrame);
+			if (err == 0)
+			{
+				throw new MIDIDataLibException("SMPTEオフセットイベントの挿入に失敗しました。");
 			}
 		}
 		#endregion

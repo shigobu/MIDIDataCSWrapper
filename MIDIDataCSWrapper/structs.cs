@@ -95,4 +95,43 @@ namespace MIDIDataCSWrapper
 		public int sf { get; set; }
 		public MIDIEvent.Keys mi { get; set; }
 	}
+
+	/// <summary>
+	/// SMPTEオフセットを表します。
+	/// </summary>
+	public class SMPTEOffset
+	{
+		/// <summary>
+		/// すべて0で初期化します。
+		/// </summary>
+		public SMPTEOffset() : this(0, 0, 0, 0, 0, 0)
+		{
+		}
+
+		/// <summary>
+		/// 値を指定してオブジェクトの初期化をします。
+		/// </summary>
+		/// <param name="mode">モード</param>
+		/// <param name="hour">時間(0～23)</param>
+		/// <param name="min">分(0～59)</param>
+		/// <param name="sec">秒(0～59)</param>
+		/// <param name="frame">フレーム(0～30※)</param>
+		/// <param name="subFrame">サブフレーム(0～99)</param>
+		public SMPTEOffset(MIDIEvent.SMPTE mode, int hour, int min, int sec, int frame, int subFrame)
+		{
+			Mode = mode;
+			Hour = hour;
+			Min = min;
+			Sec = sec;
+			Frame = frame;
+			SubFrame = subFrame;
+		}
+
+		public MIDIEvent.SMPTE Mode { get; set; }
+		public int Hour { get; set; }
+		public int Min { get; set; }
+		public int Sec { get; set; }
+		public int Frame { get; set; }
+		public int SubFrame { get; set; }
+	}
 }
