@@ -860,6 +860,49 @@ namespace MIDIDataCSWrapper
 				throw new MIDIDataLibException("マーカーイベントの挿入に失敗しました。");
 			}
 		}
+
+        /// <summary>
+        /// キューポイントイベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
+        /// </summary>
+        /// <param name="time">絶対時刻</param>
+        /// <param name="text">文字列</param>
+        public void InsertCuePoint(int time, string text)
+        {
+            int err = MIDITrack_InsertCuePoint(this.UnManagedObjectPointer, time, text);
+            if (err == 0)
+			{
+                throw new MIDIDataLibException("キューポイントイベントの挿入に失敗しました。");
+            }
+		}
+
+        /// <summary>
+		/// 文字コードを指定してキューポイントイベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
+        /// </summary>
+		/// <param name="time">絶対時刻</param>
+        /// <param name="charCode">文字コード</param>
+        /// <param name="text">文字列</param>
+        public void InsertCuePointEx(int time, MIDIEvent.CharCodes charCode, string text)
+        {
+			int err = MIDITrack_InsertCuePointEx(this.UnManagedObjectPointer, time, (int)charCode, text);
+            if (err == 0)
+            {
+				throw new MIDIDataLibException("キューポイントイベントの挿入に失敗しました。");
+			}
+        }
+
+        /// <summary>
+		/// プログラム名イベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
+        /// </summary>
+		/// <param name="time">絶対時刻</param>
+        /// <param name="text">文字列</param>
+		public void InsertProgramName(int time, string text)
+		{
+			int err = MIDITrack_InsertProgramName(this.UnManagedObjectPointer, time, text);
+            if (err == 0)
+            {
+				throw new MIDIDataLibException("プログラム名イベントの挿入に失敗しました。");
+			}
+        }
 		#endregion
 
 		#region ファイナライザー
