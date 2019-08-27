@@ -1191,6 +1191,56 @@ namespace MIDIDataCSWrapper
                 throw new MIDIDataLibException("コントロールチェンジイベントの挿入に失敗しました。");
             }
         }
+
+        /// <summary>
+        /// プログラムチェンジイベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
+        /// </summary>
+        /// <param name="time">絶対時間</param>
+        /// <param name="ch">チャンネル番号(0～15)</param>
+        /// <param name="num">プログラムナンバー(0～127)</param>
+        public void InsertProgramChange(int time, int ch, int num)
+        {
+            if (ch < 0 || 15 < ch)
+            {
+                throw new ArgumentOutOfRangeException(nameof(ch), "チャンネル番号は0～15の範囲内である必要があります。");
+            }
+
+            if (num < 0 || 127 < num)
+            {
+                throw new ArgumentOutOfRangeException(nameof(num), "プログラムナンバーは0～127の範囲内である必要があります。");
+            }
+
+            int err = MIDITrack_InsertProgramChange(this.UnManagedObjectPointer, time, ch, num);
+            if (err == 0)
+            {
+                throw new MIDIDataLibException("プログラムチェンジイベントの挿入に失敗しました。");
+            }
+        }
+
+        /// <summary>
+        /// チャンネルアフタータッチイベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
+        /// </summary>
+        /// <param name="time">絶対時間</param>
+        /// <param name="ch">チャンネル番号(0～15)</param>
+        /// <param name="val">値(0～127)</param>
+        public void InsertChannelAftertouch(int time, int ch, int val)
+        {
+            if (ch < 0 || 15 < ch)
+            {
+                throw new ArgumentOutOfRangeException(nameof(ch), "チャンネル番号は0～15の範囲内である必要があります。");
+            }
+
+            if (val < 0 || 127 < val)
+            {
+                throw new ArgumentOutOfRangeException(nameof(val), "値は0～127の範囲内である必要があります。");
+            }
+
+            int err = MIDITrack_InsertChannelAftertouch(this.UnManagedObjectPointer, time, ch, val);
+            if (err == 0)
+            {
+                throw new MIDIDataLibException("チャンネルアフタータッチイベントの挿入に失敗しました。");
+            }
+        }
         #endregion
 
         #region ファイナライザー
