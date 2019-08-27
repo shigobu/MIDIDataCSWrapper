@@ -1012,6 +1012,11 @@ namespace MIDIDataCSWrapper
 			}
 		}
 
+        /// <summary>
+        /// SMPTEオフセットイベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
+        /// </summary>
+        /// <param name="time">絶対時間</param>
+        /// <param name="offset">オフセットオブジェクト</param>
 		public void InsertSMPTEOffset(int time, SMPTEOffset offset)
 		{
 			int err = MIDITrack_InsertSMPTEOffset(this.UnManagedObjectPointer, time, (int)offset.Mode, offset.Hour, offset.Min, offset.Sec, offset.Frame, offset.SubFrame);
@@ -1020,10 +1025,176 @@ namespace MIDIDataCSWrapper
 				throw new MIDIDataLibException("SMPTEオフセットイベントの挿入に失敗しました。");
 			}
 		}
-		#endregion
 
-		#region ファイナライザー
-		~MIDITrack()
+        /// <summary>
+        /// 拍子記号イベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
+        /// </summary>
+        /// <param name="time">絶対時間</param>
+        /// <param name="timeSignature">拍子記号オブジェクト</param>
+        public void InsertTimeSignature(int time, TimeSignature timeSignature)
+        {
+            int err = MIDITrack_InsertTimeSignature(this.UnManagedObjectPointer, time, timeSignature.nn, timeSignature.dd, timeSignature.cc, timeSignature.bb);
+            if (err == 0)
+            {
+                throw new MIDIDataLibException("拍子記号イベントの挿入に失敗しました。");
+            }
+        }
+
+        /// <summary>
+        /// 調性記号イベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
+        /// </summary>
+        /// <param name="time">絶対時間</param>
+        /// <param name="keySignature">調性記号</param>
+        public void InsertKeySignature(int time, KeySignature keySignature)
+        {
+            int err = MIDITrack_InsertKeySignature(this.UnManagedObjectPointer, time, keySignature.sf, (int)keySignature.mi);
+            if (err == 0)
+            {
+                throw new MIDIDataLibException("調性記号イベントの挿入に失敗しました。");
+            }
+        }
+
+        /// <summary>
+        /// シーケンサー独自のイベントを生成し、指定トラックに挿入する。
+        /// </summary>
+        /// <param name="time">絶対時間</param>
+        /// <param name="buf">データ</param>
+        public void InsertSequencerSpecific(int time, sbyte[] buf)
+        {
+            int err = MIDITrack_InsertSequencerSpecific(this.UnManagedObjectPointer, time, buf, buf.Length);
+            if (err == 0)
+            {
+                throw new MIDIDataLibException("シーケンサー独自のイベントの挿入に失敗しました。");
+            }
+        }
+
+        /// <summary>
+        /// ノートオフイベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
+        /// </summary>
+        /// <param name="time">絶対時間</param>
+        /// <param name="ch">チャンネル番号(0～15)</param>
+        /// <param name="key">キー値(0～127)</param>
+        /// <param name="vel">ベロシティ(0～127)</param>
+        public void InsertNoteOff(int time, int ch, int key, int vel)
+        {
+            if (ch < 0 || 15 < ch)
+            {
+                throw new ArgumentOutOfRangeException(nameof(ch), "チャンネル番号は0～15の範囲内である必要があります。");
+            }
+
+            if (key < 0 || 127 < key)
+            {
+                throw new ArgumentOutOfRangeException(nameof(key), "キー値は0～127の範囲内である必要があります。");
+            }
+
+            if (vel < 0 || 127 < vel)
+            {
+                throw new ArgumentOutOfRangeException(nameof(vel), "ベロシティは0～127の範囲内である必要があります。");
+            }
+
+            int err = MIDITrack_InsertNoteOff(this.UnManagedObjectPointer, time, ch, key, vel);
+            if (err == 0)
+            {
+                throw new MIDIDataLibException("ノートオフイベントの挿入に失敗しました。");
+            }
+        }
+
+        /// <summary>
+        /// ノートオンイベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
+        /// </summary>
+        /// <param name="time">絶対時間</param>
+        /// <param name="ch">チャンネル番号(0～15)</param>
+        /// <param name="key">キー値(0～127)</param>
+        /// <param name="vel">ベロシティ(0～127)</param>
+        public void InsertNoteOn(int time, int ch, int key, int vel)
+        {
+            if (ch < 0 || 15 < ch)
+            {
+                throw new ArgumentOutOfRangeException(nameof(ch), "チャンネル番号は0～15の範囲内である必要があります。");
+            }
+
+            if (key < 0 || 127 < key)
+            {
+                throw new ArgumentOutOfRangeException(nameof(key), "キー値は0～127の範囲内である必要があります。");
+            }
+
+            if (vel < 0 || 127 < vel)
+            {
+                throw new ArgumentOutOfRangeException(nameof(vel), "ベロシティは0～127の範囲内である必要があります。");
+            }
+
+            int err = MIDITrack_InsertNoteOn(this.UnManagedObjectPointer, time, ch, key, vel);
+            if (err == 0)
+            {
+                throw new MIDIDataLibException("ノートオンイベントの挿入に失敗しました。");
+            }
+        }
+
+        /// <summary>
+        /// キーアフタータッチイベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
+        /// </summary>
+        /// <param name="time">絶対時間</param>
+        /// <param name="ch">チャンネル番号(0～15)</param>
+        /// <param name="key">キー値(0～127)</param>
+        /// <param name="val">値(0～127)</param>
+        public void InsertKeyAftertouch(int time,int ch, int key, int val)
+        {
+            if (ch < 0 || 15 < ch)
+            {
+                throw new ArgumentOutOfRangeException(nameof(ch), "チャンネル番号は0～15の範囲内である必要があります。");
+            }
+
+            if (key < 0 || 127 < key)
+            {
+                throw new ArgumentOutOfRangeException(nameof(key), "キー値は0～127の範囲内である必要があります。");
+            }
+
+            if (val < 0 || 127 < val)
+            {
+                throw new ArgumentOutOfRangeException(nameof(val), "値は0～127の範囲内である必要があります。");
+            }
+
+            int err = MIDITrack_InsertKeyAftertouch(this.UnManagedObjectPointer, time, ch, key, val);
+            if (err == 0)
+            {
+                throw new MIDIDataLibException("キーアフタータッチイベントの挿入に失敗しました。");
+            }
+        }
+
+        /// <summary>
+        /// コントロールチェンジイベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
+        /// </summary>
+        /// <param name="time">絶対時間</param>
+        /// <param name="ch">チャンネル番号(0～15)</param>
+        /// <param name="num">コントロールナンバー(0～127)</param>
+        /// <param name="val">値(0～127)</param>
+        public void InsertControlChange(int time, int ch, int num, int val)
+        {
+            if (ch < 0 || 15 < ch)
+            {
+                throw new ArgumentOutOfRangeException(nameof(ch), "チャンネル番号は0～15の範囲内である必要があります。");
+            }
+
+            if (num < 0 || 127 < num)
+            {
+                throw new ArgumentOutOfRangeException(nameof(num), "コントロールナンバーは0～127の範囲内である必要があります。");
+            }
+
+            if (val < 0 || 127 < val)
+            {
+                throw new ArgumentOutOfRangeException(nameof(val), "値は0～127の範囲内である必要があります。");
+            }
+
+            int err = MIDITrack_InsertControlChange(this.UnManagedObjectPointer, time, ch, num, val);
+            if (err == 0)
+            {
+                throw new MIDIDataLibException("コントロールチェンジイベントの挿入に失敗しました。");
+            }
+        }
+        #endregion
+
+        #region ファイナライザー
+        ~MIDITrack()
 		{
 			//浮遊トラックだったら消すように変更する。
 			Delete();
