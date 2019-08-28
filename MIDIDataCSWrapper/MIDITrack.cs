@@ -617,7 +617,17 @@ namespace MIDIDataCSWrapper
         [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
         private static extern int MIDITrack_CheckSetupTrack(IntPtr pMIDITrack);
 
-
+        /// <summary>
+        /// MIDIトラックが非コンダクタートラックとして正しいことを確認する。
+        /// </summary>
+        /// <param name="pMIDITrack"></param>
+        /// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+        /// <returns>
+        /// 正しい:1
+        /// 正しくない:0
+        /// </returns>
+        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+        private static extern int MIDITrack_CheckNonSetupTrack(IntPtr pMIDITrack);
         #endregion
 
         #region プロパティ
@@ -625,13 +635,68 @@ namespace MIDIDataCSWrapper
         /// アンマネージドのオブジェクトポインタ
         /// </summary>
         internal IntPtr UnManagedObjectPointer { get; private set; }
-		#endregion
 
-		#region コンストラクタ
-		/// <summary>
-		/// 空のMIDIトラックを作成して、オブジェクトを初期化します。
-		/// </summary>
-		public MIDITrack()
+        /// <summary>
+        /// MIDIトラックが浮遊トラックであるかどうか調べる。
+        /// </summary>
+        public bool IsFloating
+        {
+            get
+            {
+                int temp = MIDITrack_IsFloating(this.UnManagedObjectPointer);
+                if (temp == 0)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+        }
+
+        /// <summary>
+        /// MIDIトラックがコンダクタートラックとして正しいことを確認する。
+        /// </summary>
+        public bool CheckSetupTrack
+        {
+            get
+            {
+                int temp = MIDITrack_CheckSetupTrack(this.UnManagedObjectPointer);
+                if (temp == 0)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+        }
+
+        /// <summary>
+        /// MIDIトラックが非コンダクタートラックとして正しいことを確認する。
+        /// </summary>
+        public bool CheckNonSetupTrack
+        {
+            get
+            {
+                int temp = MIDITrack_CheckNonSetupTrack(this.UnManagedObjectPointer);
+                if (temp == 0)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+        }
+        #region コンストラクタ
+        /// <summary>
+        /// 空のMIDIトラックを作成して、オブジェクトを初期化します。
+        /// </summary>
+        public MIDITrack()
 		{
 			this.UnManagedObjectPointer = MIDITrack_Create();
 			if (this.UnManagedObjectPointer == IntPtr.Zero)
@@ -1360,6 +1425,32 @@ namespace MIDIDataCSWrapper
                 throw new MIDIDataLibException("ノートイベントの挿入に失敗しました。");
             }
 
+        }
+
+        /// <summary>
+        /// MIDIトラックから指定のMIDIイベントを除外する。指定MIDIイベントが他のMIDIイベントと結合している場合、結合しているMIDIイベントも同時に除外する。
+        /// </summary>
+        /// <param name="midiEvent"></param>
+        public void RemoveEvent(MIDIEvent midiEvent)
+        {
+            int err = MIDITrack_RemoveEvent(this.UnManagedObjectPointer, midiEvent.UnManagedObjectPointer);
+            if (err == 0)
+            {
+                throw new MIDIDataLibException("MIDIイベントの除外の失敗しました。");
+            }
+        }
+
+        /// <summary>
+        /// MIDIトラックから指定のMIDIイベントを除外する。指定MIDIイベントが他のMIDIイベントと結合している場合、結合を切り離し、指定したMIDIイベントのみを除外する。
+        /// </summary>
+        /// <param name="midiEvent">MIDIトラックへのポインタ</param>
+        public void RemoveSingleEvent(MIDIEvent midiEvent)
+        {
+            int err = MIDITrack_RemoveSingleEvent(this.UnManagedObjectPointer, midiEvent.UnManagedObjectPointer);
+            if (err == 0)
+            {
+                throw new MIDIDataLibException("MIDIイベントの除外の失敗しました。");
+            }
         }
         #endregion
 
