@@ -628,6 +628,14 @@ namespace MIDIDataCSWrapper
         /// </returns>
         [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
         private static extern int MIDITrack_CheckNonSetupTrack(IntPtr pMIDITrack);
+
+        /// <summary>
+        /// 最初のイベントへのポインタを返す。なければNULLを返す。
+        /// </summary>
+        /// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+        /// <returns>最初のイベントへのポインタ</returns>
+        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+        private static extern IntPtr MIDITrack_GetFirstEvent(IntPtr pMIDITrack);
         #endregion
 
         #region プロパティ
