@@ -692,6 +692,9 @@ namespace MIDIDataCSWrapper
                 }
             }
         }
+
+        #endregion
+
         #region コンストラクタ
         /// <summary>
         /// 空のMIDIトラックを作成して、オブジェクトを初期化します。
@@ -1457,8 +1460,10 @@ namespace MIDIDataCSWrapper
         #region ファイナライザー
         ~MIDITrack()
 		{
-			//浮遊トラックだったら消すように変更する。
-			Delete();
+            if (IsFloating)
+            {
+			    Delete();
+            }
 		}
 		#endregion
 	}
