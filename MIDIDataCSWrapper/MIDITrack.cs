@@ -1241,6 +1241,78 @@ namespace MIDIDataCSWrapper
                 throw new MIDIDataLibException("チャンネルアフタータッチイベントの挿入に失敗しました。");
             }
         }
+
+        /// <summary>
+        /// ピッチベンドイベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
+        /// </summary>
+        /// <param name="time">絶対時刻</param>
+        /// <param name="ch">チャンネル番号(0～15)</param>
+        /// <param name="val">値(0～16383)</param>
+        public void InsertPitchBend(int time, int ch, int val)
+        {
+            if (ch < 0 || 15 < ch)
+            {
+                throw new ArgumentOutOfRangeException(nameof(ch), "チャンネル番号は0～15の範囲内である必要があります。");
+            }
+
+            if (val < 0 || 16383 < val)
+            {
+                throw new ArgumentOutOfRangeException(nameof(val), "値は0～16383の範囲内である必要があります。");
+            }
+
+            int err = MIDITrack_InsertPitchBend(this.UnManagedObjectPointer, time, ch, val);
+            if (err == 0)
+            {
+                throw new MIDIDataLibException("ピッチベンドイベントの挿入に失敗しました。");
+            }
+        }
+
+        /// <summary>
+        /// システムエクスクルーシブイベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
+        /// </summary>
+        /// <param name="time">絶対時刻</param>
+        /// <param name="buf">データ部</param>
+        public void InsertSysExEvent(int time, byte[] buf)
+        {
+            int err = MIDITrack_InsertSysExEvent(this.UnManagedObjectPointer, time, buf, buf.Length);
+            if (err == 0)
+            {
+                throw new MIDIDataLibException("システムエクスクルーシブイベントの挿入に失敗しました。");
+            }
+        }
+
+        /// <summary>
+        /// ノートオンイベント、ノートオフイベントの2つのイベントを生成し、指定トラックに挿入する。
+        /// </summary>
+        /// <param name="time">絶対時刻</param>
+        /// <param name="ch">チャンネル番号(0～15)</param>
+        /// <param name="key">キー番号(0～127)</param>
+        /// <param name="vel">ノートオンイベントのベロシティ</param>
+        /// <param name="dur">長さ</param>
+        public void InsertNote(int time, int ch, int key, int vel, int dur)
+        {
+            if (ch < 0 || 15 < ch)
+            {
+                throw new ArgumentOutOfRangeException(nameof(ch), "チャンネル番号は0～15の範囲内である必要があります。");
+            }
+
+            if (key < 0 || 127 < key)
+            {
+                throw new ArgumentOutOfRangeException(nameof(key), "キー値は0～127の範囲内である必要があります。");
+            }
+
+            if (vel < 0 || 127 < vel)
+            {
+                throw new ArgumentOutOfRangeException(nameof(vel), "ベロシティは0～127の範囲内である必要があります。");
+            }
+
+            int err = MIDITrack_InsertNote(this.UnManagedObjectPointer, time, ch, key, vel, dur);
+            if (err == 0)
+            {
+                throw new MIDIDataLibException("ノートイベントの挿入に失敗しました。");
+            }
+
+        }
         #endregion
 
         #region ファイナライザー
