@@ -570,13 +570,61 @@ namespace MIDIDataCSWrapper
 		/// </returns>
 		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
 		private static extern int MIDITrack_InsertNote(IntPtr pMIDITrack, int lTime, int lCh, int lKey, int lVel, int lDur);
-		#endregion
 
-		#region プロパティ
-		/// <summary>
-		/// アンマネージドのオブジェクトポインタ
-		/// </summary>
-		internal IntPtr UnManagedObjectPointer { get; private set; }
+        /// <summary>
+        /// MIDIトラックから指定のMIDIイベントを除外する。
+        /// </summary>
+        /// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+        /// <param name="pMIDIEvent">トラックから除去するMIDIイベントへのポインタ</param>
+        /// <returns>
+        /// 正常終了：除外したイベントの数(1以上)
+        /// 異常終了：0
+        /// </returns>
+        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDITrack_RemoveEvent(IntPtr pMIDITrack, IntPtr pMIDIEvent);
+
+        /// <summary>
+        /// MIDIトラックから指定のMIDIイベントを除外する。
+        /// </summary>
+        /// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+        /// <param name="pMIDIEvent">トラックから除去するMIDIイベントへのポインタ</param>
+        /// <returns>
+        /// 正常終了：1
+        /// 異常終了：0
+        /// </returns>
+        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDITrack_RemoveSingleEvent(IntPtr pMIDITrack, IntPtr pMIDIEvent);
+
+        /// <summary>
+        /// MIDIトラックが浮遊トラックであるかどうか調べる。
+        /// </summary>
+        /// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+        /// <returns>
+        /// はい:1
+        /// いいえ:0
+        /// </returns>
+        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+        private static extern int MIDITrack_IsFloating(IntPtr pMIDITrack);
+
+        /// <summary>
+        /// MIDIトラックがコンダクタートラックとして正しいことを確認する。
+        /// </summary>
+        /// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+        /// <returns>
+        /// 正しい:1
+        /// 正しくない:0
+        /// </returns>
+        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+        private static extern int MIDITrack_CheckSetupTrack(IntPtr pMIDITrack);
+
+
+        #endregion
+
+        #region プロパティ
+        /// <summary>
+        /// アンマネージドのオブジェクトポインタ
+        /// </summary>
+        internal IntPtr UnManagedObjectPointer { get; private set; }
 		#endregion
 
 		#region コンストラクタ
