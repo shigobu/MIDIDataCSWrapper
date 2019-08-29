@@ -662,6 +662,160 @@ namespace MIDIDataCSWrapper
         /// <returns>トラック内にある最後の指定種類のイベントへのポインタ</returns>
         [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
         private static extern IntPtr MIDITrack_GetLastKindEvent(IntPtr pMIDITrack, int lKind);
+
+        /// <summary>
+        /// 前のトラックへのポインタを返す。なければNULLを返す。
+        /// </summary>
+        /// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+        /// <returns>前のトラックへのポインタ</returns>
+        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+        private static extern IntPtr MIDITrack_GetPrevTrack(IntPtr pMIDITrack);
+
+        /// <summary>
+        /// 次のトラックへのポインタを返す。なければNULLを返す。
+        /// </summary>
+        /// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+        /// <returns>次のトラックへのポインタ</returns>
+        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+        private static extern IntPtr MIDITrack_GetNextTrack(IntPtr pMIDITrack);
+
+        /// <summary>
+        /// 親MIDIデータへのポインタを返す。なければNULLを返す。
+        /// </summary>
+        /// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+        /// <returns>親MIDIデータへのポインタ</returns>
+        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+        private static extern IntPtr MIDITrack_GetParent(IntPtr pMIDITrack);
+
+        /// <summary>
+        /// 指定トラックの開始時刻を返す。開始時刻とは、最初のイベントの時刻である。
+        /// </summary>
+        /// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+        /// <returns>開始時刻</returns>
+        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+        private static extern int MIDITrack_GetBeginTime(IntPtr pMIDITrack);
+
+        /// <summary>
+        /// 指定トラックの終了時刻を返す。終了時刻とは、最後のイベントの時刻である。
+        /// </summary>
+        /// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+        /// <returns>終了時刻</returns>
+        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+        private static extern int MIDITrack_GetEndTime(IntPtr pMIDITrack);
+
+        /// <summary>
+        /// これは簡易にトラック名を取得するための関数である。
+        /// </summary>
+        /// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+        /// <param name="pBuf">テキストを取り込むバッファ</param>
+        /// <param name="lLen">取り込む最大文字数</param>
+        /// <returns></returns>
+        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+        private static extern IntPtr MIDITrack_GetName(IntPtr pMIDITrack, StringBuilder pBuf, int lLen);
+
+        /// <summary>
+        /// 入力(m_lInputOnの値)を返す。
+        /// </summary>
+        /// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+        /// <returns>入力(0=OFF, 1=ON)</returns>
+        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+        private static extern int MIDITrack_GetInputOn(IntPtr pMIDITrack);
+
+        /// <summary>
+        /// 入力ポート(m_lInputPortの値)を返す。
+        /// </summary>
+        /// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+        /// <returns>入力ポート(0～255)</returns>
+        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+        private static extern int MIDITrack_GetInputPort(IntPtr pMIDITrack);
+
+        /// <summary>
+        /// 入力チャンネル(m_lInputChannelの値)を返す。
+        /// </summary>
+        /// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+        /// <returns>入力チャンネル(-1=n/a, 0～15)</returns>
+        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+        private static extern int MIDITrack_GetInputChannel(IntPtr pMIDITrack);
+
+        /// <summary>
+        /// 出力(m_lOutputOnの値)を返す。
+        /// </summary>
+        /// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+        /// <returns>出力(0=OFF, 1=ON)</returns>
+        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+        private static extern int MIDITrack_GetOutputOn(IntPtr pMIDITrack);
+
+        /// <summary>
+        /// 出力ポート(m_lOutputPortの値)を返す。
+        /// </summary>
+        /// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+        /// <returns>出力ポート(0～255)</returns>
+        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+        private static extern int MIDITrack_GetOutputPort(IntPtr pMIDITrack);
+
+        /// <summary>
+        /// 出力チャンネル(m_lOutputChannelの値)を返す。
+        /// </summary>
+        /// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+        /// <returns>出力チャンネル(-1=n/a, 0～15)</returns>
+        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+        private static extern int MIDITrack_GetOutputChannel(IntPtr pMIDITrack);
+
+        /// <summary>
+        /// タイム+(m_lTimePlusの値)を返す。
+        /// </summary>
+        /// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+        /// <returns>タイム+</returns>
+        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+        private static extern int MIDITrack_GetTimePlus(IntPtr pMIDITrack);
+
+        /// <summary>
+        /// キー+(m_lKeyPlusの値)を返す。
+        /// </summary>
+        /// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+        /// <returns>キー+</returns>
+        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+        private static extern int MIDITrack_GetKeyPlus(IntPtr pMIDITrack);
+
+        /// <summary>
+        /// ベロシティ+(m_lVelocityPlusの値)を返す。
+        /// </summary>
+        /// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+        /// <returns>ベロシティ+</returns>
+        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+        private static extern int MIDITrack_GetVelocityPlus(IntPtr pMIDITrack);
+
+        /// <summary>
+        /// 表示モード(m_lViewModeの値)を返す。
+        /// </summary>
+        /// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+        /// <returns>表示モード(0=通常, 1=ドラム)</returns>
+        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+        private static extern int MIDITrack_GetViewMode(IntPtr pMIDITrack);
+
+        /// <summary>
+        /// 前景色(m_lForeColorの値)を返す。
+        /// </summary>
+        /// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+        /// <returns>前景色</returns>
+        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+        private static extern int MIDITrack_GetForeColor(IntPtr pMIDITrack);
+
+        /// <summary>
+        /// 背景色(m_lBackColorの値)を返す。
+        /// </summary>
+        /// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+        /// <returns>背景色</returns>
+        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+        private static extern int MIDITrack_GetBackColor(IntPtr pMIDITrack);
+
+        /// <summary>
+        /// このMIDIトラックにXFデータ(YAMAHAの拡張形式)であることを示すシーケンサ独自のイベントが含まれている場合、XFのヴァージョンを取得する。
+        /// </summary>
+        /// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+        /// <returns>XFデータ(YAMAHAの拡張形式)のヴァージョン。XFデータでない場合は0。</returns>
+        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+        private static extern int MIDITrack_GetXFVersion(IntPtr pMIDITrack);
         #endregion
 
         #region プロパティ
@@ -1495,6 +1649,7 @@ namespace MIDIDataCSWrapper
         #region ファイナライザー
         ~MIDITrack()
 		{
+            //浮遊トラックのときのみメモリ上から削除
             if (IsFloating)
             {
 			    Delete();
