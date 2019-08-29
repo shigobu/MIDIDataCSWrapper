@@ -636,6 +636,32 @@ namespace MIDIDataCSWrapper
         /// <returns>最初のイベントへのポインタ</returns>
         [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
         private static extern IntPtr MIDITrack_GetFirstEvent(IntPtr pMIDITrack);
+
+        /// <summary>
+        /// 最後のイベントへのポインタを返す。なければNULLを返す。
+        /// </summary>
+        /// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+        /// <returns>最後のイベントへのポインタ</returns>
+        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+        private static extern IntPtr MIDITrack_GetLastEvent(IntPtr pMIDITrack);
+
+        /// <summary>
+        /// トラック内にある最初の指定種類のイベントへのポインタを返す。なければNULLを返す。
+        /// </summary>
+        /// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+        /// <param name="lKind">イベントの種類を示す識別子</param>
+        /// <returns>トラック内にある最初の指定種類のイベントへのポインタ</returns>
+        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+        private static extern IntPtr MIDITrack_GetFirstKindEvent(IntPtr pMIDITrack, int lKind);
+
+        /// <summary>
+        /// トラック内にある最後の指定種類のイベントへのポインタを返す。なければNULLを返す。
+        /// </summary>
+        /// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+        /// <param name="lKind">イベントの種類を示す識別子</param>
+        /// <returns>トラック内にある最後の指定種類のイベントへのポインタ</returns>
+        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+        private static extern IntPtr MIDITrack_GetLastKindEvent(IntPtr pMIDITrack, int lKind);
         #endregion
 
         #region プロパティ
@@ -700,6 +726,7 @@ namespace MIDIDataCSWrapper
                 }
             }
         }
+
 
         #endregion
 
