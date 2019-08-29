@@ -68,7 +68,20 @@ namespace MIDIDataCSWrapper
 
 		#region プロパティ
 		internal IntPtr UnManagedObjectPointer { get; private set; }
-		#endregion
+        #endregion
 
-	}
+        #region コンストラクタ
+
+        /// <summary>
+        /// MIDIイベントのポインタを指定して、オブジェクトを初期化します。
+        /// </summary>
+        /// <param name="intPtr">MIDIイベントのポインタ</param>
+        public MIDIEvent(IntPtr intPtr)
+        {
+            UnManagedObjectPointer = intPtr;
+        }
+
+        #endregion
+
+    }
 }
