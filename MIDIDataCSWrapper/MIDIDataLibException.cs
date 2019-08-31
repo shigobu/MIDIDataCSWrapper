@@ -7,7 +7,7 @@ namespace MIDIDataCSWrapper
     /// </summary>
     public class MIDIDataLibException : Exception
     {
-        public MIDIDataLibException() : base()
+        public MIDIDataLibException() : base("MIDIDataライブラリで不明なエラーが発生しました。")
         {
         }
         public MIDIDataLibException(string message) : base(message)
