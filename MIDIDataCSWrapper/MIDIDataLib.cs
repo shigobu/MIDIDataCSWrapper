@@ -24,5 +24,9 @@ namespace MIDIDataCSWrapper
 				throw new MIDIDataLibException("デフォルト文字コードの設定に失敗しました。");
 			}
 		}
+
+		//文字列バッファのサイズ
+		internal static int BufferSize { get; } = 256;
+
 	}
 }

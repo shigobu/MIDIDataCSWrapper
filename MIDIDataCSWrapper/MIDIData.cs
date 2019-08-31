@@ -550,8 +550,6 @@ namespace MIDIDataCSWrapper
         private const string cakewalkExt = ".wrk";
         private const string mabinogiMMLExt = ".mmml";
 
-		//文字列バッファのサイズ
-		private const int bufferSize = 256;
         #endregion
 
         #region プロパティ
@@ -615,8 +613,8 @@ namespace MIDIDataCSWrapper
 		{
 			get
 			{
-				StringBuilder stringBuilder = new StringBuilder(bufferSize);
-				MIDIData_GetTitle(this.UnManagedObjectPointer, stringBuilder, bufferSize);
+				StringBuilder stringBuilder = new StringBuilder(MIDIDataLib.BufferSize);
+				MIDIData_GetTitle(this.UnManagedObjectPointer, stringBuilder, stringBuilder.Length);
 				return stringBuilder.ToString();
 			}
 			set
@@ -632,8 +630,8 @@ namespace MIDIDataCSWrapper
 		{
 			get
 			{
-				StringBuilder stringBuilder = new StringBuilder(bufferSize);
-				MIDIData_GetCopyright(this.UnManagedObjectPointer, stringBuilder, bufferSize);
+				StringBuilder stringBuilder = new StringBuilder(MIDIDataLib.BufferSize);
+				MIDIData_GetCopyright(this.UnManagedObjectPointer, stringBuilder, stringBuilder.Length);
 				return stringBuilder.ToString();
 			}
 			set
@@ -649,8 +647,8 @@ namespace MIDIDataCSWrapper
 		{
 			get
 			{
-				StringBuilder stringBuilder = new StringBuilder(bufferSize);
-				MIDIData_GetComment(this.UnManagedObjectPointer, stringBuilder, bufferSize);
+				StringBuilder stringBuilder = new StringBuilder(MIDIDataLib.BufferSize);
+				MIDIData_GetComment(this.UnManagedObjectPointer, stringBuilder, stringBuilder.Length);
 				return stringBuilder.ToString();
 			}
 			set
@@ -918,7 +916,7 @@ namespace MIDIDataCSWrapper
 		/// MIDIデータのポインタを指定して、オブジェクトを初期化します。
 		/// </summary>
 		/// <param name="midiData">MIDIデータのポインタ</param>
-		private MIDIData(IntPtr midiData)
+		internal MIDIData(IntPtr midiData)
         {
             UnManagedObjectPointer = midiData;
         }
