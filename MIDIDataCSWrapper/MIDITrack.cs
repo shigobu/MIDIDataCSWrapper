@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Drawing;
 using System.Threading.Tasks;
 
 namespace MIDIDataCSWrapper
@@ -933,13 +934,49 @@ namespace MIDIDataCSWrapper
         /// </returns>
         [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
         private static extern int MIDITrack_SetVelocityPlus(IntPtr pMIDITrack, int lVelocityPlus);
-        #endregion
 
-        #region プロパティ
-        /// <summary>
-        /// アンマネージドのオブジェクトポインタ
-        /// </summary>
-        internal IntPtr UnManagedObjectPointer { get; private set; }
+		/// <summary>
+		/// 表示モード(m_lViewModeの値)を設定する。
+		/// </summary>
+		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+		/// <param name="lViewMode">表示モード(0=通常, 1=ドラム)</param>
+		/// <returns>
+		/// 正常終了:1
+		/// 異常終了:0
+		/// </returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDITrack_SetViewMode(IntPtr pMIDITrack, int lViewMode);
+
+		/// <summary>
+		/// 前景色(m_lForeColorの値)を設定する。
+		/// </summary>
+		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+		/// <param name="lForeColor">前景色</param>
+		/// <returns>
+		/// 正常終了:1
+		/// 異常終了:0
+		/// </returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDITrack_SetForeColor(IntPtr pMIDITrack, int lForeColor);
+
+		/// <summary>
+		/// 背景色(m_lBackColorの値)を設定する。
+		/// </summary>
+		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+		/// <param name="lBackColor">背景色</param>
+		/// <returns>
+		/// 正常終了:1
+		/// 異常終了:0
+		/// </returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDITrack_SetBackColor(IntPtr pMIDITrack, int lBackColor);
+		#endregion
+
+		#region プロパティ
+		/// <summary>
+		/// アンマネージドのオブジェクトポインタ
+		/// </summary>
+		internal IntPtr UnManagedObjectPointer { get; private set; }
 
         /// <summary>
         /// MIDIトラックが浮遊トラックであるかどうか調べる。
@@ -1042,13 +1079,319 @@ namespace MIDIDataCSWrapper
             }
         }
 
-        #endregion
+		/// <summary>
+		/// 親MIDIデータ
+		/// </summary>
+		public MIDIData Parent
+		{
+			get
+			{
+				return new MIDIData(MIDITrack_GetParent(this.UnManagedObjectPointer));
+			}
+		}
 
-        #region コンストラクタ
-        /// <summary>
-        /// 空のMIDIトラックを作成して、オブジェクトを初期化します。
-        /// </summary>
-        public MIDITrack()
+		/// <summary>
+		/// 開始時刻
+		/// </summary>
+		public int BeginTime
+		{
+			get
+			{
+				return MIDITrack_GetBeginTime(this.UnManagedObjectPointer);
+			}
+		}
+
+		/// <summary>
+		/// 指定トラックの終了時刻を返す。
+		/// </summary>
+		public int EndTime
+		{
+			get
+			{
+				return MIDITrack_GetEndTime(this.UnManagedObjectPointer);
+			}
+		}
+
+		/// <summary>
+		/// トラック名を取得、設定します。
+		/// </summary>
+		public string Name
+		{
+			get
+			{
+				StringBuilder stringBuilder = new StringBuilder(MIDIDataLib.BufferSize);
+				MIDITrack_GetName(this.UnManagedObjectPointer, stringBuilder, stringBuilder.Length);
+				return stringBuilder.ToString();
+			}
+			set
+			{
+				MIDITrack_SetName(this.UnManagedObjectPointer, value);
+			}
+		}
+
+		/// <summary>
+		/// 入力を取得、設定します。
+		/// </summary>
+		public int InputOn
+		{
+			get
+			{
+				return MIDITrack_GetInputOn(this.UnManagedObjectPointer);
+			}
+			set
+			{
+				if (value < 0 || 1 < value)
+				{
+					throw new ArgumentOutOfRangeException("入力は0(=OFF)または1(=ON)のどちらかである必要があります。");
+				}
+				int err = MIDITrack_SetInputOn(this.UnManagedObjectPointer, value);
+				if (err == 0)
+				{
+					throw new MIDIDataLibException("入力の設定に失敗しました。");
+				}
+			}
+		}
+
+		/// <summary>
+		/// 入力ポートを取得、設定します。
+		/// </summary>
+		public int InputPort
+		{
+			get
+			{
+				return MIDITrack_GetInputPort(this.UnManagedObjectPointer);
+			}
+			set
+			{
+				if (value < 0 || 255 < value)
+				{
+					throw new ArgumentOutOfRangeException("入力ポートは0～255の範囲内である必要があります。");
+				}
+				int err = MIDITrack_SetInputPort(this.UnManagedObjectPointer, value);
+				if (err == 0)
+				{
+					throw new MIDIDataLibException("入力ポートの設定に失敗しました。");
+				}
+			}
+		}
+
+		/// <summary>
+		/// 入力チャンネルを取得、設定します。
+		/// </summary>
+		public int InputChannel
+		{
+			get
+			{
+				return MIDITrack_GetInputChannel(this.UnManagedObjectPointer);
+			}
+			set
+			{
+				if (value < -1 || 15 < value)
+				{
+					throw new ArgumentOutOfRangeException("入力チャンネルは-1(n/a)または0～15の範囲内である必要があります。");
+				}
+				int err = MIDITrack_SetInputChannel(this.UnManagedObjectPointer, value);
+				if (err == 0)
+				{
+					throw new MIDIDataLibException("入力チャンネルの設定に失敗しました。");
+				}
+			}
+		}
+
+		/// <summary>
+		/// 出力を取得、設定します。
+		/// </summary>
+		public int OutputOn
+		{
+			get
+			{
+				return MIDITrack_GetOutputOn(this.UnManagedObjectPointer);
+			}
+			set
+			{
+				if (value < 0 || 1 < value)
+				{
+					throw new ArgumentOutOfRangeException("出力は0(=OFF)または1(=ON)のどちらかである必要があります。");
+				}
+				int err = MIDITrack_SetOutputOn(this.UnManagedObjectPointer, value);
+				if (err == 0)
+				{
+					throw new MIDIDataLibException("出力の設定に失敗しました。");
+				}
+			}
+		}
+
+		/// <summary>
+		/// 出力ポートを取得、設定します。
+		/// </summary>
+		public int OutputPort
+		{
+			get
+			{
+				return MIDITrack_GetOutputPort(this.UnManagedObjectPointer);
+			}
+			set
+			{
+				if (value < 0 || 255 < value)
+				{
+					throw new ArgumentOutOfRangeException("出力ポートは0～255の範囲内である必要があります。");
+				}
+				int err = MIDITrack_SetOutputPort(this.UnManagedObjectPointer, value);
+				if (err == 0)
+				{
+					throw new MIDIDataLibException("出力ポートの設定に失敗しました。");
+				}
+			}
+		}
+
+		/// <summary>
+		/// 出力チャンネルを取得、設定します。
+		/// </summary>
+		public int OutputChannel
+		{
+			get
+			{
+				return MIDITrack_GetOutputChannel(this.UnManagedObjectPointer);
+			}
+			set
+			{
+				if (value < -1 || 15 < value)
+				{
+					throw new ArgumentOutOfRangeException("出力チャンネルは-1(n/a)または0～15の範囲内である必要があります。");
+				}
+				int err = MIDITrack_SetOutputChannel(this.UnManagedObjectPointer, value);
+				if (err == 0)
+				{
+					throw new MIDIDataLibException("出力チャンネルの設定に失敗しました。");
+				}
+			}
+		}
+
+		/// <summary>
+		/// タイム+を取得、設定します。
+		/// </summary>
+		public int TimePlus
+		{
+			get
+			{
+				return MIDITrack_GetTimePlus(this.UnManagedObjectPointer);
+			}
+			set
+			{
+				int err = MIDITrack_SetTimePlus(this.UnManagedObjectPointer, value);
+				if (err == 0)
+				{
+					throw new MIDIDataLibException("タイム+の設定に失敗しました。");
+				}
+			}
+		}
+
+		/// <summary>
+		///キー+を取得、設定します。
+		/// </summary>
+		public int KeyPlus
+		{
+			get
+			{
+				return MIDITrack_GetKeyPlus(this.UnManagedObjectPointer);
+			}
+			set
+			{
+				int err = MIDITrack_SetKeyPlus(this.UnManagedObjectPointer, value);
+				if (err == 0)
+				{
+					throw new MIDIDataLibException("キー+の設定に失敗しました。");
+				}
+			}
+		}
+
+		/// <summary>
+		/// ベロシティ+を取得、設定します。
+		/// </summary>
+		public int VelocityPlus
+		{
+			get
+			{
+				return MIDITrack_GetVelocityPlus(this.UnManagedObjectPointer);
+			}
+			set
+			{
+				int err = MIDITrack_SetVelocityPlus(this.UnManagedObjectPointer, value);
+				if (err == 0)
+				{
+					throw new MIDIDataLibException("ベロシティ+の設定に失敗しました。");
+				}
+			}
+		}
+
+		/// <summary>
+		/// 表示モードを取得、設定します。
+		/// </summary>
+		public int ViewMode
+		{
+			get
+			{
+				return MIDITrack_GetViewMode(this.UnManagedObjectPointer);
+			}
+			set
+			{
+				int err = MIDITrack_SetViewMode(this.UnManagedObjectPointer, value);
+				if (err == 0)
+				{
+					throw new MIDIDataLibException("表示モードの設定に失敗しました。");
+				}
+			}
+		}
+
+
+		/// <summary>
+		/// 前景色を取得、設定します。
+		/// </summary>
+		public Color ForeColor
+		{
+			get
+			{
+				int COLORREFValue = MIDITrack_GetBackColor(this.UnManagedObjectPointer);
+				return ColorTranslator.FromWin32(COLORREFValue);
+			}
+			set
+			{
+				int COLORREFValue = ColorTranslator.ToWin32(value);
+				int err = MIDITrack_SetForeColor(this.UnManagedObjectPointer, COLORREFValue);
+				if (err == 0)
+				{
+					throw new MIDIDataLibException("前景色の設定に失敗しました。");
+				}
+			}
+		}
+
+		/// <summary>
+		/// 背景色を取得、設定します。
+		/// </summary>
+		public Color BackColor
+		{
+			get
+			{
+				int COLORREFValue = MIDITrack_GetBackColor(this.UnManagedObjectPointer);
+				return ColorTranslator.FromWin32(COLORREFValue);
+			}
+			set
+			{
+				int COLORREFValue = ColorTranslator.ToWin32(value);
+				int err = MIDITrack_SetBackColor(this.UnManagedObjectPointer, COLORREFValue);
+				if (err == 0)
+				{
+					throw new MIDIDataLibException("背景色の設定に失敗しました。");
+				}
+			}
+		}
+		#endregion
+
+		#region コンストラクタ
+		/// <summary>
+		/// 空のMIDIトラックを作成して、オブジェクトを初期化します。
+		/// </summary>
+		public MIDITrack()
 		{
 			this.UnManagedObjectPointer = MIDITrack_Create();
 			if (this.UnManagedObjectPointer == IntPtr.Zero)
