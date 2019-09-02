@@ -970,6 +970,23 @@ namespace MIDIDataCSWrapper
 		/// </returns>
 		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
 		private static extern int MIDITrack_SetBackColor(IntPtr pMIDITrack, int lBackColor);
+
+		/// <summary>
+		/// 指定したMIDIトラックに含まれるMIDIイベントの数を数える。
+		/// </summary>
+		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+		/// <returns>MIDIイベント数</returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDITrack_CountEvent(IntPtr pMIDITrack);
+
+		/// <summary>
+		/// lTimeで示される時刻から、ミリ秒単位の時刻を計算して取得する。
+		/// </summary>
+		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+		/// <param name="lTime">時刻</param>
+		/// <returns>ミリ秒単位の時刻</returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDITrack_TimeToMillisec (IntPtr pMIDITrack, int lTime);
 		#endregion
 
 		#region プロパティ
