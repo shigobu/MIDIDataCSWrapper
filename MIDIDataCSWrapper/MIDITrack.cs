@@ -137,7 +137,7 @@ namespace MIDIDataCSWrapper
 		/// </returns>
 		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
 		private static extern int MIDITrack_InsertCopyrightNoticeEx(IntPtr pMIDITrack, int lTime, int lCharCode, string pszText);
-		
+
 		/// <summary>
 		/// シーケンス名・トラック名イベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
 		/// </summary>
@@ -149,7 +149,7 @@ namespace MIDIDataCSWrapper
 		/// 異常終了：0
 		/// </returns>
 		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
-		private static extern int MIDITrack_InsertTrackName (IntPtr pMIDITrack, int lTime, string pszText);
+		private static extern int MIDITrack_InsertTrackName(IntPtr pMIDITrack, int lTime, string pszText);
 
 		/// <summary>
 		/// 文字コードを指定してシーケンス名・トラック名イベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
@@ -572,368 +572,368 @@ namespace MIDIDataCSWrapper
 		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
 		private static extern int MIDITrack_InsertNote(IntPtr pMIDITrack, int lTime, int lCh, int lKey, int lVel, int lDur);
 
-        /// <summary>
-        /// MIDIトラックから指定のMIDIイベントを除外する。
-        /// </summary>
-        /// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
-        /// <param name="pMIDIEvent">トラックから除去するMIDIイベントへのポインタ</param>
-        /// <returns>
-        /// 正常終了：除外したイベントの数(1以上)
-        /// 異常終了：0
-        /// </returns>
-        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		/// <summary>
+		/// MIDIトラックから指定のMIDIイベントを除外する。
+		/// </summary>
+		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+		/// <param name="pMIDIEvent">トラックから除去するMIDIイベントへのポインタ</param>
+		/// <returns>
+		/// 正常終了：除外したイベントの数(1以上)
+		/// 異常終了：0
+		/// </returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
 		private static extern int MIDITrack_RemoveEvent(IntPtr pMIDITrack, IntPtr pMIDIEvent);
 
-        /// <summary>
-        /// MIDIトラックから指定のMIDIイベントを除外する。
-        /// </summary>
-        /// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
-        /// <param name="pMIDIEvent">トラックから除去するMIDIイベントへのポインタ</param>
-        /// <returns>
-        /// 正常終了：1
-        /// 異常終了：0
-        /// </returns>
-        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		/// <summary>
+		/// MIDIトラックから指定のMIDIイベントを除外する。
+		/// </summary>
+		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+		/// <param name="pMIDIEvent">トラックから除去するMIDIイベントへのポインタ</param>
+		/// <returns>
+		/// 正常終了：1
+		/// 異常終了：0
+		/// </returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
 		private static extern int MIDITrack_RemoveSingleEvent(IntPtr pMIDITrack, IntPtr pMIDIEvent);
 
-        /// <summary>
-        /// MIDIトラックが浮遊トラックであるかどうか調べる。
-        /// </summary>
-        /// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
-        /// <returns>
-        /// はい:1
-        /// いいえ:0
-        /// </returns>
-        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
-        private static extern int MIDITrack_IsFloating(IntPtr pMIDITrack);
+		/// <summary>
+		/// MIDIトラックが浮遊トラックであるかどうか調べる。
+		/// </summary>
+		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+		/// <returns>
+		/// はい:1
+		/// いいえ:0
+		/// </returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDITrack_IsFloating(IntPtr pMIDITrack);
 
-        /// <summary>
-        /// MIDIトラックがコンダクタートラックとして正しいことを確認する。
-        /// </summary>
-        /// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
-        /// <returns>
-        /// 正しい:1
-        /// 正しくない:0
-        /// </returns>
-        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
-        private static extern int MIDITrack_CheckSetupTrack(IntPtr pMIDITrack);
+		/// <summary>
+		/// MIDIトラックがコンダクタートラックとして正しいことを確認する。
+		/// </summary>
+		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+		/// <returns>
+		/// 正しい:1
+		/// 正しくない:0
+		/// </returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDITrack_CheckSetupTrack(IntPtr pMIDITrack);
 
-        /// <summary>
-        /// MIDIトラックが非コンダクタートラックとして正しいことを確認する。
-        /// </summary>
-        /// <param name="pMIDITrack"></param>
-        /// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
-        /// <returns>
-        /// 正しい:1
-        /// 正しくない:0
-        /// </returns>
-        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
-        private static extern int MIDITrack_CheckNonSetupTrack(IntPtr pMIDITrack);
+		/// <summary>
+		/// MIDIトラックが非コンダクタートラックとして正しいことを確認する。
+		/// </summary>
+		/// <param name="pMIDITrack"></param>
+		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+		/// <returns>
+		/// 正しい:1
+		/// 正しくない:0
+		/// </returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDITrack_CheckNonSetupTrack(IntPtr pMIDITrack);
 
-        /// <summary>
-        /// 最初のイベントへのポインタを返す。なければNULLを返す。
-        /// </summary>
-        /// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
-        /// <returns>最初のイベントへのポインタ</returns>
-        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
-        private static extern IntPtr MIDITrack_GetFirstEvent(IntPtr pMIDITrack);
+		/// <summary>
+		/// 最初のイベントへのポインタを返す。なければNULLを返す。
+		/// </summary>
+		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+		/// <returns>最初のイベントへのポインタ</returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern IntPtr MIDITrack_GetFirstEvent(IntPtr pMIDITrack);
 
-        /// <summary>
-        /// 最後のイベントへのポインタを返す。なければNULLを返す。
-        /// </summary>
-        /// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
-        /// <returns>最後のイベントへのポインタ</returns>
-        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
-        private static extern IntPtr MIDITrack_GetLastEvent(IntPtr pMIDITrack);
+		/// <summary>
+		/// 最後のイベントへのポインタを返す。なければNULLを返す。
+		/// </summary>
+		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+		/// <returns>最後のイベントへのポインタ</returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern IntPtr MIDITrack_GetLastEvent(IntPtr pMIDITrack);
 
-        /// <summary>
-        /// トラック内にある最初の指定種類のイベントへのポインタを返す。なければNULLを返す。
-        /// </summary>
-        /// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
-        /// <param name="lKind">イベントの種類を示す識別子</param>
-        /// <returns>トラック内にある最初の指定種類のイベントへのポインタ</returns>
-        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
-        private static extern IntPtr MIDITrack_GetFirstKindEvent(IntPtr pMIDITrack, int lKind);
+		/// <summary>
+		/// トラック内にある最初の指定種類のイベントへのポインタを返す。なければNULLを返す。
+		/// </summary>
+		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+		/// <param name="lKind">イベントの種類を示す識別子</param>
+		/// <returns>トラック内にある最初の指定種類のイベントへのポインタ</returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern IntPtr MIDITrack_GetFirstKindEvent(IntPtr pMIDITrack, int lKind);
 
-        /// <summary>
-        /// トラック内にある最後の指定種類のイベントへのポインタを返す。なければNULLを返す。
-        /// </summary>
-        /// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
-        /// <param name="lKind">イベントの種類を示す識別子</param>
-        /// <returns>トラック内にある最後の指定種類のイベントへのポインタ</returns>
-        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
-        private static extern IntPtr MIDITrack_GetLastKindEvent(IntPtr pMIDITrack, int lKind);
+		/// <summary>
+		/// トラック内にある最後の指定種類のイベントへのポインタを返す。なければNULLを返す。
+		/// </summary>
+		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+		/// <param name="lKind">イベントの種類を示す識別子</param>
+		/// <returns>トラック内にある最後の指定種類のイベントへのポインタ</returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern IntPtr MIDITrack_GetLastKindEvent(IntPtr pMIDITrack, int lKind);
 
-        /// <summary>
-        /// 前のトラックへのポインタを返す。なければNULLを返す。
-        /// </summary>
-        /// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
-        /// <returns>前のトラックへのポインタ</returns>
-        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
-        private static extern IntPtr MIDITrack_GetPrevTrack(IntPtr pMIDITrack);
+		/// <summary>
+		/// 前のトラックへのポインタを返す。なければNULLを返す。
+		/// </summary>
+		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+		/// <returns>前のトラックへのポインタ</returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern IntPtr MIDITrack_GetPrevTrack(IntPtr pMIDITrack);
 
-        /// <summary>
-        /// 次のトラックへのポインタを返す。なければNULLを返す。
-        /// </summary>
-        /// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
-        /// <returns>次のトラックへのポインタ</returns>
-        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
-        private static extern IntPtr MIDITrack_GetNextTrack(IntPtr pMIDITrack);
+		/// <summary>
+		/// 次のトラックへのポインタを返す。なければNULLを返す。
+		/// </summary>
+		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+		/// <returns>次のトラックへのポインタ</returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern IntPtr MIDITrack_GetNextTrack(IntPtr pMIDITrack);
 
-        /// <summary>
-        /// 親MIDIデータへのポインタを返す。なければNULLを返す。
-        /// </summary>
-        /// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
-        /// <returns>親MIDIデータへのポインタ</returns>
-        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
-        private static extern IntPtr MIDITrack_GetParent(IntPtr pMIDITrack);
+		/// <summary>
+		/// 親MIDIデータへのポインタを返す。なければNULLを返す。
+		/// </summary>
+		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+		/// <returns>親MIDIデータへのポインタ</returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern IntPtr MIDITrack_GetParent(IntPtr pMIDITrack);
 
-        /// <summary>
-        /// 指定トラックの開始時刻を返す。開始時刻とは、最初のイベントの時刻である。
-        /// </summary>
-        /// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
-        /// <returns>開始時刻</returns>
-        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
-        private static extern int MIDITrack_GetBeginTime(IntPtr pMIDITrack);
+		/// <summary>
+		/// 指定トラックの開始時刻を返す。開始時刻とは、最初のイベントの時刻である。
+		/// </summary>
+		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+		/// <returns>開始時刻</returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDITrack_GetBeginTime(IntPtr pMIDITrack);
 
-        /// <summary>
-        /// 指定トラックの終了時刻を返す。終了時刻とは、最後のイベントの時刻である。
-        /// </summary>
-        /// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
-        /// <returns>終了時刻</returns>
-        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
-        private static extern int MIDITrack_GetEndTime(IntPtr pMIDITrack);
+		/// <summary>
+		/// 指定トラックの終了時刻を返す。終了時刻とは、最後のイベントの時刻である。
+		/// </summary>
+		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+		/// <returns>終了時刻</returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDITrack_GetEndTime(IntPtr pMIDITrack);
 
-        /// <summary>
-        /// これは簡易にトラック名を取得するための関数である。
-        /// </summary>
-        /// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
-        /// <param name="pBuf">テキストを取り込むバッファ</param>
-        /// <param name="lLen">取り込む最大文字数</param>
-        /// <returns></returns>
-        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
-        private static extern IntPtr MIDITrack_GetName(IntPtr pMIDITrack, StringBuilder pBuf, int lLen);
+		/// <summary>
+		/// これは簡易にトラック名を取得するための関数である。
+		/// </summary>
+		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+		/// <param name="pBuf">テキストを取り込むバッファ</param>
+		/// <param name="lLen">取り込む最大文字数</param>
+		/// <returns></returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern IntPtr MIDITrack_GetName(IntPtr pMIDITrack, StringBuilder pBuf, int lLen);
 
-        /// <summary>
-        /// 入力(m_lInputOnの値)を返す。
-        /// </summary>
-        /// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
-        /// <returns>入力(0=OFF, 1=ON)</returns>
-        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
-        private static extern int MIDITrack_GetInputOn(IntPtr pMIDITrack);
+		/// <summary>
+		/// 入力(m_lInputOnの値)を返す。
+		/// </summary>
+		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+		/// <returns>入力(0=OFF, 1=ON)</returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDITrack_GetInputOn(IntPtr pMIDITrack);
 
-        /// <summary>
-        /// 入力ポート(m_lInputPortの値)を返す。
-        /// </summary>
-        /// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
-        /// <returns>入力ポート(0～255)</returns>
-        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
-        private static extern int MIDITrack_GetInputPort(IntPtr pMIDITrack);
+		/// <summary>
+		/// 入力ポート(m_lInputPortの値)を返す。
+		/// </summary>
+		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+		/// <returns>入力ポート(0～255)</returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDITrack_GetInputPort(IntPtr pMIDITrack);
 
-        /// <summary>
-        /// 入力チャンネル(m_lInputChannelの値)を返す。
-        /// </summary>
-        /// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
-        /// <returns>入力チャンネル(-1=n/a, 0～15)</returns>
-        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
-        private static extern int MIDITrack_GetInputChannel(IntPtr pMIDITrack);
+		/// <summary>
+		/// 入力チャンネル(m_lInputChannelの値)を返す。
+		/// </summary>
+		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+		/// <returns>入力チャンネル(-1=n/a, 0～15)</returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDITrack_GetInputChannel(IntPtr pMIDITrack);
 
-        /// <summary>
-        /// 出力(m_lOutputOnの値)を返す。
-        /// </summary>
-        /// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
-        /// <returns>出力(0=OFF, 1=ON)</returns>
-        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
-        private static extern int MIDITrack_GetOutputOn(IntPtr pMIDITrack);
+		/// <summary>
+		/// 出力(m_lOutputOnの値)を返す。
+		/// </summary>
+		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+		/// <returns>出力(0=OFF, 1=ON)</returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDITrack_GetOutputOn(IntPtr pMIDITrack);
 
-        /// <summary>
-        /// 出力ポート(m_lOutputPortの値)を返す。
-        /// </summary>
-        /// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
-        /// <returns>出力ポート(0～255)</returns>
-        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
-        private static extern int MIDITrack_GetOutputPort(IntPtr pMIDITrack);
+		/// <summary>
+		/// 出力ポート(m_lOutputPortの値)を返す。
+		/// </summary>
+		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+		/// <returns>出力ポート(0～255)</returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDITrack_GetOutputPort(IntPtr pMIDITrack);
 
-        /// <summary>
-        /// 出力チャンネル(m_lOutputChannelの値)を返す。
-        /// </summary>
-        /// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
-        /// <returns>出力チャンネル(-1=n/a, 0～15)</returns>
-        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
-        private static extern int MIDITrack_GetOutputChannel(IntPtr pMIDITrack);
+		/// <summary>
+		/// 出力チャンネル(m_lOutputChannelの値)を返す。
+		/// </summary>
+		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+		/// <returns>出力チャンネル(-1=n/a, 0～15)</returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDITrack_GetOutputChannel(IntPtr pMIDITrack);
 
-        /// <summary>
-        /// タイム+(m_lTimePlusの値)を返す。
-        /// </summary>
-        /// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
-        /// <returns>タイム+</returns>
-        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
-        private static extern int MIDITrack_GetTimePlus(IntPtr pMIDITrack);
+		/// <summary>
+		/// タイム+(m_lTimePlusの値)を返す。
+		/// </summary>
+		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+		/// <returns>タイム+</returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDITrack_GetTimePlus(IntPtr pMIDITrack);
 
-        /// <summary>
-        /// キー+(m_lKeyPlusの値)を返す。
-        /// </summary>
-        /// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
-        /// <returns>キー+</returns>
-        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
-        private static extern int MIDITrack_GetKeyPlus(IntPtr pMIDITrack);
+		/// <summary>
+		/// キー+(m_lKeyPlusの値)を返す。
+		/// </summary>
+		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+		/// <returns>キー+</returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDITrack_GetKeyPlus(IntPtr pMIDITrack);
 
-        /// <summary>
-        /// ベロシティ+(m_lVelocityPlusの値)を返す。
-        /// </summary>
-        /// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
-        /// <returns>ベロシティ+</returns>
-        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
-        private static extern int MIDITrack_GetVelocityPlus(IntPtr pMIDITrack);
+		/// <summary>
+		/// ベロシティ+(m_lVelocityPlusの値)を返す。
+		/// </summary>
+		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+		/// <returns>ベロシティ+</returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDITrack_GetVelocityPlus(IntPtr pMIDITrack);
 
-        /// <summary>
-        /// 表示モード(m_lViewModeの値)を返す。
-        /// </summary>
-        /// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
-        /// <returns>表示モード(0=通常, 1=ドラム)</returns>
-        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
-        private static extern int MIDITrack_GetViewMode(IntPtr pMIDITrack);
+		/// <summary>
+		/// 表示モード(m_lViewModeの値)を返す。
+		/// </summary>
+		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+		/// <returns>表示モード(0=通常, 1=ドラム)</returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDITrack_GetViewMode(IntPtr pMIDITrack);
 
-        /// <summary>
-        /// 前景色(m_lForeColorの値)を返す。
-        /// </summary>
-        /// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
-        /// <returns>前景色</returns>
-        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
-        private static extern int MIDITrack_GetForeColor(IntPtr pMIDITrack);
+		/// <summary>
+		/// 前景色(m_lForeColorの値)を返す。
+		/// </summary>
+		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+		/// <returns>前景色</returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDITrack_GetForeColor(IntPtr pMIDITrack);
 
-        /// <summary>
-        /// 背景色(m_lBackColorの値)を返す。
-        /// </summary>
-        /// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
-        /// <returns>背景色</returns>
-        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
-        private static extern int MIDITrack_GetBackColor(IntPtr pMIDITrack);
+		/// <summary>
+		/// 背景色(m_lBackColorの値)を返す。
+		/// </summary>
+		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+		/// <returns>背景色</returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDITrack_GetBackColor(IntPtr pMIDITrack);
 
-        /// <summary>
-        /// このMIDIトラックにXFデータ(YAMAHAの拡張形式)であることを示すシーケンサ独自のイベントが含まれている場合、XFのヴァージョンを取得する。
-        /// </summary>
-        /// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
-        /// <returns>XFデータ(YAMAHAの拡張形式)のヴァージョン。XFデータでない場合は0。</returns>
-        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
-        private static extern int MIDITrack_GetXFVersion(IntPtr pMIDITrack);
+		/// <summary>
+		/// このMIDIトラックにXFデータ(YAMAHAの拡張形式)であることを示すシーケンサ独自のイベントが含まれている場合、XFのヴァージョンを取得する。
+		/// </summary>
+		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+		/// <returns>XFデータ(YAMAHAの拡張形式)のヴァージョン。XFデータでない場合は0。</returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDITrack_GetXFVersion(IntPtr pMIDITrack);
 
-        /// <summary>
-        /// これは簡易にトラック名を設定するための関数である。
-        /// </summary>
-        /// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
-        /// <param name="pszText">トラック名へのポインタ</param>
-        /// <returns>未定義</returns>
-        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
-        private static extern int MIDITrack_SetName(IntPtr pMIDITrack, string pszText);
+		/// <summary>
+		/// これは簡易にトラック名を設定するための関数である。
+		/// </summary>
+		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+		/// <param name="pszText">トラック名へのポインタ</param>
+		/// <returns>未定義</returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDITrack_SetName(IntPtr pMIDITrack, string pszText);
 
-        /// <summary>
-        /// 入力(m_lInputOnの値)を設定する。
-        /// </summary>
-        /// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
-        /// <param name="lInputOn">入力(0=OFF, 1=ON)</param>
-        /// <returns>
-        /// 正常終了:1
-        /// 異常終了:0
-        /// </returns>
-        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
-        private static extern int MIDITrack_SetInputOn(IntPtr pMIDITrack, int lInputOn);
+		/// <summary>
+		/// 入力(m_lInputOnの値)を設定する。
+		/// </summary>
+		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+		/// <param name="lInputOn">入力(0=OFF, 1=ON)</param>
+		/// <returns>
+		/// 正常終了:1
+		/// 異常終了:0
+		/// </returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDITrack_SetInputOn(IntPtr pMIDITrack, int lInputOn);
 
-        /// <summary>
-        /// 入力ポート(m_lInputPortの値)を設定する。
-        /// </summary>
-        /// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
-        /// <param name="lInputPort">入力ポート(0～255)</param>
-        /// <returns>
-        /// 正常終了:1
-        /// 異常終了:0
-        /// </returns>
-        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
-        private static extern int MIDITrack_SetInputPort(IntPtr pMIDITrack, int lInputPort);
+		/// <summary>
+		/// 入力ポート(m_lInputPortの値)を設定する。
+		/// </summary>
+		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+		/// <param name="lInputPort">入力ポート(0～255)</param>
+		/// <returns>
+		/// 正常終了:1
+		/// 異常終了:0
+		/// </returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDITrack_SetInputPort(IntPtr pMIDITrack, int lInputPort);
 
-        /// <summary>
-        /// 入力チャンネル(m_lInputChannelの値)を設定する。
-        /// </summary>
-        /// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
-        /// <param name="lInputChannel">入力チャンネル(-1=n/a, 0～15)</param>
-        /// <returns>
-        /// 正常終了:1
-        /// 異常終了:0
-        /// </returns>
-        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
-        private static extern int MIDITrack_SetInputChannel(IntPtr pMIDITrack, int lInputChannel);
+		/// <summary>
+		/// 入力チャンネル(m_lInputChannelの値)を設定する。
+		/// </summary>
+		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+		/// <param name="lInputChannel">入力チャンネル(-1=n/a, 0～15)</param>
+		/// <returns>
+		/// 正常終了:1
+		/// 異常終了:0
+		/// </returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDITrack_SetInputChannel(IntPtr pMIDITrack, int lInputChannel);
 
-        /// <summary>
-        /// 出力(m_lInputOnの値)を設定する。
-        /// </summary>
-        /// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
-        /// <param name="lOutputOn">出力(0=OFF, 1=ON)</param>
-        /// <returns>
-        /// 正常終了:1
-        /// 異常終了:0
-        /// </returns>
-        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
-        private static extern int MIDITrack_SetOutputOn(IntPtr pMIDITrack, int lOutputOn);
+		/// <summary>
+		/// 出力(m_lInputOnの値)を設定する。
+		/// </summary>
+		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+		/// <param name="lOutputOn">出力(0=OFF, 1=ON)</param>
+		/// <returns>
+		/// 正常終了:1
+		/// 異常終了:0
+		/// </returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDITrack_SetOutputOn(IntPtr pMIDITrack, int lOutputOn);
 
-        /// <summary>
-        /// 出力ポート(m_lOutputPortの値)を設定する。
-        /// </summary>
-        /// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
-        /// <param name="lOutputPort">出力ポート(0～255)</param>
-        /// <returns>
-        /// 正常終了:1
-        /// 異常終了:0
-        /// </returns>
-        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
-        private static extern int MIDITrack_SetOutputPort(IntPtr pMIDITrack, int lOutputPort);
+		/// <summary>
+		/// 出力ポート(m_lOutputPortの値)を設定する。
+		/// </summary>
+		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+		/// <param name="lOutputPort">出力ポート(0～255)</param>
+		/// <returns>
+		/// 正常終了:1
+		/// 異常終了:0
+		/// </returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDITrack_SetOutputPort(IntPtr pMIDITrack, int lOutputPort);
 
-        /// <summary>
-        /// 出力チャンネル(m_lOutputChannelの値)を設定する。
-        /// </summary>
-        /// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
-        /// <param name="lOutputChannel">出力チャンネル(-1=n/a, 0～15)</param>
-        /// <returns>
-        /// 正常終了:1
-        /// 異常終了:0
-        /// </returns>
-        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
-        private static extern int MIDITrack_SetOutputChannel(IntPtr pMIDITrack, int lOutputChannel);
+		/// <summary>
+		/// 出力チャンネル(m_lOutputChannelの値)を設定する。
+		/// </summary>
+		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+		/// <param name="lOutputChannel">出力チャンネル(-1=n/a, 0～15)</param>
+		/// <returns>
+		/// 正常終了:1
+		/// 異常終了:0
+		/// </returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDITrack_SetOutputChannel(IntPtr pMIDITrack, int lOutputChannel);
 
-        /// <summary>
-        /// タイム+(m_lTimePlusの値)を設定する。
-        /// </summary>
-        /// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
-        /// <param name="lTimePlus">タイム+</param>
-        /// <returns>
-        /// 正常終了:1
-        /// 異常終了:0
-        /// </returns>
-        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
-        private static extern int MIDITrack_SetTimePlus(IntPtr pMIDITrack, int lTimePlus);
+		/// <summary>
+		/// タイム+(m_lTimePlusの値)を設定する。
+		/// </summary>
+		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+		/// <param name="lTimePlus">タイム+</param>
+		/// <returns>
+		/// 正常終了:1
+		/// 異常終了:0
+		/// </returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDITrack_SetTimePlus(IntPtr pMIDITrack, int lTimePlus);
 
-        /// <summary>
-        /// キー+(m_lKeyPlusの値)を設定する。
-        /// </summary>
-        /// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
-        /// <param name="lKeyPlus">キー+</param>
-        /// <returns>
-        /// 正常終了:1
-        /// 異常終了:0
-        /// </returns>
-        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
-        private static extern int MIDITrack_SetKeyPlus(IntPtr pMIDITrack, int lKeyPlus);
+		/// <summary>
+		/// キー+(m_lKeyPlusの値)を設定する。
+		/// </summary>
+		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+		/// <param name="lKeyPlus">キー+</param>
+		/// <returns>
+		/// 正常終了:1
+		/// 異常終了:0
+		/// </returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDITrack_SetKeyPlus(IntPtr pMIDITrack, int lKeyPlus);
 
-        /// <summary>
-        /// ベロシティ+(m_lVelocityPlusの値)を設定する。
-        /// </summary>
-        /// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
-        /// <param name="lVelocityPlus">ベロシティ+</param>
-        /// <returns>
-        /// 正常終了:1
-        /// 異常終了:0
-        /// </returns>
-        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
-        private static extern int MIDITrack_SetVelocityPlus(IntPtr pMIDITrack, int lVelocityPlus);
+		/// <summary>
+		/// ベロシティ+(m_lVelocityPlusの値)を設定する。
+		/// </summary>
+		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+		/// <param name="lVelocityPlus">ベロシティ+</param>
+		/// <returns>
+		/// 正常終了:1
+		/// 異常終了:0
+		/// </returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDITrack_SetVelocityPlus(IntPtr pMIDITrack, int lVelocityPlus);
 
 		/// <summary>
 		/// 表示モード(m_lViewModeの値)を設定する。
@@ -978,106 +978,106 @@ namespace MIDIDataCSWrapper
 		/// </summary>
 		internal IntPtr UnManagedObjectPointer { get; private set; }
 
-        /// <summary>
-        /// MIDIトラックが浮遊トラックであるかどうか調べる。
-        /// </summary>
-        public bool IsFloating
-        {
-            get
-            {
-                int temp = MIDITrack_IsFloating(this.UnManagedObjectPointer);
-                if (temp == 0)
-                {
-                    return false;
-                }
-                else
-                {
-                    return true;
-                }
-            }
-        }
+		/// <summary>
+		/// MIDIトラックが浮遊トラックであるかどうか調べる。
+		/// </summary>
+		public bool IsFloating
+		{
+			get
+			{
+				int temp = MIDITrack_IsFloating(this.UnManagedObjectPointer);
+				if (temp == 0)
+				{
+					return false;
+				}
+				else
+				{
+					return true;
+				}
+			}
+		}
 
-        /// <summary>
-        /// MIDIトラックがコンダクタートラックとして正しいことを確認する。
-        /// </summary>
-        public bool CheckSetupTrack
-        {
-            get
-            {
-                int temp = MIDITrack_CheckSetupTrack(this.UnManagedObjectPointer);
-                if (temp == 0)
-                {
-                    return false;
-                }
-                else
-                {
-                    return true;
-                }
-            }
-        }
+		/// <summary>
+		/// MIDIトラックがコンダクタートラックとして正しいことを確認する。
+		/// </summary>
+		public bool CheckSetupTrack
+		{
+			get
+			{
+				int temp = MIDITrack_CheckSetupTrack(this.UnManagedObjectPointer);
+				if (temp == 0)
+				{
+					return false;
+				}
+				else
+				{
+					return true;
+				}
+			}
+		}
 
-        /// <summary>
-        /// MIDIトラックが非コンダクタートラックとして正しいことを確認する。
-        /// </summary>
-        public bool CheckNonSetupTrack
-        {
-            get
-            {
-                int temp = MIDITrack_CheckNonSetupTrack(this.UnManagedObjectPointer);
-                if (temp == 0)
-                {
-                    return false;
-                }
-                else
-                {
-                    return true;
-                }
-            }
-        }
+		/// <summary>
+		/// MIDIトラックが非コンダクタートラックとして正しいことを確認する。
+		/// </summary>
+		public bool CheckNonSetupTrack
+		{
+			get
+			{
+				int temp = MIDITrack_CheckNonSetupTrack(this.UnManagedObjectPointer);
+				if (temp == 0)
+				{
+					return false;
+				}
+				else
+				{
+					return true;
+				}
+			}
+		}
 
-        /// <summary>
-        /// 最初のイベント
-        /// </summary>
-        public MIDIEvent FirstEvent
-        {
-            get
-            {
-                return new MIDIEvent(MIDITrack_GetFirstEvent(this.UnManagedObjectPointer));
-            }
-        }
+		/// <summary>
+		/// 最初のイベント
+		/// </summary>
+		public MIDIEvent FirstEvent
+		{
+			get
+			{
+				return new MIDIEvent(MIDITrack_GetFirstEvent(this.UnManagedObjectPointer));
+			}
+		}
 
-        /// <summary>
-        /// 最後のイベント
-        /// </summary>
-        public MIDIEvent LastEvent
-        {
-            get
-            {
-                return new MIDIEvent(MIDITrack_GetLastEvent(this.UnManagedObjectPointer));
-            }
-        }
+		/// <summary>
+		/// 最後のイベント
+		/// </summary>
+		public MIDIEvent LastEvent
+		{
+			get
+			{
+				return new MIDIEvent(MIDITrack_GetLastEvent(this.UnManagedObjectPointer));
+			}
+		}
 
-        /// <summary>
-        /// 前のトラック
-        /// </summary>
-        public MIDITrack PrevTrack
-        {
-            get
-            {
-                return new MIDITrack(MIDITrack_GetPrevTrack(this.UnManagedObjectPointer));
-            }
-        }
+		/// <summary>
+		/// 前のトラック
+		/// </summary>
+		public MIDITrack PrevTrack
+		{
+			get
+			{
+				return new MIDITrack(MIDITrack_GetPrevTrack(this.UnManagedObjectPointer));
+			}
+		}
 
-        /// <summary>
-        /// 次のトラック
-        /// </summary>
-        public MIDITrack NextTrack
-        {
-            get
-            {
-                return new MIDITrack(MIDITrack_GetNextTrack(this.UnManagedObjectPointer));
-            }
-        }
+		/// <summary>
+		/// 次のトラック
+		/// </summary>
+		public MIDITrack NextTrack
+		{
+			get
+			{
+				return new MIDITrack(MIDITrack_GetNextTrack(this.UnManagedObjectPointer));
+			}
+		}
 
 		/// <summary>
 		/// 親MIDIデータ
@@ -1335,6 +1335,10 @@ namespace MIDIDataCSWrapper
 			}
 			set
 			{
+				if (value < 0 || 1 < value)
+				{
+					throw new ArgumentOutOfRangeException(null, "表示モードは、0または1である必要があります。");
+				}
 				int err = MIDITrack_SetViewMode(this.UnManagedObjectPointer, value);
 				if (err == 0)
 				{
@@ -1561,7 +1565,7 @@ namespace MIDIDataCSWrapper
 		public void InsertTrackName(int time, string text)
 		{
 			int err = MIDITrack_InsertTrackName(this.UnManagedObjectPointer, time, text);
-			if(err == 0)
+			if (err == 0)
 			{
 				throw new MIDIDataLibException("シーケンス名・トラック名イベントの挿入に失敗しました。");
 			}
@@ -1669,48 +1673,48 @@ namespace MIDIDataCSWrapper
 			}
 		}
 
-        /// <summary>
-        /// キューポイントイベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
-        /// </summary>
-        /// <param name="time">絶対時刻</param>
-        /// <param name="text">文字列</param>
-        public void InsertCuePoint(int time, string text)
-        {
-            int err = MIDITrack_InsertCuePoint(this.UnManagedObjectPointer, time, text);
-            if (err == 0)
-			{
-                throw new MIDIDataLibException("キューポイントイベントの挿入に失敗しました。");
-            }
-		}
-
-        /// <summary>
-		/// 文字コードを指定してキューポイントイベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
-        /// </summary>
+		/// <summary>
+		/// キューポイントイベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
+		/// </summary>
 		/// <param name="time">絶対時刻</param>
-        /// <param name="charCode">文字コード</param>
-        /// <param name="text">文字列</param>
-        public void InsertCuePointEx(int time, MIDIEvent.CharCodes charCode, string text)
-        {
-			int err = MIDITrack_InsertCuePointEx(this.UnManagedObjectPointer, time, (int)charCode, text);
-            if (err == 0)
-            {
+		/// <param name="text">文字列</param>
+		public void InsertCuePoint(int time, string text)
+		{
+			int err = MIDITrack_InsertCuePoint(this.UnManagedObjectPointer, time, text);
+			if (err == 0)
+			{
 				throw new MIDIDataLibException("キューポイントイベントの挿入に失敗しました。");
 			}
-        }
+		}
 
-        /// <summary>
-		/// プログラム名イベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
-        /// </summary>
+		/// <summary>
+		/// 文字コードを指定してキューポイントイベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
+		/// </summary>
 		/// <param name="time">絶対時刻</param>
-        /// <param name="text">文字列</param>
+		/// <param name="charCode">文字コード</param>
+		/// <param name="text">文字列</param>
+		public void InsertCuePointEx(int time, MIDIEvent.CharCodes charCode, string text)
+		{
+			int err = MIDITrack_InsertCuePointEx(this.UnManagedObjectPointer, time, (int)charCode, text);
+			if (err == 0)
+			{
+				throw new MIDIDataLibException("キューポイントイベントの挿入に失敗しました。");
+			}
+		}
+
+		/// <summary>
+		/// プログラム名イベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
+		/// </summary>
+		/// <param name="time">絶対時刻</param>
+		/// <param name="text">文字列</param>
 		public void InsertProgramName(int time, string text)
 		{
 			int err = MIDITrack_InsertProgramName(this.UnManagedObjectPointer, time, text);
-            if (err == 0)
-            {
+			if (err == 0)
+			{
 				throw new MIDIDataLibException("プログラム名イベントの挿入に失敗しました。");
 			}
-        }
+		}
 
 		/// <summary>
 		/// 文字コードを指定してプログラム名イベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
@@ -1820,11 +1824,11 @@ namespace MIDIDataCSWrapper
 			}
 		}
 
-        /// <summary>
-        /// SMPTEオフセットイベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
-        /// </summary>
-        /// <param name="time">絶対時間</param>
-        /// <param name="offset">オフセットオブジェクト</param>
+		/// <summary>
+		/// SMPTEオフセットイベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
+		/// </summary>
+		/// <param name="time">絶対時間</param>
+		/// <param name="offset">オフセットオブジェクト</param>
 		public void InsertSMPTEOffset(int time, SMPTEOffset offset)
 		{
 			int err = MIDITrack_InsertSMPTEOffset(this.UnManagedObjectPointer, time, (int)offset.Mode, offset.Hour, offset.Min, offset.Sec, offset.Frame, offset.SubFrame);
@@ -1834,329 +1838,329 @@ namespace MIDIDataCSWrapper
 			}
 		}
 
-        /// <summary>
-        /// 拍子記号イベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
-        /// </summary>
-        /// <param name="time">絶対時間</param>
-        /// <param name="timeSignature">拍子記号オブジェクト</param>
-        public void InsertTimeSignature(int time, TimeSignature timeSignature)
-        {
-            int err = MIDITrack_InsertTimeSignature(this.UnManagedObjectPointer, time, timeSignature.nn, timeSignature.dd, timeSignature.cc, timeSignature.bb);
-            if (err == 0)
-            {
-                throw new MIDIDataLibException("拍子記号イベントの挿入に失敗しました。");
-            }
-        }
-
-        /// <summary>
-        /// 調性記号イベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
-        /// </summary>
-        /// <param name="time">絶対時間</param>
-        /// <param name="keySignature">調性記号</param>
-        public void InsertKeySignature(int time, KeySignature keySignature)
-        {
-            int err = MIDITrack_InsertKeySignature(this.UnManagedObjectPointer, time, keySignature.sf, (int)keySignature.mi);
-            if (err == 0)
-            {
-                throw new MIDIDataLibException("調性記号イベントの挿入に失敗しました。");
-            }
-        }
-
-        /// <summary>
-        /// シーケンサー独自のイベントを生成し、指定トラックに挿入する。
-        /// </summary>
-        /// <param name="time">絶対時間</param>
-        /// <param name="buf">データ</param>
-        public void InsertSequencerSpecific(int time, sbyte[] buf)
-        {
-            int err = MIDITrack_InsertSequencerSpecific(this.UnManagedObjectPointer, time, buf, buf.Length);
-            if (err == 0)
-            {
-                throw new MIDIDataLibException("シーケンサー独自のイベントの挿入に失敗しました。");
-            }
-        }
-
-        /// <summary>
-        /// ノートオフイベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
-        /// </summary>
-        /// <param name="time">絶対時間</param>
-        /// <param name="ch">チャンネル番号(0～15)</param>
-        /// <param name="key">キー値(0～127)</param>
-        /// <param name="vel">ベロシティ(0～127)</param>
-        public void InsertNoteOff(int time, int ch, int key, int vel)
-        {
-            if (ch < 0 || 15 < ch)
-            {
-                throw new ArgumentOutOfRangeException(nameof(ch), "チャンネル番号は0～15の範囲内である必要があります。");
-            }
-
-            if (key < 0 || 127 < key)
-            {
-                throw new ArgumentOutOfRangeException(nameof(key), "キー値は0～127の範囲内である必要があります。");
-            }
-
-            if (vel < 0 || 127 < vel)
-            {
-                throw new ArgumentOutOfRangeException(nameof(vel), "ベロシティは0～127の範囲内である必要があります。");
-            }
-
-            int err = MIDITrack_InsertNoteOff(this.UnManagedObjectPointer, time, ch, key, vel);
-            if (err == 0)
-            {
-                throw new MIDIDataLibException("ノートオフイベントの挿入に失敗しました。");
-            }
-        }
-
-        /// <summary>
-        /// ノートオンイベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
-        /// </summary>
-        /// <param name="time">絶対時間</param>
-        /// <param name="ch">チャンネル番号(0～15)</param>
-        /// <param name="key">キー値(0～127)</param>
-        /// <param name="vel">ベロシティ(0～127)</param>
-        public void InsertNoteOn(int time, int ch, int key, int vel)
-        {
-            if (ch < 0 || 15 < ch)
-            {
-                throw new ArgumentOutOfRangeException(nameof(ch), "チャンネル番号は0～15の範囲内である必要があります。");
-            }
-
-            if (key < 0 || 127 < key)
-            {
-                throw new ArgumentOutOfRangeException(nameof(key), "キー値は0～127の範囲内である必要があります。");
-            }
-
-            if (vel < 0 || 127 < vel)
-            {
-                throw new ArgumentOutOfRangeException(nameof(vel), "ベロシティは0～127の範囲内である必要があります。");
-            }
-
-            int err = MIDITrack_InsertNoteOn(this.UnManagedObjectPointer, time, ch, key, vel);
-            if (err == 0)
-            {
-                throw new MIDIDataLibException("ノートオンイベントの挿入に失敗しました。");
-            }
-        }
-
-        /// <summary>
-        /// キーアフタータッチイベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
-        /// </summary>
-        /// <param name="time">絶対時間</param>
-        /// <param name="ch">チャンネル番号(0～15)</param>
-        /// <param name="key">キー値(0～127)</param>
-        /// <param name="val">値(0～127)</param>
-        public void InsertKeyAftertouch(int time,int ch, int key, int val)
-        {
-            if (ch < 0 || 15 < ch)
-            {
-                throw new ArgumentOutOfRangeException(nameof(ch), "チャンネル番号は0～15の範囲内である必要があります。");
-            }
-
-            if (key < 0 || 127 < key)
-            {
-                throw new ArgumentOutOfRangeException(nameof(key), "キー値は0～127の範囲内である必要があります。");
-            }
-
-            if (val < 0 || 127 < val)
-            {
-                throw new ArgumentOutOfRangeException(nameof(val), "値は0～127の範囲内である必要があります。");
-            }
-
-            int err = MIDITrack_InsertKeyAftertouch(this.UnManagedObjectPointer, time, ch, key, val);
-            if (err == 0)
-            {
-                throw new MIDIDataLibException("キーアフタータッチイベントの挿入に失敗しました。");
-            }
-        }
-
-        /// <summary>
-        /// コントロールチェンジイベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
-        /// </summary>
-        /// <param name="time">絶対時間</param>
-        /// <param name="ch">チャンネル番号(0～15)</param>
-        /// <param name="num">コントロールナンバー(0～127)</param>
-        /// <param name="val">値(0～127)</param>
-        public void InsertControlChange(int time, int ch, int num, int val)
-        {
-            if (ch < 0 || 15 < ch)
-            {
-                throw new ArgumentOutOfRangeException(nameof(ch), "チャンネル番号は0～15の範囲内である必要があります。");
-            }
-
-            if (num < 0 || 127 < num)
-            {
-                throw new ArgumentOutOfRangeException(nameof(num), "コントロールナンバーは0～127の範囲内である必要があります。");
-            }
-
-            if (val < 0 || 127 < val)
-            {
-                throw new ArgumentOutOfRangeException(nameof(val), "値は0～127の範囲内である必要があります。");
-            }
-
-            int err = MIDITrack_InsertControlChange(this.UnManagedObjectPointer, time, ch, num, val);
-            if (err == 0)
-            {
-                throw new MIDIDataLibException("コントロールチェンジイベントの挿入に失敗しました。");
-            }
-        }
-
-        /// <summary>
-        /// プログラムチェンジイベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
-        /// </summary>
-        /// <param name="time">絶対時間</param>
-        /// <param name="ch">チャンネル番号(0～15)</param>
-        /// <param name="num">プログラムナンバー(0～127)</param>
-        public void InsertProgramChange(int time, int ch, int num)
-        {
-            if (ch < 0 || 15 < ch)
-            {
-                throw new ArgumentOutOfRangeException(nameof(ch), "チャンネル番号は0～15の範囲内である必要があります。");
-            }
-
-            if (num < 0 || 127 < num)
-            {
-                throw new ArgumentOutOfRangeException(nameof(num), "プログラムナンバーは0～127の範囲内である必要があります。");
-            }
-
-            int err = MIDITrack_InsertProgramChange(this.UnManagedObjectPointer, time, ch, num);
-            if (err == 0)
-            {
-                throw new MIDIDataLibException("プログラムチェンジイベントの挿入に失敗しました。");
-            }
-        }
-
-        /// <summary>
-        /// チャンネルアフタータッチイベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
-        /// </summary>
-        /// <param name="time">絶対時間</param>
-        /// <param name="ch">チャンネル番号(0～15)</param>
-        /// <param name="val">値(0～127)</param>
-        public void InsertChannelAftertouch(int time, int ch, int val)
-        {
-            if (ch < 0 || 15 < ch)
-            {
-                throw new ArgumentOutOfRangeException(nameof(ch), "チャンネル番号は0～15の範囲内である必要があります。");
-            }
-
-            if (val < 0 || 127 < val)
-            {
-                throw new ArgumentOutOfRangeException(nameof(val), "値は0～127の範囲内である必要があります。");
-            }
-
-            int err = MIDITrack_InsertChannelAftertouch(this.UnManagedObjectPointer, time, ch, val);
-            if (err == 0)
-            {
-                throw new MIDIDataLibException("チャンネルアフタータッチイベントの挿入に失敗しました。");
-            }
-        }
-
-        /// <summary>
-        /// ピッチベンドイベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
-        /// </summary>
-        /// <param name="time">絶対時刻</param>
-        /// <param name="ch">チャンネル番号(0～15)</param>
-        /// <param name="val">値(0～16383)</param>
-        public void InsertPitchBend(int time, int ch, int val)
-        {
-            if (ch < 0 || 15 < ch)
-            {
-                throw new ArgumentOutOfRangeException(nameof(ch), "チャンネル番号は0～15の範囲内である必要があります。");
-            }
-
-            if (val < 0 || 16383 < val)
-            {
-                throw new ArgumentOutOfRangeException(nameof(val), "値は0～16383の範囲内である必要があります。");
-            }
-
-            int err = MIDITrack_InsertPitchBend(this.UnManagedObjectPointer, time, ch, val);
-            if (err == 0)
-            {
-                throw new MIDIDataLibException("ピッチベンドイベントの挿入に失敗しました。");
-            }
-        }
-
-        /// <summary>
-        /// システムエクスクルーシブイベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
-        /// </summary>
-        /// <param name="time">絶対時刻</param>
-        /// <param name="buf">データ部</param>
-        public void InsertSysExEvent(int time, byte[] buf)
-        {
-            int err = MIDITrack_InsertSysExEvent(this.UnManagedObjectPointer, time, buf, buf.Length);
-            if (err == 0)
-            {
-                throw new MIDIDataLibException("システムエクスクルーシブイベントの挿入に失敗しました。");
-            }
-        }
-
-        /// <summary>
-        /// ノートオンイベント、ノートオフイベントの2つのイベントを生成し、指定トラックに挿入する。
-        /// </summary>
-        /// <param name="time">絶対時刻</param>
-        /// <param name="ch">チャンネル番号(0～15)</param>
-        /// <param name="key">キー番号(0～127)</param>
-        /// <param name="vel">ノートオンイベントのベロシティ</param>
-        /// <param name="dur">長さ</param>
-        public void InsertNote(int time, int ch, int key, int vel, int dur)
-        {
-            if (ch < 0 || 15 < ch)
-            {
-                throw new ArgumentOutOfRangeException(nameof(ch), "チャンネル番号は0～15の範囲内である必要があります。");
-            }
-
-            if (key < 0 || 127 < key)
-            {
-                throw new ArgumentOutOfRangeException(nameof(key), "キー値は0～127の範囲内である必要があります。");
-            }
-
-            if (vel < 0 || 127 < vel)
-            {
-                throw new ArgumentOutOfRangeException(nameof(vel), "ベロシティは0～127の範囲内である必要があります。");
-            }
-
-            int err = MIDITrack_InsertNote(this.UnManagedObjectPointer, time, ch, key, vel, dur);
-            if (err == 0)
-            {
-                throw new MIDIDataLibException("ノートイベントの挿入に失敗しました。");
-            }
-
-        }
-
-        /// <summary>
-        /// MIDIトラックから指定のMIDIイベントを除外する。指定MIDIイベントが他のMIDIイベントと結合している場合、結合しているMIDIイベントも同時に除外する。
-        /// </summary>
-        /// <param name="midiEvent"></param>
-        public void RemoveEvent(MIDIEvent midiEvent)
-        {
-            int err = MIDITrack_RemoveEvent(this.UnManagedObjectPointer, midiEvent.UnManagedObjectPointer);
-            if (err == 0)
-            {
-                throw new MIDIDataLibException("MIDIイベントの除外の失敗しました。");
-            }
-        }
-
-        /// <summary>
-        /// MIDIトラックから指定のMIDIイベントを除外する。指定MIDIイベントが他のMIDIイベントと結合している場合、結合を切り離し、指定したMIDIイベントのみを除外する。
-        /// </summary>
-        /// <param name="midiEvent">MIDIトラックへのポインタ</param>
-        public void RemoveSingleEvent(MIDIEvent midiEvent)
-        {
-            int err = MIDITrack_RemoveSingleEvent(this.UnManagedObjectPointer, midiEvent.UnManagedObjectPointer);
-            if (err == 0)
-            {
-                throw new MIDIDataLibException("MIDIイベントの除外の失敗しました。");
-            }
-        }
-        #endregion
-
-        #region ファイナライザー
-        ~MIDITrack()
+		/// <summary>
+		/// 拍子記号イベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
+		/// </summary>
+		/// <param name="time">絶対時間</param>
+		/// <param name="timeSignature">拍子記号オブジェクト</param>
+		public void InsertTimeSignature(int time, TimeSignature timeSignature)
 		{
-            //浮遊トラックのときのみメモリ上から削除
-            if (IsFloating)
-            {
-			    Delete();
-            }
+			int err = MIDITrack_InsertTimeSignature(this.UnManagedObjectPointer, time, timeSignature.nn, timeSignature.dd, timeSignature.cc, timeSignature.bb);
+			if (err == 0)
+			{
+				throw new MIDIDataLibException("拍子記号イベントの挿入に失敗しました。");
+			}
+		}
+
+		/// <summary>
+		/// 調性記号イベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
+		/// </summary>
+		/// <param name="time">絶対時間</param>
+		/// <param name="keySignature">調性記号</param>
+		public void InsertKeySignature(int time, KeySignature keySignature)
+		{
+			int err = MIDITrack_InsertKeySignature(this.UnManagedObjectPointer, time, keySignature.sf, (int)keySignature.mi);
+			if (err == 0)
+			{
+				throw new MIDIDataLibException("調性記号イベントの挿入に失敗しました。");
+			}
+		}
+
+		/// <summary>
+		/// シーケンサー独自のイベントを生成し、指定トラックに挿入する。
+		/// </summary>
+		/// <param name="time">絶対時間</param>
+		/// <param name="buf">データ</param>
+		public void InsertSequencerSpecific(int time, sbyte[] buf)
+		{
+			int err = MIDITrack_InsertSequencerSpecific(this.UnManagedObjectPointer, time, buf, buf.Length);
+			if (err == 0)
+			{
+				throw new MIDIDataLibException("シーケンサー独自のイベントの挿入に失敗しました。");
+			}
+		}
+
+		/// <summary>
+		/// ノートオフイベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
+		/// </summary>
+		/// <param name="time">絶対時間</param>
+		/// <param name="ch">チャンネル番号(0～15)</param>
+		/// <param name="key">キー値(0～127)</param>
+		/// <param name="vel">ベロシティ(0～127)</param>
+		public void InsertNoteOff(int time, int ch, int key, int vel)
+		{
+			if (ch < 0 || 15 < ch)
+			{
+				throw new ArgumentOutOfRangeException(nameof(ch), "チャンネル番号は0～15の範囲内である必要があります。");
+			}
+
+			if (key < 0 || 127 < key)
+			{
+				throw new ArgumentOutOfRangeException(nameof(key), "キー値は0～127の範囲内である必要があります。");
+			}
+
+			if (vel < 0 || 127 < vel)
+			{
+				throw new ArgumentOutOfRangeException(nameof(vel), "ベロシティは0～127の範囲内である必要があります。");
+			}
+
+			int err = MIDITrack_InsertNoteOff(this.UnManagedObjectPointer, time, ch, key, vel);
+			if (err == 0)
+			{
+				throw new MIDIDataLibException("ノートオフイベントの挿入に失敗しました。");
+			}
+		}
+
+		/// <summary>
+		/// ノートオンイベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
+		/// </summary>
+		/// <param name="time">絶対時間</param>
+		/// <param name="ch">チャンネル番号(0～15)</param>
+		/// <param name="key">キー値(0～127)</param>
+		/// <param name="vel">ベロシティ(0～127)</param>
+		public void InsertNoteOn(int time, int ch, int key, int vel)
+		{
+			if (ch < 0 || 15 < ch)
+			{
+				throw new ArgumentOutOfRangeException(nameof(ch), "チャンネル番号は0～15の範囲内である必要があります。");
+			}
+
+			if (key < 0 || 127 < key)
+			{
+				throw new ArgumentOutOfRangeException(nameof(key), "キー値は0～127の範囲内である必要があります。");
+			}
+
+			if (vel < 0 || 127 < vel)
+			{
+				throw new ArgumentOutOfRangeException(nameof(vel), "ベロシティは0～127の範囲内である必要があります。");
+			}
+
+			int err = MIDITrack_InsertNoteOn(this.UnManagedObjectPointer, time, ch, key, vel);
+			if (err == 0)
+			{
+				throw new MIDIDataLibException("ノートオンイベントの挿入に失敗しました。");
+			}
+		}
+
+		/// <summary>
+		/// キーアフタータッチイベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
+		/// </summary>
+		/// <param name="time">絶対時間</param>
+		/// <param name="ch">チャンネル番号(0～15)</param>
+		/// <param name="key">キー値(0～127)</param>
+		/// <param name="val">値(0～127)</param>
+		public void InsertKeyAftertouch(int time, int ch, int key, int val)
+		{
+			if (ch < 0 || 15 < ch)
+			{
+				throw new ArgumentOutOfRangeException(nameof(ch), "チャンネル番号は0～15の範囲内である必要があります。");
+			}
+
+			if (key < 0 || 127 < key)
+			{
+				throw new ArgumentOutOfRangeException(nameof(key), "キー値は0～127の範囲内である必要があります。");
+			}
+
+			if (val < 0 || 127 < val)
+			{
+				throw new ArgumentOutOfRangeException(nameof(val), "値は0～127の範囲内である必要があります。");
+			}
+
+			int err = MIDITrack_InsertKeyAftertouch(this.UnManagedObjectPointer, time, ch, key, val);
+			if (err == 0)
+			{
+				throw new MIDIDataLibException("キーアフタータッチイベントの挿入に失敗しました。");
+			}
+		}
+
+		/// <summary>
+		/// コントロールチェンジイベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
+		/// </summary>
+		/// <param name="time">絶対時間</param>
+		/// <param name="ch">チャンネル番号(0～15)</param>
+		/// <param name="num">コントロールナンバー(0～127)</param>
+		/// <param name="val">値(0～127)</param>
+		public void InsertControlChange(int time, int ch, int num, int val)
+		{
+			if (ch < 0 || 15 < ch)
+			{
+				throw new ArgumentOutOfRangeException(nameof(ch), "チャンネル番号は0～15の範囲内である必要があります。");
+			}
+
+			if (num < 0 || 127 < num)
+			{
+				throw new ArgumentOutOfRangeException(nameof(num), "コントロールナンバーは0～127の範囲内である必要があります。");
+			}
+
+			if (val < 0 || 127 < val)
+			{
+				throw new ArgumentOutOfRangeException(nameof(val), "値は0～127の範囲内である必要があります。");
+			}
+
+			int err = MIDITrack_InsertControlChange(this.UnManagedObjectPointer, time, ch, num, val);
+			if (err == 0)
+			{
+				throw new MIDIDataLibException("コントロールチェンジイベントの挿入に失敗しました。");
+			}
+		}
+
+		/// <summary>
+		/// プログラムチェンジイベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
+		/// </summary>
+		/// <param name="time">絶対時間</param>
+		/// <param name="ch">チャンネル番号(0～15)</param>
+		/// <param name="num">プログラムナンバー(0～127)</param>
+		public void InsertProgramChange(int time, int ch, int num)
+		{
+			if (ch < 0 || 15 < ch)
+			{
+				throw new ArgumentOutOfRangeException(nameof(ch), "チャンネル番号は0～15の範囲内である必要があります。");
+			}
+
+			if (num < 0 || 127 < num)
+			{
+				throw new ArgumentOutOfRangeException(nameof(num), "プログラムナンバーは0～127の範囲内である必要があります。");
+			}
+
+			int err = MIDITrack_InsertProgramChange(this.UnManagedObjectPointer, time, ch, num);
+			if (err == 0)
+			{
+				throw new MIDIDataLibException("プログラムチェンジイベントの挿入に失敗しました。");
+			}
+		}
+
+		/// <summary>
+		/// チャンネルアフタータッチイベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
+		/// </summary>
+		/// <param name="time">絶対時間</param>
+		/// <param name="ch">チャンネル番号(0～15)</param>
+		/// <param name="val">値(0～127)</param>
+		public void InsertChannelAftertouch(int time, int ch, int val)
+		{
+			if (ch < 0 || 15 < ch)
+			{
+				throw new ArgumentOutOfRangeException(nameof(ch), "チャンネル番号は0～15の範囲内である必要があります。");
+			}
+
+			if (val < 0 || 127 < val)
+			{
+				throw new ArgumentOutOfRangeException(nameof(val), "値は0～127の範囲内である必要があります。");
+			}
+
+			int err = MIDITrack_InsertChannelAftertouch(this.UnManagedObjectPointer, time, ch, val);
+			if (err == 0)
+			{
+				throw new MIDIDataLibException("チャンネルアフタータッチイベントの挿入に失敗しました。");
+			}
+		}
+
+		/// <summary>
+		/// ピッチベンドイベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
+		/// </summary>
+		/// <param name="time">絶対時刻</param>
+		/// <param name="ch">チャンネル番号(0～15)</param>
+		/// <param name="val">値(0～16383)</param>
+		public void InsertPitchBend(int time, int ch, int val)
+		{
+			if (ch < 0 || 15 < ch)
+			{
+				throw new ArgumentOutOfRangeException(nameof(ch), "チャンネル番号は0～15の範囲内である必要があります。");
+			}
+
+			if (val < 0 || 16383 < val)
+			{
+				throw new ArgumentOutOfRangeException(nameof(val), "値は0～16383の範囲内である必要があります。");
+			}
+
+			int err = MIDITrack_InsertPitchBend(this.UnManagedObjectPointer, time, ch, val);
+			if (err == 0)
+			{
+				throw new MIDIDataLibException("ピッチベンドイベントの挿入に失敗しました。");
+			}
+		}
+
+		/// <summary>
+		/// システムエクスクルーシブイベントを生成し、指定トラックに挿入する。挿入位置は時刻により自動決定する。
+		/// </summary>
+		/// <param name="time">絶対時刻</param>
+		/// <param name="buf">データ部</param>
+		public void InsertSysExEvent(int time, byte[] buf)
+		{
+			int err = MIDITrack_InsertSysExEvent(this.UnManagedObjectPointer, time, buf, buf.Length);
+			if (err == 0)
+			{
+				throw new MIDIDataLibException("システムエクスクルーシブイベントの挿入に失敗しました。");
+			}
+		}
+
+		/// <summary>
+		/// ノートオンイベント、ノートオフイベントの2つのイベントを生成し、指定トラックに挿入する。
+		/// </summary>
+		/// <param name="time">絶対時刻</param>
+		/// <param name="ch">チャンネル番号(0～15)</param>
+		/// <param name="key">キー番号(0～127)</param>
+		/// <param name="vel">ノートオンイベントのベロシティ</param>
+		/// <param name="dur">長さ</param>
+		public void InsertNote(int time, int ch, int key, int vel, int dur)
+		{
+			if (ch < 0 || 15 < ch)
+			{
+				throw new ArgumentOutOfRangeException(nameof(ch), "チャンネル番号は0～15の範囲内である必要があります。");
+			}
+
+			if (key < 0 || 127 < key)
+			{
+				throw new ArgumentOutOfRangeException(nameof(key), "キー値は0～127の範囲内である必要があります。");
+			}
+
+			if (vel < 0 || 127 < vel)
+			{
+				throw new ArgumentOutOfRangeException(nameof(vel), "ベロシティは0～127の範囲内である必要があります。");
+			}
+
+			int err = MIDITrack_InsertNote(this.UnManagedObjectPointer, time, ch, key, vel, dur);
+			if (err == 0)
+			{
+				throw new MIDIDataLibException("ノートイベントの挿入に失敗しました。");
+			}
+
+		}
+
+		/// <summary>
+		/// MIDIトラックから指定のMIDIイベントを除外する。指定MIDIイベントが他のMIDIイベントと結合している場合、結合しているMIDIイベントも同時に除外する。
+		/// </summary>
+		/// <param name="midiEvent"></param>
+		public void RemoveEvent(MIDIEvent midiEvent)
+		{
+			int err = MIDITrack_RemoveEvent(this.UnManagedObjectPointer, midiEvent.UnManagedObjectPointer);
+			if (err == 0)
+			{
+				throw new MIDIDataLibException("MIDIイベントの除外の失敗しました。");
+			}
+		}
+
+		/// <summary>
+		/// MIDIトラックから指定のMIDIイベントを除外する。指定MIDIイベントが他のMIDIイベントと結合している場合、結合を切り離し、指定したMIDIイベントのみを除外する。
+		/// </summary>
+		/// <param name="midiEvent">MIDIトラックへのポインタ</param>
+		public void RemoveSingleEvent(MIDIEvent midiEvent)
+		{
+			int err = MIDITrack_RemoveSingleEvent(this.UnManagedObjectPointer, midiEvent.UnManagedObjectPointer);
+			if (err == 0)
+			{
+				throw new MIDIDataLibException("MIDIイベントの除外の失敗しました。");
+			}
+		}
+		#endregion
+
+		#region ファイナライザー
+		~MIDITrack()
+		{
+			//浮遊トラックのときのみメモリ上から削除
+			if (IsFloating)
+			{
+				Delete();
+			}
 		}
 		#endregion
 	}
