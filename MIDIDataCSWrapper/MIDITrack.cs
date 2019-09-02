@@ -986,7 +986,19 @@ namespace MIDIDataCSWrapper
 		/// <param name="lTime">時刻</param>
 		/// <returns>ミリ秒単位の時刻</returns>
 		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
-		private static extern int MIDITrack_TimeToMillisec (IntPtr pMIDITrack, int lTime);
+		private static extern int MIDITrack_TimeToMillisec(IntPtr pMIDITrack, int lTime);
+
+		/// <summary>
+		/// lMillisecで示されるミリ秒単位の時刻から、ティック単位の時刻(TPQNベースの場合)又はサブフレーム単位の時刻(SMPTEベースの場合)を取得する。
+		/// </summary>
+		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+		/// <param name="lMillisec">ミリ秒単位の時刻</param>
+		/// <returns>
+		/// ティック単位の時刻(TPQNベースの場合)
+		/// サブフレーム単位の時刻(SMPTEベースの場合)
+		/// </returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDITrack_MillisecToTime(IntPtr pMIDITrack, int lMillisec);
 		#endregion
 
 		#region プロパティ
