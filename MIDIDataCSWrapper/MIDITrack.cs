@@ -1142,7 +1142,7 @@ namespace MIDIDataCSWrapper
 			{
 				if (value < 0 || 1 < value)
 				{
-					throw new ArgumentOutOfRangeException("入力は0(=OFF)または1(=ON)のどちらかである必要があります。");
+					throw new ArgumentOutOfRangeException(null, "入力は0(=OFF)または1(=ON)のどちらかである必要があります。");
 				}
 				int err = MIDITrack_SetInputOn(this.UnManagedObjectPointer, value);
 				if (err == 0)
@@ -1165,7 +1165,7 @@ namespace MIDIDataCSWrapper
 			{
 				if (value < 0 || 255 < value)
 				{
-					throw new ArgumentOutOfRangeException("入力ポートは0～255の範囲内である必要があります。");
+					throw new ArgumentOutOfRangeException(null, "入力ポートは0～255の範囲内である必要があります。");
 				}
 				int err = MIDITrack_SetInputPort(this.UnManagedObjectPointer, value);
 				if (err == 0)
@@ -1188,7 +1188,7 @@ namespace MIDIDataCSWrapper
 			{
 				if (value < -1 || 15 < value)
 				{
-					throw new ArgumentOutOfRangeException("入力チャンネルは-1(n/a)または0～15の範囲内である必要があります。");
+					throw new ArgumentOutOfRangeException(null, "入力チャンネルは-1(n/a)または0～15の範囲内である必要があります。");
 				}
 				int err = MIDITrack_SetInputChannel(this.UnManagedObjectPointer, value);
 				if (err == 0)
@@ -1211,7 +1211,7 @@ namespace MIDIDataCSWrapper
 			{
 				if (value < 0 || 1 < value)
 				{
-					throw new ArgumentOutOfRangeException("出力は0(=OFF)または1(=ON)のどちらかである必要があります。");
+					throw new ArgumentOutOfRangeException(null, "出力は0(=OFF)または1(=ON)のどちらかである必要があります。");
 				}
 				int err = MIDITrack_SetOutputOn(this.UnManagedObjectPointer, value);
 				if (err == 0)
@@ -1234,7 +1234,7 @@ namespace MIDIDataCSWrapper
 			{
 				if (value < 0 || 255 < value)
 				{
-					throw new ArgumentOutOfRangeException("出力ポートは0～255の範囲内である必要があります。");
+					throw new ArgumentOutOfRangeException(null, "出力ポートは0～255の範囲内である必要があります。");
 				}
 				int err = MIDITrack_SetOutputPort(this.UnManagedObjectPointer, value);
 				if (err == 0)
@@ -1257,7 +1257,7 @@ namespace MIDIDataCSWrapper
 			{
 				if (value < -1 || 15 < value)
 				{
-					throw new ArgumentOutOfRangeException("出力チャンネルは-1(n/a)または0～15の範囲内である必要があります。");
+					throw new ArgumentOutOfRangeException(null, "出力チャンネルは-1(n/a)または0～15の範囲内である必要があります。");
 				}
 				int err = MIDITrack_SetOutputChannel(this.UnManagedObjectPointer, value);
 				if (err == 0)
