@@ -1537,7 +1537,7 @@ namespace MIDIDataCSWrapper
 		{
 			get
 			{
-				int COLORREFValue = MIDITrack_GetBackColor(this.UnManagedObjectPointer);
+				int COLORREFValue = MIDITrack_GetForeColor(this.UnManagedObjectPointer);
 				return ColorTranslator.FromWin32(COLORREFValue);
 			}
 			set
