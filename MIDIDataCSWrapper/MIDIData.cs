@@ -8,66 +8,66 @@ using System.Threading.Tasks;
 
 namespace MIDIDataCSWrapper
 {
-    /// <summary>
-    /// MIDIデータは、フォーマット、トラック数、タイムベース(タイムモード及び分解能)の情報を持ち、子に単数又は複数のトラックを持つことができる。
-    /// </summary>
-    public class MIDIData
-    {
-        #region DLLImport
+	/// <summary>
+	/// MIDIデータは、フォーマット、トラック数、タイムベース(タイムモード及び分解能)の情報を持ち、子に単数又は複数のトラックを持つことができる。
+	/// </summary>
+	public class MIDIData
+	{
+		#region DLLImport
 
-        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
-        private static extern IntPtr MIDIData_Create(int lFormat, int lNumTrack, int lTimeMode, int lTimeResolution);
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern IntPtr MIDIData_Create(int lFormat, int lNumTrack, int lTimeMode, int lTimeResolution);
 
-        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
-        private static extern void MIDIData_Delete(IntPtr pMIDIData);
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern void MIDIData_Delete(IntPtr pMIDIData);
 
-        /// <summary>
-        /// 世界樹シーケンスファイル(*.skj)からMIDIデータを読み込む。
-        /// </summary>
-        /// <param name="pszFileName">ファイル名</param>
-        /// <returns>MIDIデータへのポインタ</returns>
-        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
-        private static extern IntPtr MIDIData_LoadFromBinary(string pszFileName);
+		/// <summary>
+		/// 世界樹シーケンスファイル(*.skj)からMIDIデータを読み込む。
+		/// </summary>
+		/// <param name="pszFileName">ファイル名</param>
+		/// <returns>MIDIデータへのポインタ</returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern IntPtr MIDIData_LoadFromBinary(string pszFileName);
 
-        /// <summary>
-        /// スタンダードMIDIファイル(*.mid)からMIDIデータを読み込む。
-        /// </summary>
-        /// <param name="pszFileName">ファイル名</param>
-        /// <returns>MIDIデータへのポインタ</returns>
-        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
-        private static extern IntPtr MIDIData_LoadFromSMF(string pszFileName);
+		/// <summary>
+		/// スタンダードMIDIファイル(*.mid)からMIDIデータを読み込む。
+		/// </summary>
+		/// <param name="pszFileName">ファイル名</param>
+		/// <returns>MIDIデータへのポインタ</returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern IntPtr MIDIData_LoadFromSMF(string pszFileName);
 
-        /// <summary>
-        /// Cherryシーケンスファイル(*.chy)からMIDIデータを読み込む。
-        /// </summary>
-        /// <param name="pszFileName">ファイル名</param>
-        /// <returns>MIDIデータへのポインタ</returns>
-        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
-        private static extern IntPtr MIDIData_LoadFromCherry(string pszFileName);
+		/// <summary>
+		/// Cherryシーケンスファイル(*.chy)からMIDIデータを読み込む。
+		/// </summary>
+		/// <param name="pszFileName">ファイル名</param>
+		/// <returns>MIDIデータへのポインタ</returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern IntPtr MIDIData_LoadFromCherry(string pszFileName);
 
-        /// <summary>
-        /// MIDICSVファイル(*.csv)からMIDIデータを読み込む。
-        /// </summary>
-        /// <param name="pszFileName">ファイル名</param>
-        /// <returns>MIDIデータへのポインタ</returns>
-        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
-        private static extern IntPtr MIDIData_LoadFromMIDICSV(string pszFileName);
+		/// <summary>
+		/// MIDICSVファイル(*.csv)からMIDIデータを読み込む。
+		/// </summary>
+		/// <param name="pszFileName">ファイル名</param>
+		/// <returns>MIDIデータへのポインタ</returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern IntPtr MIDIData_LoadFromMIDICSV(string pszFileName);
 
-        /// <summary>
-        /// 旧Cakewalkシーケンスファイル(*.wrk)からMIDIデータを読み込む。
-        /// </summary>
-        /// <param name="pszFileName">ファイル名</param>
-        /// <returns>MIDIデータへのポインタ</returns>
-        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
-        private static extern IntPtr MIDIData_LoadFromWRK(string pszFileName);
+		/// <summary>
+		/// 旧Cakewalkシーケンスファイル(*.wrk)からMIDIデータを読み込む。
+		/// </summary>
+		/// <param name="pszFileName">ファイル名</param>
+		/// <returns>MIDIデータへのポインタ</returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern IntPtr MIDIData_LoadFromWRK(string pszFileName);
 
-        /// <summary>
-        /// マビノギMMLファイル(*.mmml)からMIDIデータを読み込む。
-        /// </summary>
-        /// <param name="pszFileName">ファイル名</param>
-        /// <returns>MIDIデータへのポインタ</returns>
-        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
-        private static extern IntPtr MIDIData_LoadFromMabiMML(string pszFileName);
+		/// <summary>
+		/// マビノギMMLファイル(*.mmml)からMIDIデータを読み込む。
+		/// </summary>
+		/// <param name="pszFileName">ファイル名</param>
+		/// <returns>MIDIデータへのポインタ</returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern IntPtr MIDIData_LoadFromMabiMML(string pszFileName);
 
 		/// <summary>
 		/// MIDIデータを世界樹シーケンスファイル(*.skj)として保存する。
@@ -78,8 +78,8 @@ namespace MIDIDataCSWrapper
 		/// 正常終了:1
 		/// 異常終了:0
 		/// </returns>
-        [DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
-        private static extern int MIDIData_SaveAsBinary(IntPtr pMIDIData, string pszFileName);
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIData_SaveAsBinary(IntPtr pMIDIData, string pszFileName);
 
 		/// <summary>
 		/// MIDIデータをスタンダードMIDIファイル(*.mid)として保存する。
@@ -517,46 +517,46 @@ namespace MIDIDataCSWrapper
 		#endregion
 
 		#region 列挙型
-        /// <summary>
-        /// MIDIデータのフォーマット
-        /// </summary>
-        public enum Formats
-        {
-            Format0 = 0,
-            Format1 = 1,
-            Format2 = 2
-        }
+		/// <summary>
+		/// MIDIデータのフォーマット
+		/// </summary>
+		public enum Formats
+		{
+			Format0 = 0,
+			Format1 = 1,
+			Format2 = 2
+		}
 
-        /// <summary>
-        /// MIDIデータのタイムモード
-        /// </summary>
-        public enum TimeModes
-        {
-            TPQN = 0,
-            SMPTE24 = 24,
-            SMPTE25 = 25,
-            SMPTE29 = 29,
-            SMPTE30 = 30
-        }
-        #endregion
+		/// <summary>
+		/// MIDIデータのタイムモード
+		/// </summary>
+		public enum TimeModes
+		{
+			TPQN = 0,
+			SMPTE24 = 24,
+			SMPTE25 = 25,
+			SMPTE29 = 29,
+			SMPTE30 = 30
+		}
+		#endregion
 
-        #region 定数
+		#region 定数
 
-        //ファイル拡張子
-        private const string midiExt = ".mid";
-        private const string skjExt = ".skj";
-        private const string cherryExt = ".chy";
-        private const string midiCsvExt = ".csv";
-        private const string cakewalkExt = ".wrk";
-        private const string mabinogiMMLExt = ".mmml";
+		//ファイル拡張子
+		private const string midiExt = ".mid";
+		private const string skjExt = ".skj";
+		private const string cherryExt = ".chy";
+		private const string midiCsvExt = ".csv";
+		private const string cakewalkExt = ".wrk";
+		private const string mabinogiMMLExt = ".mmml";
 
-        #endregion
+		#endregion
 
-        #region プロパティ
-        /// <summary>
-        /// MIDIDataオブジェクトのポインタ
-        /// </summary>
-        private IntPtr UnManagedObjectPointer { get; set; }
+		#region プロパティ
+		/// <summary>
+		/// MIDIDataオブジェクトのポインタ
+		/// </summary>
+		private IntPtr UnManagedObjectPointer { get; set; }
 
 		/// <summary>
 		/// MIDIデータのフォーマットを取得、設定します。
@@ -742,173 +742,173 @@ namespace MIDIDataCSWrapper
 		#endregion
 
 		#region 静的メソッド
-        /// <summary>
-        /// 世界樹シーケンスファイル(*.skj)からMIDIデータを読み込み、MIDIデータオブジェクトを作成します。
-        /// </summary>
-        /// <param name="fileName">ファイル名</param>
-        /// <returns></returns>
-        public static MIDIData LoadFromBinary(string fileName)
-        {
-            if (fileName == null)
-            {
-                throw new ArgumentNullException(nameof(fileName));
-            }
+		/// <summary>
+		/// 世界樹シーケンスファイル(*.skj)からMIDIデータを読み込み、MIDIデータオブジェクトを作成します。
+		/// </summary>
+		/// <param name="fileName">ファイル名</param>
+		/// <returns></returns>
+		public static MIDIData LoadFromBinary(string fileName)
+		{
+			if (fileName == null)
+			{
+				throw new ArgumentNullException(nameof(fileName));
+			}
 
-            if (!File.Exists(fileName))
-            {
-                throw new FileNotFoundException(null, fileName);
-            }
+			if (!File.Exists(fileName))
+			{
+				throw new FileNotFoundException(null, fileName);
+			}
 
-            //ロード
-            IntPtr midiDataPtr = MIDIData_LoadFromBinary(fileName);
+			//ロード
+			IntPtr midiDataPtr = MIDIData_LoadFromBinary(fileName);
 
-            if (midiDataPtr == IntPtr.Zero)
-            {
-                throw new MIDIDataLibException("ファイルの読み込みに失敗しました。");
-            }
+			if (midiDataPtr == IntPtr.Zero)
+			{
+				throw new MIDIDataLibException("ファイルの読み込みに失敗しました。");
+			}
 
-            return new MIDIData(midiDataPtr);
-        }
+			return new MIDIData(midiDataPtr);
+		}
 
-        /// <summary>
-        /// スタンダードMIDIファイル(*.mid)からMIDIデータを読み込み、MIDIデータオブジェクトを作成します。
-        /// </summary>
-        /// <param name="fileName">ファイル名</param>
-        /// <returns></returns>
-        public static MIDIData LoadFromSMF(string fileName)
-        {
-            if (fileName == null)
-            {
-                throw new ArgumentNullException(nameof(fileName));
-            }
+		/// <summary>
+		/// スタンダードMIDIファイル(*.mid)からMIDIデータを読み込み、MIDIデータオブジェクトを作成します。
+		/// </summary>
+		/// <param name="fileName">ファイル名</param>
+		/// <returns></returns>
+		public static MIDIData LoadFromSMF(string fileName)
+		{
+			if (fileName == null)
+			{
+				throw new ArgumentNullException(nameof(fileName));
+			}
 
-            if (!File.Exists(fileName))
-            {
-                throw new FileNotFoundException(null, fileName);
-            }
+			if (!File.Exists(fileName))
+			{
+				throw new FileNotFoundException(null, fileName);
+			}
 
-            //ロード
-            IntPtr midiDataPtr = MIDIData_LoadFromSMF(fileName);
+			//ロード
+			IntPtr midiDataPtr = MIDIData_LoadFromSMF(fileName);
 
-            if (midiDataPtr == IntPtr.Zero)
-            {
-                throw new MIDIDataLibException("ファイルの読み込みに失敗しました。");
-            }
+			if (midiDataPtr == IntPtr.Zero)
+			{
+				throw new MIDIDataLibException("ファイルの読み込みに失敗しました。");
+			}
 
-            return new MIDIData(midiDataPtr);
-        }
+			return new MIDIData(midiDataPtr);
+		}
 
-        /// <summary>
-        /// Cherryシーケンスファイル(*.chy)からMIDIデータを読み込み、MIDIデータオブジェクトを作成します。
-        /// </summary>
-        /// <param name="fileName">ファイル名</param>
-        /// <returns></returns>
-        public static MIDIData LoadFromCherry(string fileName)
-        {
-            if (fileName == null)
-            {
-                throw new ArgumentNullException(nameof(fileName));
-            }
+		/// <summary>
+		/// Cherryシーケンスファイル(*.chy)からMIDIデータを読み込み、MIDIデータオブジェクトを作成します。
+		/// </summary>
+		/// <param name="fileName">ファイル名</param>
+		/// <returns></returns>
+		public static MIDIData LoadFromCherry(string fileName)
+		{
+			if (fileName == null)
+			{
+				throw new ArgumentNullException(nameof(fileName));
+			}
 
-            if (!File.Exists(fileName))
-            {
-                throw new FileNotFoundException(null, fileName);
-            }
+			if (!File.Exists(fileName))
+			{
+				throw new FileNotFoundException(null, fileName);
+			}
 
-            //ロード
-            IntPtr midiDataPtr = MIDIData_LoadFromCherry(fileName);
+			//ロード
+			IntPtr midiDataPtr = MIDIData_LoadFromCherry(fileName);
 
-            if (midiDataPtr == IntPtr.Zero)
-            {
-                throw new MIDIDataLibException("ファイルの読み込みに失敗しました。");
-            }
+			if (midiDataPtr == IntPtr.Zero)
+			{
+				throw new MIDIDataLibException("ファイルの読み込みに失敗しました。");
+			}
 
-            return new MIDIData(midiDataPtr);
-        }
+			return new MIDIData(midiDataPtr);
+		}
 
-        /// <summary>
-        /// MIDICSVファイル(*.csv)からMIDIデータを読み込み、MIDIデータオブジェクトを作成します。
-        /// </summary>
-        /// <param name="fileName">ファイル名</param>
-        /// <returns></returns>
-        public static MIDIData LoadFromMIDICSV(string fileName)
-        {
-            if (fileName == null)
-            {
-                throw new ArgumentNullException(nameof(fileName));
-            }
+		/// <summary>
+		/// MIDICSVファイル(*.csv)からMIDIデータを読み込み、MIDIデータオブジェクトを作成します。
+		/// </summary>
+		/// <param name="fileName">ファイル名</param>
+		/// <returns></returns>
+		public static MIDIData LoadFromMIDICSV(string fileName)
+		{
+			if (fileName == null)
+			{
+				throw new ArgumentNullException(nameof(fileName));
+			}
 
-            if (!File.Exists(fileName))
-            {
-                throw new FileNotFoundException(null, fileName);
-            }
+			if (!File.Exists(fileName))
+			{
+				throw new FileNotFoundException(null, fileName);
+			}
 
-            //ロード
-            IntPtr midiDataPtr = MIDIData_LoadFromMIDICSV(fileName);
+			//ロード
+			IntPtr midiDataPtr = MIDIData_LoadFromMIDICSV(fileName);
 
-            if (midiDataPtr == IntPtr.Zero)
-            {
-                throw new MIDIDataLibException("ファイルの読み込みに失敗しました。");
-            }
+			if (midiDataPtr == IntPtr.Zero)
+			{
+				throw new MIDIDataLibException("ファイルの読み込みに失敗しました。");
+			}
 
-            return new MIDIData(midiDataPtr);
-        }
+			return new MIDIData(midiDataPtr);
+		}
 
-        /// <summary>
-        /// 旧Cakewalkシーケンスファイル(*.wrk)からMIDIデータを読み込み、MIDIデータオブジェクトを作成します。
-        /// </summary>
-        /// <param name="fileName">ファイル名</param>
-        /// <returns></returns>
-        public static MIDIData LoadFromWRK(string fileName)
-        {
-            if (fileName == null)
-            {
-                throw new ArgumentNullException(nameof(fileName));
-            }
+		/// <summary>
+		/// 旧Cakewalkシーケンスファイル(*.wrk)からMIDIデータを読み込み、MIDIデータオブジェクトを作成します。
+		/// </summary>
+		/// <param name="fileName">ファイル名</param>
+		/// <returns></returns>
+		public static MIDIData LoadFromWRK(string fileName)
+		{
+			if (fileName == null)
+			{
+				throw new ArgumentNullException(nameof(fileName));
+			}
 
-            if (!File.Exists(fileName))
-            {
-                throw new FileNotFoundException(null, fileName);
-            }
+			if (!File.Exists(fileName))
+			{
+				throw new FileNotFoundException(null, fileName);
+			}
 
-            //ロード
-            IntPtr midiDataPtr = MIDIData_LoadFromWRK(fileName);
+			//ロード
+			IntPtr midiDataPtr = MIDIData_LoadFromWRK(fileName);
 
-            if (midiDataPtr == IntPtr.Zero)
-            {
-                throw new MIDIDataLibException("ファイルの読み込みに失敗しました。");
-            }
+			if (midiDataPtr == IntPtr.Zero)
+			{
+				throw new MIDIDataLibException("ファイルの読み込みに失敗しました。");
+			}
 
-            return new MIDIData(midiDataPtr);
-        }
+			return new MIDIData(midiDataPtr);
+		}
 
-        /// <summary>
-        /// マビノギMMLファイル(*.mmml)からMIDIデータを読み込み、MIDIデータオブジェクトを作成します。
-        /// </summary>
-        /// <param name="fileName">ファイル名</param>
-        /// <returns></returns>
-        public static MIDIData LoadFromMabiMML(string fileName)
-        {
-            if (fileName == null)
-            {
-                throw new ArgumentNullException(nameof(fileName));
-            }
+		/// <summary>
+		/// マビノギMMLファイル(*.mmml)からMIDIデータを読み込み、MIDIデータオブジェクトを作成します。
+		/// </summary>
+		/// <param name="fileName">ファイル名</param>
+		/// <returns></returns>
+		public static MIDIData LoadFromMabiMML(string fileName)
+		{
+			if (fileName == null)
+			{
+				throw new ArgumentNullException(nameof(fileName));
+			}
 
-            if (!File.Exists(fileName))
-            {
-                throw new FileNotFoundException(null, fileName);
-            }
+			if (!File.Exists(fileName))
+			{
+				throw new FileNotFoundException(null, fileName);
+			}
 
-            //ロード
-            IntPtr midiDataPtr = MIDIData_LoadFromMabiMML(fileName);
+			//ロード
+			IntPtr midiDataPtr = MIDIData_LoadFromMabiMML(fileName);
 
-            if (midiDataPtr == IntPtr.Zero)
-            {
-                throw new MIDIDataLibException("ファイルの読み込みに失敗しました。");
-            }
+			if (midiDataPtr == IntPtr.Zero)
+			{
+				throw new MIDIDataLibException("ファイルの読み込みに失敗しました。");
+			}
 
-            return new MIDIData(midiDataPtr);
-        }
+			return new MIDIData(midiDataPtr);
+		}
 		#endregion
 
 		#region コンストラクタ
@@ -917,86 +917,86 @@ namespace MIDIDataCSWrapper
 		/// </summary>
 		/// <param name="midiData">MIDIデータのポインタ</param>
 		internal MIDIData(IntPtr midiData)
-        {
-            UnManagedObjectPointer = midiData;
-        }
+		{
+			UnManagedObjectPointer = midiData;
+		}
 
-        /// <summary>
-        /// MIDIデータをメモリ上に新規生成します
-        /// </summary>
-        /// <param name="format">フォーマット</param>
-        /// <param name="numTrack">初期トラック数(0～)</param>
-        /// <param name="timeMode">タイムモード</param>
-        /// <param name="timeResolution">タイムレゾリューション</param>
-        public MIDIData(Formats format, int numTrack, TimeModes timeMode, int timeResolution)
-        {
-            UnManagedObjectPointer = MIDIData_Create((int)format, numTrack, (int)timeMode, timeResolution);
-            if (UnManagedObjectPointer == IntPtr.Zero)
-            {
-                throw new MIDIDataLibException("MIDIデータの作成に失敗しました。");
-            }
-        }
+		/// <summary>
+		/// MIDIデータをメモリ上に新規生成します
+		/// </summary>
+		/// <param name="format">フォーマット</param>
+		/// <param name="numTrack">初期トラック数(0～)</param>
+		/// <param name="timeMode">タイムモード</param>
+		/// <param name="timeResolution">タイムレゾリューション</param>
+		public MIDIData(Formats format, int numTrack, TimeModes timeMode, int timeResolution)
+		{
+			UnManagedObjectPointer = MIDIData_Create((int)format, numTrack, (int)timeMode, timeResolution);
+			if (UnManagedObjectPointer == IntPtr.Zero)
+			{
+				throw new MIDIDataLibException("MIDIデータの作成に失敗しました。");
+			}
+		}
 
-        /// <summary>
-        /// ファイル名を指定してMIDIデータを初期化します。
-        /// 拡張子で読み込み処理を分岐させます。
-        /// 対応拡張子は、skj,mid,chy,csv,wrk,mmmlです。
-        /// これ以外の拡張子の場合、ArgumentExceptionが投げられます。
-        /// </summary>
-        /// <param name="fileName">ファイル名</param>
-        public MIDIData(string fileName)
-        {
-            if (fileName == null)
-            {
-                throw new ArgumentNullException(nameof(fileName));
-            }
+		/// <summary>
+		/// ファイル名を指定してMIDIデータを初期化します。
+		/// 拡張子で読み込み処理を分岐させます。
+		/// 対応拡張子は、skj,mid,chy,csv,wrk,mmmlです。
+		/// これ以外の拡張子の場合、ArgumentExceptionが投げられます。
+		/// </summary>
+		/// <param name="fileName">ファイル名</param>
+		public MIDIData(string fileName)
+		{
+			if (fileName == null)
+			{
+				throw new ArgumentNullException(nameof(fileName));
+			}
 
-            //ファイルが無い場合
-            if (!File.Exists(fileName))
-            {
-                throw new FileNotFoundException(null, fileName);
-            }
+			//ファイルが無い場合
+			if (!File.Exists(fileName))
+			{
+				throw new FileNotFoundException(null, fileName);
+			}
 
-            //拡張子取得
-            string extension = Path.GetExtension(fileName);
+			//拡張子取得
+			string extension = Path.GetExtension(fileName);
 
-            //拡張子に応じて分岐
-            switch (extension)
-            {
-                case midiExt:
-                    UnManagedObjectPointer = MIDIData_LoadFromSMF(fileName);
-                    break;
+			//拡張子に応じて分岐
+			switch (extension)
+			{
+				case midiExt:
+					UnManagedObjectPointer = MIDIData_LoadFromSMF(fileName);
+					break;
 
-                case skjExt:
-                    UnManagedObjectPointer = MIDIData_LoadFromBinary(fileName);
-                    break;
+				case skjExt:
+					UnManagedObjectPointer = MIDIData_LoadFromBinary(fileName);
+					break;
 
-                case cherryExt:
-                    UnManagedObjectPointer = MIDIData_LoadFromCherry(fileName);
-                    break;
+				case cherryExt:
+					UnManagedObjectPointer = MIDIData_LoadFromCherry(fileName);
+					break;
 
-                case midiCsvExt:
-                    UnManagedObjectPointer = MIDIData_LoadFromMIDICSV(fileName);
-                    break;
+				case midiCsvExt:
+					UnManagedObjectPointer = MIDIData_LoadFromMIDICSV(fileName);
+					break;
 
-                case cakewalkExt:
-                    UnManagedObjectPointer = MIDIData_LoadFromWRK(fileName);
-                    break;
+				case cakewalkExt:
+					UnManagedObjectPointer = MIDIData_LoadFromWRK(fileName);
+					break;
 
-                case mabinogiMMLExt:
-                    UnManagedObjectPointer = MIDIData_LoadFromMabiMML(fileName);
-                    break;
-                
-                default:
-                    throw new ArgumentException("非対応の拡張子です。", nameof(fileName));
-                    break;
-            }
+				case mabinogiMMLExt:
+					UnManagedObjectPointer = MIDIData_LoadFromMabiMML(fileName);
+					break;
 
-            if (UnManagedObjectPointer == IntPtr.Zero)
-            {
-                throw new MIDIDataLibException("ファイル読み込みに失敗しました。");
-            }
-        }
+				default:
+					throw new ArgumentException("非対応の拡張子です。", nameof(fileName));
+					break;
+			}
+
+			if (UnManagedObjectPointer == IntPtr.Zero)
+			{
+				throw new MIDIDataLibException("ファイル読み込みに失敗しました。");
+			}
+		}
 		#endregion
 
 		#region　メソッド
@@ -1324,13 +1324,25 @@ namespace MIDIDataCSWrapper
 		}
 		#endregion
 
+		#region イテレータ
+
+		public IEnumerator<MIDITrack> GetEnumerator()
+		{
+			for (MIDITrack track = this.FirstTrack; track != null; track = track.NextTrack)
+			{
+				yield return track;
+			}
+		}
+
+		#endregion
+
 		#region インデクサー
 		/// <summary>
 		/// 指定トラック番号のトラックを返す。低速なので、頻繁な使用禁止。foreachループを使用すること。
 		/// </summary>
 		/// <param name="index">トラック番号</param>
 		/// <returns></returns>
-		public MIDITrack this [int index]
+		public MIDITrack this[int index]
 		{
 			get
 			{
@@ -1349,10 +1361,10 @@ namespace MIDIDataCSWrapper
 
 		#region ファイナライザー
 		~MIDIData()
-        {
+		{
 			MIDIData_Delete(UnManagedObjectPointer);
 			UnManagedObjectPointer = IntPtr.Zero;
 		}
-        #endregion
-    }
+		#endregion
+	}
 }
