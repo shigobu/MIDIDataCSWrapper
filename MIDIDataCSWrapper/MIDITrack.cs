@@ -1222,14 +1222,14 @@ namespace MIDIDataCSWrapper
 		{
 			get
 			{
-				IntPtr track = MIDITrack_GetPrevTrack(this.UnManagedObjectPointer);
-				if (track == IntPtr.Zero)
+				IntPtr trackPtr = MIDITrack_GetPrevTrack(this.UnManagedObjectPointer);
+				if (trackPtr == IntPtr.Zero)
 				{
 					return null;
 				}
 				else
 				{
-					return new MIDITrack(track);
+					return new MIDITrack(trackPtr);
 				}
 			}
 		}
@@ -1241,14 +1241,14 @@ namespace MIDIDataCSWrapper
 		{
 			get
 			{
-				IntPtr track = MIDITrack_GetNextTrack(this.UnManagedObjectPointer);
-				if (track == IntPtr.Zero)
+				IntPtr trackPtr = MIDITrack_GetNextTrack(this.UnManagedObjectPointer);
+				if (trackPtr == IntPtr.Zero)
 				{
 					return null;
 				}
 				else
 				{
-					return new MIDITrack(track);
+					return new MIDITrack(trackPtr);
 				}
 			}
 		}
@@ -1260,7 +1260,15 @@ namespace MIDIDataCSWrapper
 		{
 			get
 			{
-				return new MIDIData(MIDITrack_GetParent(this.UnManagedObjectPointer));
+				IntPtr dataPtr = MIDITrack_GetParent(this.UnManagedObjectPointer);
+				if (dataPtr == IntPtr.Zero)
+				{
+					return null;
+				}
+				else
+				{
+					return new MIDIData(dataPtr);
+				}
 			}
 		}
 
