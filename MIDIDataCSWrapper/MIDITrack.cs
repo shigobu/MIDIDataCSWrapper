@@ -999,6 +999,57 @@ namespace MIDIDataCSWrapper
 		/// </returns>
 		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
 		private static extern int MIDITrack_MillisecToTime(IntPtr pMIDITrack, int lMillisec);
+
+		/// <summary>
+		/// MIDIデータのタイムモードがTPQNベースの場合、小節：拍：ティックで表されるタイムから、累積ティック単位のタイムを計算してバッファに格納する。
+		/// MIDIデータのタイムモードがSMPTEベースの場合、フレーム：サブフレームで表されるタイムから、累積サブフレーム単位のタイムを計算してバッファに格納する。
+		/// </summary>
+		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+		/// <param name="lMeasure">小節番号(0オリジン)</param>
+		/// <param name="lBeat">拍番号(0オリジン)</param>
+		/// <param name="lTick">ティック番号(0オリジン)</param>
+		/// <param name="pTime">累積ティック単位のタイムを格納するバッファ</param>
+		/// <returns>
+		/// 正常終了：0以外
+		/// 異常終了：0
+		/// </returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDITrack_MakeTime(IntPtr pMIDITrack, int lMeasure, int lBeat, int lTick, out int pTime);
+
+		/// <summary>
+		/// この関数はMIDITrack_MakeTimeと変わらないが、同時に指定時刻における拍子記号情報を得ることができる。
+		/// </summary>
+		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+		/// <param name="lMeasure">小節番号(0オリジン)</param>
+		/// <param name="lBeat">拍番号(0オリジン)</param>
+		/// <param name="lTick">ティック番号(0オリジン)</param>
+		/// <param name="pTime">累積ティック単位のタイムを格納するバッファ</param>
+		/// <param name="pnn">最新拍子記号の分子を格納するバッファ</param>
+		/// <param name="pdd">最新拍子記号の分母の指数部分を格納するバッファ</param>
+		/// <param name="pcc">拍子記号参照</param>
+		/// <param name="pbb">拍子記号参照</param>
+		/// <returns>
+		/// 正常終了：0以外
+		/// 異常終了：0
+		/// </returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDITrack_MakeTimeEx(IntPtr pMIDITrack, int lMeasure, int lBeat, int lTick, out int pTime, out int pnn, out int pdd, out int pcc, out int pbb);
+
+		/// <summary>
+		/// MIDIデータのタイムモードがTPQNベースの場合、指定した累積ティック単位のタイムから、小節：拍：ティックで表されるタイムを計算してバッファに格納する。
+		/// MIDIデータのタイムモードがSMPTEベースの場合、指定したタイムから、フレーム番号とサブフレーム番号(0以上(分解能-1)以下)を計算してバッファに格納する。
+		/// </summary>
+		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+		/// <param name="lTime">分解すべき累積タイム</param>
+		/// <param name="pMeasure">小節番号(0オリジン)を格納するバッファ</param>
+		/// <param name="pBeat">拍番号(0オリジン)を格納するバッファ</param>
+		/// <param name="pTick">ティック番号(0オリジン)を格納するバッファ</param>
+		/// <returns>
+		/// 正常終了：0以外
+		/// 異常終了：0
+		/// </returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDITrack_BreakTime(IntPtr pMIDITrack, int lTime, out int pMeasure, out int pBeat, out int pTick);
 		#endregion
 
 		#region プロパティ
