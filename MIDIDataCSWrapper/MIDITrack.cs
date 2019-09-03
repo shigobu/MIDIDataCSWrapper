@@ -1050,6 +1050,68 @@ namespace MIDIDataCSWrapper
 		/// </returns>
 		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
 		private static extern int MIDITrack_BreakTime(IntPtr pMIDITrack, int lTime, out int pMeasure, out int pBeat, out int pTick);
+
+		/// <summary>
+		/// この関数はMIDITrack_BreakTimeと変わらないが、同時に指定時刻における拍子記号情報を得ることができる。
+		/// </summary>
+		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+		/// <param name="lTime">分解すべき累積タイム</param>
+		/// <param name="pMeasure">小節番号(0オリジン)を格納するバッファ</param>
+		/// <param name="pBeat">拍番号(0オリジン)を格納するバッファ</param>
+		/// <param name="pTick">ティック番号(0オリジン)を格納するバッファ</param>
+		/// <param name="pnn">最新拍子記号の分子を格納するバッファ</param>
+		/// <param name="pdd">最新拍子記号の分母の指数部分を格納するバッファ</param>
+		/// <param name="pcc">拍子記号参照</param>
+		/// <param name="pbb">拍子記号参照</param>
+		/// <returns>
+		/// 正常終了：0以外
+		/// 異常終了：0
+		/// </returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDITrack_BreakTimeEx(IntPtr pMIDITrack, int lTime, out int pMeasure, out int pBeat, out int pTick, out int pnn, out int pdd, out int pcc, out int pbb);
+
+		/// <summary>
+		/// lTimeにおけるテンポ(lTimeにテンポイベントがない場合は直前のテンポ)を調べ、バッファに格納する。
+		/// </summary>
+		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+		/// <param name="lTime">時刻</param>
+		/// <param name="pTempo">テンポを格納するバッファ</param>
+		/// <returns>
+		/// 正常終了：0以外
+		/// 異常終了：0
+		/// </returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDITrack_FindTempo(IntPtr pMIDITrack, int lTime, out int pTempo);
+
+		/// <summary>
+		/// lTimeにおける拍子記号(lTimeに拍子記号イベントがない場合は直前の拍子記号)を調べ、バッファに格納する。
+		/// </summary>
+		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+		/// <param name="lTime">時刻</param>
+		/// <param name="pnn">分子を格納するバッファへのポインタ</param>
+		/// <param name="pdd">分母を格納するバッファへのポインタ</param>
+		/// <param name="pcc">1拍あたりのMIDIクロック数を格納するバッファへのポインタ</param>
+		/// <param name="pbb">1拍当たりの32分音符の数を格納するバッファへのポインタ</param>
+		/// <returns>
+		/// 正常終了：0以外
+		/// 異常終了：0
+		/// </returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDITrack_FindTimeSignature(IntPtr pMIDITrack, int lTime, out int pnn, out int pdd, out int pcc, out int pbb);
+
+		/// <summary>
+		/// lTimeにおける調性記号(lTimeに調性記号イベントがない場合は直前の調性記号)を調べ、バッファに格納する。
+		/// </summary>
+		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
+		/// <param name="lTime">時刻</param>
+		/// <param name="psf">#又は♭の数を格納するバッファへのポインタ</param>
+		/// <param name="pmi">長調か短調かを格納するバッファへのポインタ</param>
+		/// <returns>
+		/// 正常終了：0以外
+		/// 異常終了：0
+		/// </returns>
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDITrack_FindKeySignature(IntPtr pMIDITrack, int lTime, out int psf, out int pmi);
 		#endregion
 
 		#region プロパティ
