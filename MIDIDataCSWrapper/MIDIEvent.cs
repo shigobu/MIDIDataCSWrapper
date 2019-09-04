@@ -14,6 +14,30 @@ namespace MIDIDataCSWrapper
 		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
 		private static extern IntPtr MIDIEvent_Create(int lTime, int lKind, byte[] pData, int lLen);
 
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern IntPtr MIDIEvent_CreateClone(IntPtr pMIDIEvent);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern IntPtr MIDIEvent_CreateSequenceNumber(int lTime, int lNum);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern IntPtr MIDIEvent_CreateTextEvent(int lTime, string pszText);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern IntPtr MIDIEvent_CreateTextEventEx(int lTime, int lCharCode, string pszText);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern IntPtr MIDIEvent_CreateCopyrightNotice(int lTime, string pszText);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern IntPtr MIDIEvent_CreateCopyrightNoticeEx(int lTime, int lCharCode, string pszText);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern IntPtr MIDIEvent_CreateTrackName(int lTime, string pszText);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern IntPtr MIDIEvent_CreateTrackNameEx(int lTime, int lCharCode, string pszText);
+
 		#endregion
 
 		#region 列挙型
