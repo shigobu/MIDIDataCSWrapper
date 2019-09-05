@@ -26,7 +26,7 @@ namespace MIDIDataCSWrapper
 		}
 
 		//文字列バッファのサイズ
-		internal static int BufferSize { get; } = 256;
+		internal static int BufferSize { get; } = 1024;
 
 	}
 }
