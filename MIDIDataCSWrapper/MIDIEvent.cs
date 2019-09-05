@@ -80,6 +80,27 @@ namespace MIDIDataCSWrapper
 		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
 		private static extern IntPtr MIDIEvent_CreatePortPrefix(int lTime, int lNum);
 
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern IntPtr MIDIEvent_CreateEndofTrack(int lTime);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern IntPtr MIDIEvent_CreateTempo(int lTime, int lTempo);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern IntPtr MIDIEvent_CreateSMPTEOffset(int lTime, int lMode, int lHour, int lMin, int lSec, int lFrame, int lSubFrame);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern IntPtr MIDIEvent_CreateTimeSignature(int lTime, int lnn, int ldd, int lcc, int lbb);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern IntPtr MIDIEvent_CreateKeySignature(int lTime, int lsf, int lmi);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern IntPtr MIDIEvent_CreateSequencerSpecific(int lTime, sbyte[] pBuf, int lLen);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern IntPtr MIDIEvent_CreateNoteOff(int lTime, int lCh, int lKey, int lVel);
+
 		#endregion
 
 		#region 列挙型
