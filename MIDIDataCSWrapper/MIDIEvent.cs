@@ -62,6 +62,24 @@ namespace MIDIDataCSWrapper
 		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
 		private static extern IntPtr MIDIEvent_CreateCuePointEx(int lTime, int lCharCode, string pszText);
 
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern IntPtr MIDIEvent_CreateProgramName(int lTime, string pszText);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern IntPtr MIDIEvent_CreateProgramNameEx(int lTime, int lCharCode, string pszText);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern IntPtr MIDIEvent_CreateDeviceName(int lTime, string pszText);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern IntPtr MIDIEvent_CreateDeviceNameEx(int lTime, int lCharCode, string pszText);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern IntPtr MIDIEvent_CreateChannelPrefix(int lTime, int lNum);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern IntPtr MIDIEvent_CreatePortPrefix(int lTime, int lNum);
+
 		#endregion
 
 		#region 列挙型
