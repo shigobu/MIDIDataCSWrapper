@@ -101,6 +101,36 @@ namespace MIDIDataCSWrapper
 		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
 		private static extern IntPtr MIDIEvent_CreateNoteOff(int lTime, int lCh, int lKey, int lVel);
 
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern IntPtr MIDIEvent_CreateNoteOn(int lTime, int lCh, int lKey, int lVel);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern IntPtr MIDIEvent_CreateKeyAftertouch(int lTime, int lCh, int lKey, int lVal);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern IntPtr MIDIEvent_CreateControlChange(int lTime, int lCh, int lNum, int lVal);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern IntPtr MIDIEvent_CreateProgramChange(int lTime, int lCh, int lNum);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern IntPtr MIDIEvent_CreateChannelAftertouch(int lTime, int lCh, int lVal);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern IntPtr MIDIEvent_CreatePitchBend(int lTime, int lCh, int lVal);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern IntPtr MIDIEvent_CreateSysExEvent(int lTime, byte[] pBuf, int lLen);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern IntPtr MIDIEvent_CreateNoteOnNoteOff(int lTime, int lCh, int lKey, int lVel1, int lVel2, int lDur);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern IntPtr MIDIEvent_CreateNoteOnNoteOn0(int lTime, int lCh, int lKey, int lVel, int lDur);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern IntPtr MIDIEvent_CreateNote(int lTime, int lCh, int lKey, int lVel, int lDur);
+
 		#endregion
 
 		#region 列挙型
