@@ -131,6 +131,12 @@ namespace MIDIDataCSWrapper
 		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
 		private static extern IntPtr MIDIEvent_CreateNote(int lTime, int lCh, int lKey, int lVel, int lDur);
 
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_Delete(IntPtr pMIDIEvent);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_DeleteSingle(IntPtr pMIDIEvent);
+
 		#endregion
 
 		#region 列挙型
