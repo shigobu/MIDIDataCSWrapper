@@ -949,11 +949,12 @@ namespace MIDIDataCSWrapper
 		/// <param name="timeResolution">タイムレゾリューション</param>
 		public MIDIData(Formats format, int numTrack, TimeModes timeMode, int timeResolution)
 		{
-			UnManagedObjectPointer = MIDIData_Create((int)format, numTrack, (int)timeMode, timeResolution);
-			if (UnManagedObjectPointer == IntPtr.Zero)
+			IntPtr intPtr = MIDIData_Create((int)format, numTrack, (int)timeMode, timeResolution);
+			if (intPtr == IntPtr.Zero)
 			{
 				throw new MIDIDataLibException("MIDIデータの作成に失敗しました。");
 			}
+			UnManagedObjectPointer = intPtr;
 		}
 
 		/// <summary>
@@ -979,31 +980,32 @@ namespace MIDIDataCSWrapper
 			//拡張子取得
 			string extension = Path.GetExtension(fileName);
 
+			IntPtr intPtr = IntPtr.Zero;
 			//拡張子に応じて分岐
 			switch (extension)
 			{
 				case midiExt:
-					UnManagedObjectPointer = MIDIData_LoadFromSMF(fileName);
+					intPtr = MIDIData_LoadFromSMF(fileName);
 					break;
 
 				case skjExt:
-					UnManagedObjectPointer = MIDIData_LoadFromBinary(fileName);
+					intPtr = MIDIData_LoadFromBinary(fileName);
 					break;
 
 				case cherryExt:
-					UnManagedObjectPointer = MIDIData_LoadFromCherry(fileName);
+					intPtr = MIDIData_LoadFromCherry(fileName);
 					break;
 
 				case midiCsvExt:
-					UnManagedObjectPointer = MIDIData_LoadFromMIDICSV(fileName);
+					intPtr = MIDIData_LoadFromMIDICSV(fileName);
 					break;
 
 				case cakewalkExt:
-					UnManagedObjectPointer = MIDIData_LoadFromWRK(fileName);
+					intPtr = MIDIData_LoadFromWRK(fileName);
 					break;
 
 				case mabinogiMMLExt:
-					UnManagedObjectPointer = MIDIData_LoadFromMabiMML(fileName);
+					intPtr = MIDIData_LoadFromMabiMML(fileName);
 					break;
 
 				default:
@@ -1011,10 +1013,12 @@ namespace MIDIDataCSWrapper
 					break;
 			}
 
-			if (UnManagedObjectPointer == IntPtr.Zero)
+			if (intPtr == IntPtr.Zero)
 			{
 				throw new MIDIDataLibException("ファイル読み込みに失敗しました。");
 			}
+
+			UnManagedObjectPointer = intPtr;
 		}
 		#endregion
 

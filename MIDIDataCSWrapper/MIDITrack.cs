@@ -1598,24 +1598,26 @@ namespace MIDIDataCSWrapper
 		/// </summary>
 		public MIDITrack()
 		{
-			this.UnManagedObjectPointer = MIDITrack_Create();
-			if (this.UnManagedObjectPointer == IntPtr.Zero)
+			IntPtr intPtr = MIDITrack_Create();
+			if (intPtr == IntPtr.Zero)
 			{
 				throw new MIDIDataLibException("MIDIトラックの作成に失敗しました。");
 			}
+			UnManagedObjectPointer = intPtr;
 		}
 
 		/// <summary>
 		/// MIDIトラックを複製して、オブジェクトを初期化します。
 		/// </summary>
-		/// <param name="mIDITrack"></param>
-		public MIDITrack(MIDITrack mIDITrack)
+		/// <param name="midiTrack">複製元のMIDIトラック</param>
+		public MIDITrack(MIDITrack midiTrack)
 		{
-			this.UnManagedObjectPointer = MIDITrack_CreateClone(mIDITrack.UnManagedObjectPointer);
-			if (this.UnManagedObjectPointer == IntPtr.Zero)
+			IntPtr intPtr = MIDITrack_CreateClone(midiTrack.UnManagedObjectPointer);
+			if (intPtr == IntPtr.Zero)
 			{
 				throw new MIDIDataLibException("MIDIトラックの複製に失敗しました。");
 			}
+			UnManagedObjectPointer = intPtr;
 		}
 
 		/// <summary>

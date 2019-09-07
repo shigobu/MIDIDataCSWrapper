@@ -648,11 +648,12 @@ namespace MIDIDataCSWrapper
 		/// <param name="data">データ部</param>
 		public MIDIEvent(int time, Kinds kind, byte[] data)
 		{
-			UnManagedObjectPointer = MIDIEvent_Create(time, (int)kind, data, data.Length);
-			if (UnManagedObjectPointer == IntPtr.Zero)
+			IntPtr intPtr = MIDIEvent_Create(time, (int)kind, data, data.Length);
+			if (intPtr == IntPtr.Zero)
 			{
 				throw new MIDIDataLibException("MIDIイベントの生成に失敗しました。");
 			}
+			UnManagedObjectPointer = intPtr;
 		}
 
 		/// <summary>
@@ -661,11 +662,26 @@ namespace MIDIDataCSWrapper
 		/// <param name="midiEvent">コピー元となる任意のMIDIイベント</param>
 		public MIDIEvent(MIDIEvent midiEvent)
 		{
-			UnManagedObjectPointer = MIDIEvent_CreateClone(midiEvent.UnManagedObjectPointer);
-			if (UnManagedObjectPointer == IntPtr.Zero)
+			IntPtr intPtr = MIDIEvent_CreateClone(midiEvent.UnManagedObjectPointer);
+			if (intPtr == IntPtr.Zero)
 			{
 				throw new MIDIDataLibException("MIDIイベントの複製に失敗しました。");
 			}
+			UnManagedObjectPointer = intPtr;
+		}
+
+		#endregion
+
+		#region メソッド
+
+		public static MIDIEvent CreateSequenceNumber(int time, int num)
+		{
+			IntPtr intPtr = MIDIEvent_CreateSequenceNumber(time, num);
+			if (intPtr == IntPtr.Zero)
+			{
+				throw new MIDIDataLibException("シーケンス番号イベントの生成に失敗しました。");
+			}
+			return new MIDIEvent(intPtr);
 		}
 
 		#endregion
