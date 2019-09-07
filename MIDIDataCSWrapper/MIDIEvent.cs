@@ -329,7 +329,77 @@ namespace MIDIDataCSWrapper
 		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
 		private static extern IntPtr MIDIEvent_GetParent(IntPtr pMIDIEvent);
 
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_SetTime(IntPtr pMIDIEvent, int lTime);
 
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_SetTimeSingle(IntPtr pMIDIEvent, int lTime);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_SetKind(IntPtr pMIDIEvent, int lKind);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_SetData(IntPtr pMIDIEvent, byte[] pData, int lLen);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_SetCharCode(IntPtr pMIDIEvent, int lCharCode);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_SetText(IntPtr pMIDIEvent, string pszText);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_SetTempo(IntPtr pMIDIEvent, int lTempo);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern IntPtr MIDIEvent_SetSMPTEOffset(IntPtr pMIDIEvent, int pMode, int lHour, int lMin, int lSec, int lFrame, int lff);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_SetTimeSignature(IntPtr pMIDIEvent, int lnn, int ldd, int lcc, int lbb);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_SetKeySignature(IntPtr pMIDIEvent, int lsf, int lmi);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_SetMIDIMessage(IntPtr pMIDIEvent, sbyte[] pMessage, int lLen);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_SetChannel(IntPtr pMIDIEvent, int lChannel);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_SetKey(IntPtr pMIDIEvent, int lKey);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_SetVelocity(IntPtr pMIDIEvent, int lVelocity);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_SetDuration(IntPtr pMIDIEvent, int lDuration);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_SetNumber(IntPtr pMIDIEvent, int lNumber);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_SetValue(IntPtr pMIDIEvent, int lValue);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_SetBank(IntPtr pMIDIEvent, int lBank);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_SetBankMSB(IntPtr pMIDIEvent, int lBankMSB);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_SetBankLSB(IntPtr pMIDIEvent, int lBankLSB);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_SetDataEntryMSB(IntPtr pMIDIEvent, int lDataEntryMSB);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_SetPatchNum(IntPtr pMIDIEvent, int lNum);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_Combine(IntPtr pMIDIEvent);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_Chop(IntPtr pMIDIEvent);
 
 		#endregion
 
