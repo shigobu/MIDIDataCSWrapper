@@ -695,6 +695,22 @@ namespace MIDIDataCSWrapper
 			return new MIDIEvent(intPtr);
 		}
 
+		/// <summary>
+		/// テキストイベントを生成する。
+		/// </summary>
+		/// <param name="time">絶対時刻</param>
+		/// <param name="text">文字列</param>
+		/// <returns>テキストイベント</returns>
+		public static MIDIEvent CreateTextEvent(int time, string text)
+		{
+			IntPtr intPtr = MIDIEvent_CreateTextEvent(time, text);
+			if (intPtr == IntPtr.Zero)
+			{
+				throw new MIDIDataLibException("テキストイベントの生成に失敗しました。");
+			}
+			return new MIDIEvent(intPtr);
+		}
+
 		#endregion
 
 	}
