@@ -137,6 +137,111 @@ namespace MIDIDataCSWrapper
 		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
 		private static extern int MIDIEvent_DeleteSingle(IntPtr pMIDIEvent);
 
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_IsMetaEvent(IntPtr pMIDIEvent);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_IsSequenceNumber(IntPtr pMIDIEvent);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_IsTextEvent(IntPtr pMIDIEvent);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_IsCopyrightNotice(IntPtr pMIDIEvent);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_IsInstrumentName(IntPtr pMIDIEvent);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_IsLyric(IntPtr pMIDIEvent);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_IsMarker(IntPtr pMIDIEvent);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_IsCuePoint(IntPtr pMIDIEvent);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_IsProgramName(IntPtr pMIDIEvent);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_IsDeviceName(IntPtr pMIDIEvent);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_IsChannelPrefix(IntPtr pMIDIEvent);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_IsPortPrefix(IntPtr pMIDIEvent);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_IsEndofTrack(IntPtr pMIDIEvent);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_IsTempo(IntPtr pMIDIEvent);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_IsSMPTEOffset(IntPtr pMIDIEvent);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_IsTimeSignature(IntPtr pMIDIEvent);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_IsKeySignature(IntPtr pMIDIEvent);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_IsSequencerSpecific(IntPtr pMIDIEvent);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_IsMIDIEvent(IntPtr pMIDIEvent);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_IsNoteOff(IntPtr pMIDIEvent);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_IsNoteOn(IntPtr pMIDIEvent);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_IsKeyAftertouch(IntPtr pMIDIEvent);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_IsProgramChange(IntPtr pMIDIEvent);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_IsControlChange(IntPtr pMIDIEvent);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_IsChannelAftertouch(IntPtr pMIDIEvent);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_IsPitchBend(IntPtr pMIDIEvent);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_IsSysExEvent(IntPtr pMIDIEvent);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_IsFloating(IntPtr pMIDIEvent);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_IsCombined(IntPtr pMIDIEvent);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_IsNoteOnNoteOff(IntPtr pMIDIEvent);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_IsNoteOnNoteOn0(IntPtr pMIDIEvent);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_IsNote(IntPtr pMIDIEvent);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_IsPatchChange(IntPtr pMIDIEvent);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_IsRPNChange(IntPtr pMIDIEvent);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_IsNRPNChange(IntPtr pMIDIEvent);
+
 		#endregion
 
 		#region 列挙型
