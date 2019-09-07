@@ -603,16 +603,39 @@ namespace MIDIDataCSWrapper
 		#endregion
 
 		#region プロパティ
-		internal IntPtr UnManagedObjectPointer { get; private set; }
-        #endregion
 
-        #region コンストラクタ
+		private IntPtr _unManagedObjectPointer = IntPtr.Zero;
+		/// <summary>
+		/// アンマネージドのオブジェクトポインタ
+		/// </summary>
+		internal IntPtr UnManagedObjectPointer
+		{
+			get
+			{
+				if (_unManagedObjectPointer != IntPtr.Zero)
+				{
+					return _unManagedObjectPointer;
+				}
+				else
+				{
+					throw new MIDIDataLibException("UnManagedObjectPointerはnullです。");
+				}
+			}
+			private set
+			{
+				_unManagedObjectPointer = value;
+			}
+		}
 
-        /// <summary>
-        /// MIDIイベントのポインタを指定して、オブジェクトを初期化します。
-        /// </summary>
-        /// <param name="intPtr">MIDIイベントのポインタ</param>
-        internal MIDIEvent(IntPtr intPtr)
+		#endregion
+
+		#region コンストラクタ
+
+		/// <summary>
+		/// MIDIイベントのポインタを指定して、オブジェクトを初期化します。
+		/// </summary>
+		/// <param name="intPtr">MIDIイベントのポインタ</param>
+		internal MIDIEvent(IntPtr intPtr)
         {
             UnManagedObjectPointer = intPtr;
         }

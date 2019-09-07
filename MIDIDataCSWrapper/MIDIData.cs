@@ -553,10 +553,29 @@ namespace MIDIDataCSWrapper
 		#endregion
 
 		#region プロパティ
+
+		private IntPtr _unManagedObjectPointer = IntPtr.Zero;
 		/// <summary>
 		/// MIDIDataオブジェクトのポインタ
 		/// </summary>
-		private IntPtr UnManagedObjectPointer { get; set; }
+		private IntPtr UnManagedObjectPointer
+		{
+			get
+			{
+				if (_unManagedObjectPointer != IntPtr.Zero)
+				{
+					return _unManagedObjectPointer;
+				}
+				else
+				{
+					throw new MIDIDataLibException("UnManagedObjectPointerはnullです。");
+				}
+			}
+			set
+			{
+				_unManagedObjectPointer = value;
+			}
+		}
 
 		/// <summary>
 		/// MIDIデータのフォーマットを取得、設定します。

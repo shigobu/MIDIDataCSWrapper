@@ -1115,10 +1115,29 @@ namespace MIDIDataCSWrapper
 		#endregion
 
 		#region プロパティ
+
+		private IntPtr _unManagedObjectPointer = IntPtr.Zero;
 		/// <summary>
 		/// アンマネージドのオブジェクトポインタ
 		/// </summary>
-		internal IntPtr UnManagedObjectPointer { get; private set; }
+		internal IntPtr UnManagedObjectPointer
+		{
+			get
+			{
+				if (_unManagedObjectPointer != IntPtr.Zero)
+				{
+					return _unManagedObjectPointer;
+				}
+				else
+				{
+					throw new MIDIDataLibException("UnManagedObjectPointerはnullです。");
+				}
+			}
+			private set
+			{
+				_unManagedObjectPointer = value;
+			}
+		}
 
 		/// <summary>
 		/// MIDIトラックが浮遊トラックであるかどうか調べる。
