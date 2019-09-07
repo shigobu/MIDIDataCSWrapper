@@ -242,6 +242,95 @@ namespace MIDIDataCSWrapper
 		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
 		private static extern int MIDIEvent_IsNRPNChange(IntPtr pMIDIEvent);
 
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_GetTime(IntPtr pMIDIEvent);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_GetKind(IntPtr pMIDIEvent);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_GetLen(IntPtr pMIDIEvent);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_GetData(IntPtr pMIDIEvent, IntPtr pData, int lLen);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_GetCharCode(IntPtr pMIDIEvent);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern IntPtr MIDIEvent_GetText(IntPtr pMIDIEvent, StringBuilder pData, int lLen);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_GetTempo(IntPtr pMIDIEvent);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_GetSMPTEOffset(IntPtr pMIDIEvent, out int pMode, out int pHour, out int pMin, out int pSec, out int pFrame, out int pSubFrame);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_GetTimeSignature(IntPtr pMIDIEvent, out int pnn, out int pdd, out int pcc, out int pbb);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_GetKeySignature(IntPtr pMIDIEvent, out int psf, out int pmi);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_GetMIDIMessage(IntPtr pMIDIEvent, IntPtr pMessage, int lLen);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_GetChannel(IntPtr pMIDIEvent);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_GetKey(IntPtr pMIDIEvent);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_GetVelocity(IntPtr pMIDIEvent);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_GetDuration(IntPtr pMIDIEvent);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_GetNumber(IntPtr pMIDIEvent);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_GetValue(IntPtr pMIDIEvent);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_GetBank(IntPtr pMIDIEvent);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_GetBankMSB(IntPtr pMIDIEvent);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_GetBankLSB(IntPtr pMIDIEvent);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_GetDataEntryMSB(IntPtr pMIDIEvent);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_GetPatchNum(IntPtr pMIDIEvent);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern IntPtr MIDIEvent_GetNextEvent(IntPtr pMIDIEvent);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern IntPtr MIDIEvent_GetPrevEvent(IntPtr pMIDIEvent);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern IntPtr MIDIEvent_GetNextSameKindEvent(IntPtr pMIDIEvent);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern IntPtr MIDIEvent_GetPrevSameKindEvent(IntPtr pMIDIEvent);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern IntPtr MIDIEvent_GetFirstCombinedEvent(IntPtr pMIDIEvent);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern IntPtr MIDIEvent_GetLastCombinedEvent(IntPtr pMIDIEvent);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern IntPtr MIDIEvent_GetParent(IntPtr pMIDIEvent);
+
+
+
 		#endregion
 
 		#region 列挙型
