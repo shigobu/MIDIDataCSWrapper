@@ -672,10 +672,21 @@ namespace MIDIDataCSWrapper
 
 		#endregion
 
-		#region メソッド
+		#region 静的メソッド
 
+		/// <summary>
+		/// シーケンス番号イベントを生成する。
+		/// </summary>
+		/// <param name="time">絶対時刻</param>
+		/// <param name="num">シーケンス番号(0～65535)</param>
+		/// <returns>シーケンス番号イベント</returns>
 		public static MIDIEvent CreateSequenceNumber(int time, int num)
 		{
+			if (num < 0 || 65535 < num)
+			{
+				throw new ArgumentOutOfRangeException(nameof(num), "シーケンス番号は、0から65535の範囲内である必要があります。");
+			}
+
 			IntPtr intPtr = MIDIEvent_CreateSequenceNumber(time, num);
 			if (intPtr == IntPtr.Zero)
 			{
