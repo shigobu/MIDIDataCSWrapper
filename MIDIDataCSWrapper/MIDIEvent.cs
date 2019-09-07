@@ -612,12 +612,40 @@ namespace MIDIDataCSWrapper
         /// MIDIイベントのポインタを指定して、オブジェクトを初期化します。
         /// </summary>
         /// <param name="intPtr">MIDIイベントのポインタ</param>
-        public MIDIEvent(IntPtr intPtr)
+        internal MIDIEvent(IntPtr intPtr)
         {
             UnManagedObjectPointer = intPtr;
         }
 
-        #endregion
+		/// <summary>
+		/// 必要な情報を入力して、オブジェクトを初期化します。
+		/// </summary>
+		/// <param name="time">絶対時刻</param>
+		/// <param name="kind">イベントの種類</param>
+		/// <param name="data">データ部</param>
+		public MIDIEvent(int time, Kinds kind, byte[] data)
+		{
+			UnManagedObjectPointer = MIDIEvent_Create(time, (int)kind, data, data.Length);
+			if (UnManagedObjectPointer == IntPtr.Zero)
+			{
+				throw new MIDIDataLibException("MIDIイベントの生成に失敗しました。");
+			}
+		}
 
-    }
+		/// <summary>
+		/// 指定のオブジェクトを複製します。
+		/// </summary>
+		/// <param name="midiEvent">コピー元となる任意のMIDIイベント</param>
+		public MIDIEvent(MIDIEvent midiEvent)
+		{
+			UnManagedObjectPointer = MIDIEvent_CreateClone(midiEvent.UnManagedObjectPointer);
+			if (UnManagedObjectPointer == IntPtr.Zero)
+			{
+				throw new MIDIDataLibException("MIDIイベントの複製に失敗しました。");
+			}
+		}
+
+		#endregion
+
+	}
 }
