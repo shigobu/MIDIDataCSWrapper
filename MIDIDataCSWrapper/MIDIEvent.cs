@@ -728,6 +728,138 @@ namespace MIDIDataCSWrapper
 			return new MIDIEvent(intPtr);
 		}
 
+		/// <summary>
+		/// 著作権イベントを生成する。
+		/// </summary>
+		/// <param name="time">絶対時刻</param>
+		/// <param name="text">文字列</param>
+		/// <returns>著作権イベント</returns>
+		public static MIDIEvent CreateCopyrightNotice(int time, string text)
+		{
+			IntPtr intPtr = MIDIEvent_CreateCopyrightNotice(time, text);
+			if (intPtr == IntPtr.Zero)
+			{
+				throw new MIDIDataLibException("著作権イベントの生成に失敗しました。");
+			}
+			return new MIDIEvent(intPtr);
+		}
+
+		/// <summary>
+		/// 文字コードを指定して著作権イベントを生成する。
+		/// </summary>
+		/// <param name="time">絶対時刻</param>
+		/// <param name="charCode">文字コード</param>
+		/// <param name="text">文字列</param>
+		/// <returns>著作権イベント</returns>
+		public static MIDIEvent CreateCopyrightNoticeEx(int time, CharCodes charCode, string text)
+		{
+			IntPtr intPtr = MIDIEvent_CreateCopyrightNoticeEx(time, (int)charCode, text);
+			if (intPtr == IntPtr.Zero)
+			{
+				throw new MIDIDataLibException("著作権イベントの生成に失敗しました。");
+			}
+			return new MIDIEvent(intPtr);
+		}
+
+		/// <summary>
+		/// シーケンス名・トラック名イベントを生成する。
+		/// </summary>
+		/// <param name="time">絶対時刻</param>
+		/// <param name="text">文字列</param>
+		/// <returns>シーケンス名・トラック名イベント</returns>
+		public static MIDIEvent CreateTrackName(int time, string text)
+		{
+			IntPtr intPtr = MIDIEvent_CreateTrackName(time, text);
+			if (intPtr == IntPtr.Zero)
+			{
+				throw new MIDIDataLibException("シーケンス名・トラック名イベントの生成に失敗しました。");
+			}
+			return new MIDIEvent(intPtr);
+		}
+
+		/// <summary>
+		/// 文字コードを指定してシーケンス名・トラック名イベントを生成する。
+		/// </summary>
+		/// <param name="time">絶対時刻</param>
+		/// <param name="charCode">文字コード</param>
+		/// <param name="text">文字列</param>
+		/// <returns>シーケンス名・トラック名イベント</returns>
+		public static MIDIEvent CreateTrackNameEx(int time,CharCodes charCode, string text)
+		{
+			IntPtr intPtr = MIDIEvent_CreateTrackNameEx(time, (int)charCode, text);
+			if (intPtr == IntPtr.Zero)
+			{
+				throw new MIDIDataLibException("シーケンス名・トラック名イベントの生成に失敗しました。");
+			}
+			return new MIDIEvent(intPtr);
+		}
+
+		/// <summary>
+		/// インストゥルメント名イベントを生成する。
+		/// </summary>
+		/// <param name="time">絶対時刻</param>
+		/// <param name="text">文字列</param>
+		/// <returns>インストゥルメント名イベント</returns>
+		public static MIDIEvent CreateInstrumentName(int time, string text)
+		{
+			IntPtr intPtr = MIDIEvent_CreateInstrumentName(time, text);
+			if (intPtr == IntPtr.Zero)
+			{
+				throw new MIDIDataLibException("インストゥルメント名イベントの生成に失敗しました。");
+			}
+			return new MIDIEvent(intPtr);
+		}
+
+		/// <summary>
+		/// 文字コードを指定してインストゥルメント名イベントを生成する。
+		/// </summary>
+		/// <param name="time">絶対時刻</param>
+		/// <param name="charCode">文字コード</param>
+		/// <param name="text">文字列</param>
+		/// <returns>インストゥルメント名イベント</returns>
+		public static MIDIEvent CreateInstrumentNameEx(int time, CharCodes charCode, string text)
+		{
+			IntPtr intPtr = MIDIEvent_CreateInstrumentNameEx(time, (int)charCode, text);
+			if (intPtr == IntPtr.Zero)
+			{
+				throw new MIDIDataLibException("インストゥルメント名イベントの生成に失敗しました。");
+			}
+			return new MIDIEvent(intPtr);
+		}
+
+		/// <summary>
+		/// 歌詞イベントを生成する。
+		/// </summary>
+		/// <param name="time">絶対時刻</param>
+		/// <param name="text">文字列</param>
+		/// <returns>歌詞イベント</returns>
+		public static MIDIEvent CreateLyric(int time, string text)
+		{
+			IntPtr intPtr = MIDIEvent_CreateLyric(time, text);
+			if (intPtr == IntPtr.Zero)
+			{
+				throw new MIDIDataLibException("歌詞イベントの生成に失敗しました。");
+			}
+			return new MIDIEvent(intPtr);
+		}
+
+		/// <summary>
+		/// 文字コードを指定して歌詞イベントを生成する。
+		/// </summary>
+		/// <param name="time">絶対時刻</param>
+		/// <param name="charCode">文字コード</param>
+		/// <param name="text">文字列</param>
+		/// <returns>歌詞イベント</returns>
+		public static MIDIEvent CreateLyricEx(int time, CharCodes charCode, string text)
+		{
+			IntPtr intPtr = MIDIEvent_CreateLyricEx(time, (int)charCode, text);
+			if (intPtr == IntPtr.Zero)
+			{
+				throw new MIDIDataLibException("歌詞イベントの生成に失敗しました。");
+			}
+			return new MIDIEvent(intPtr);
+		}
+
 		#endregion
 
 	}
