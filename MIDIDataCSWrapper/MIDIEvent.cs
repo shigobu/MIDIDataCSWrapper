@@ -860,6 +860,72 @@ namespace MIDIDataCSWrapper
 			return new MIDIEvent(intPtr);
 		}
 
+		/// <summary>
+		/// マーカーイベントを生成する。
+		/// </summary>
+		/// <param name="time">絶対時刻</param>
+		/// <param name="text">文字列</param>
+		/// <returns>マーカーイベント</returns>
+		public static MIDIEvent CreateMarker(int time, string text)
+		{
+			IntPtr intPtr = MIDIEvent_CreateMarker(time, text);
+			if (intPtr == IntPtr.Zero)
+			{
+				throw new MIDIDataLibException("マーカーイベントの生成に失敗しました。");
+			}
+			return new MIDIEvent(intPtr);
+		}
+
+		/// <summary>
+		/// 文字コードを指定してマーカーイベントを生成する。
+		/// </summary>
+		/// <param name="time">絶対時刻</param>
+		/// <param name="charCode">文字コード</param>
+		/// <param name="text">文字列</param>
+		/// <returns>マーカーイベント</returns>
+		public static MIDIEvent CreateMarkerEx(int time, CharCodes charCode, string text)
+		{
+			IntPtr intPtr = MIDIEvent_CreateMarkerEx(time, (int)charCode, text);
+			if (intPtr == IntPtr.Zero)
+			{
+				throw new MIDIDataLibException("マーカーイベントの生成に失敗しました。");
+			}
+			return new MIDIEvent(intPtr);
+		}
+
+		/// <summary>
+		/// キューポイントイベントを生成する。
+		/// </summary>
+		/// <param name="time">絶対時刻</param>
+		/// <param name="text">文字列</param>
+		/// <returns>キューポイントイベント</returns>
+		public static MIDIEvent CreateCuePoint(int time, string text)
+		{
+			IntPtr intPtr = MIDIEvent_CreateCuePoint(time, text);
+			if (intPtr == IntPtr.Zero)
+			{
+				throw new MIDIDataLibException("キューポイントイベントの生成に失敗しました。");
+			}
+			return new MIDIEvent(intPtr);
+		}
+
+		/// <summary>
+		/// 文字コードを指定してキューポイントイベントを生成する。
+		/// </summary>
+		/// <param name="time">絶対時刻</param>
+		/// <param name="charCode">文字コード</param>
+		/// <param name="text">文字列</param>
+		/// <returns>キューポイントイベント</returns>
+		public static MIDIEvent CreateCuePointEx(int time, CharCodes charCode, string text)
+		{
+			IntPtr intPtr = MIDIEvent_CreateCuePointEx(time, (int)charCode, text);
+			if (intPtr == IntPtr.Zero)
+			{
+				throw new MIDIDataLibException("キューポイントイベントの生成に失敗しました。");
+			}
+			return new MIDIEvent(intPtr);
+		}
+
 		#endregion
 
 	}
