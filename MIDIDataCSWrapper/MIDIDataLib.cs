@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MIDIDataCSWrapper
 {
-	public class MIDIDataLib
+	public static class MIDIDataLib
 	{
 		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
 		private static extern int MIDIDataLib_SetDefaultCharCode(int lCharCode);
@@ -25,7 +25,9 @@ namespace MIDIDataCSWrapper
 			}
 		}
 
-		//文字列バッファのサイズ
+		/// <summary>
+		/// MIDIDataライブラリ内で使用する文字列バッファのサイズ。
+		/// </summary>		
 		internal static int BufferSize { get; } = 1024;
 
 	}
