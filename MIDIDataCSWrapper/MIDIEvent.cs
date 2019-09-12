@@ -1032,6 +1032,101 @@ namespace MIDIDataCSWrapper
 			return new MIDIEvent(intPtr);
 		}
 
+		/// <summary>
+		/// エンドオブトラックイベントを生成する。
+		/// </summary>
+		/// <param name="time">絶対時刻</param>
+		/// <returns>エンドオブトラックイベント</returns>
+		public static MIDIEvent CreateEndofTrack(int time)
+		{
+			IntPtr intPtr = MIDIEvent_CreateEndofTrack(time);
+			if (intPtr == IntPtr.Zero)
+			{
+				throw new MIDIDataLibException("エンドオブトラックイベントの生成に失敗しました。");
+			}
+			return new MIDIEvent(intPtr);
+		}
+
+		/// <summary>
+		/// テンポイベントを生成する。
+		/// </summary>
+		/// <param name="time">絶対時刻</param>
+		/// <param name="tempo">テンポ</param>
+		/// <returns>テンポイベント</returns>
+		public static MIDIEvent CreateTempo(int time, int tempo)
+		{
+			IntPtr intPtr = MIDIEvent_CreateTempo(time, tempo);
+			if (intPtr == IntPtr.Zero)
+			{
+				throw new MIDIDataLibException("テンポイベントの生成に失敗しました。");
+			}
+			return new MIDIEvent(intPtr);
+		}
+
+		/// <summary>
+		/// SMPTEオフセットイベントを生成する。
+		/// </summary>
+		/// <param name="time">絶対時刻</param>
+		/// <param name="offset">MPTEオフセット</param>
+		/// <returns>SMPTEオフセットイベント</returns>
+		public static MIDIEvent CreateSMPTEOffset(int time, SMPTEOffset offset)
+		{
+			IntPtr intPtr = MIDIEvent_CreateSMPTEOffset(time, (int)offset.Mode, offset.Hour, offset.Min, offset.Sec, offset.Frame, offset.SubFrame);
+			if (intPtr == IntPtr.Zero)
+			{
+				throw new MIDIDataLibException("SMPTEオフセットイベントの生成に失敗しました。");
+			}
+			return new MIDIEvent(intPtr);
+		}
+
+		/// <summary>
+		/// 拍子記号イベントを生成する。
+		/// </summary>
+		/// <param name="time">絶対時刻</param>
+		/// <param name="timeSignature">拍子記号</param>
+		/// <returns>拍子記号イベント</returns>
+		public static MIDIEvent CreateTimeSignature(int time, TimeSignature timeSignature)
+		{
+			IntPtr intPtr = MIDIEvent_CreateTimeSignature(time, timeSignature.nn, timeSignature.dd, timeSignature.cc, timeSignature.bb);
+			if (intPtr == IntPtr.Zero)
+			{
+				throw new MIDIDataLibException("拍子記号イベントの生成に失敗しました。");
+			}
+			return new MIDIEvent(intPtr);
+		}
+
+		/// <summary>
+		/// 調性記号イベントを生成する。
+		/// </summary>
+		/// <param name="time">絶対時刻</param>
+		/// <param name="keySignature">調性記号</param>
+		/// <returns>調性記号イベント</returns>
+		public static MIDIEvent CreateKeySignature(int time, KeySignature keySignature)
+		{
+			IntPtr intPtr = MIDIEvent_CreateKeySignature(time, keySignature.sf, (int)keySignature.mi);
+			if (intPtr == IntPtr.Zero)
+			{
+				throw new MIDIDataLibException("調性記号イベントの生成に失敗しました。");
+			}
+			return new MIDIEvent(intPtr);
+		}
+
+		/// <summary>
+		/// シーケンサー独自のイベントを生成する。
+		/// </summary>
+		/// <param name="time">絶対時刻</param>
+		/// <param name="buf">データ部</param>
+		/// <returns>シーケンサー独自のイベント</returns>
+		public static MIDIEvent CreateSequencerSpecific(int time, sbyte[] buf)
+		{
+			IntPtr intPtr = MIDIEvent_CreateSequencerSpecific(time, buf, buf.Length);
+			if (intPtr == IntPtr.Zero)
+			{
+				throw new MIDIDataLibException("シーケンサー独自のイベントの生成に失敗しました。");
+			}
+			return new MIDIEvent(intPtr);
+		}
+
 		#endregion
 
 	}
