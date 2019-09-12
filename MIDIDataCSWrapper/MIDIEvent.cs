@@ -926,6 +926,112 @@ namespace MIDIDataCSWrapper
 			return new MIDIEvent(intPtr);
 		}
 
+		/// <summary>
+		/// プログラム名イベントを生成する。
+		/// </summary>
+		/// <param name="time">絶対時刻</param>
+		/// <param name="text">文字列</param>
+		/// <returns>プログラム名イベント</returns>
+		public static MIDIEvent CreateProgramName(int time, string text)
+		{
+			IntPtr intPtr = MIDIEvent_CreateProgramName(time, text);
+			if (intPtr == IntPtr.Zero)
+			{
+				throw new MIDIDataLibException("プログラム名イベントの生成に失敗しました。");
+			}
+			return new MIDIEvent(intPtr);
+		}
+
+		/// <summary>
+		/// 文字コードを指定してプログラム名イベントを生成する。
+		/// </summary>
+		/// <param name="time">絶対時刻</param>
+		/// <param name="charCode">文字コード</param>
+		/// <param name="text">文字列</param>
+		/// <returns>プログラム名イベント</returns>
+		public static MIDIEvent CreateProgramNameEx(int time, CharCodes charCode, string text)
+		{
+			IntPtr intPtr = MIDIEvent_CreateProgramNameEx(time, (int)charCode, text);
+			if (intPtr == IntPtr.Zero)
+			{
+				throw new MIDIDataLibException("プログラム名イベントの生成に失敗しました。");
+			}
+			return new MIDIEvent(intPtr);
+		}
+
+		/// <summary>
+		/// デバイス名イベントを生成する。
+		/// </summary>
+		/// <param name="time">絶対時刻</param>
+		/// <param name="text">文字列</param>
+		/// <returns>デバイス名イベント</returns>
+		public static MIDIEvent CreateDeviceName(int time, string text)
+		{
+			IntPtr intPtr = MIDIEvent_CreateDeviceName(time, text);
+			if (intPtr == IntPtr.Zero)
+			{
+				throw new MIDIDataLibException("デバイス名イベントの生成に失敗しました。");
+			}
+			return new MIDIEvent(intPtr);
+		}
+
+		/// <summary>
+		/// 文字コードを指定してデバイス名イベントを生成する。
+		/// </summary>
+		/// <param name="time">絶対時刻</param>
+		/// <param name="charCode">文字コード</param>
+		/// <param name="text">文字列</param>
+		/// <returns>デバイス名イベント</returns>
+		public static MIDIEvent CreateDeviceNameEx(int time, CharCodes charCode, string text)
+		{
+			IntPtr intPtr = MIDIEvent_CreateDeviceNameEx(time, (int)charCode, text);
+			if (intPtr == IntPtr.Zero)
+			{
+				throw new MIDIDataLibException("デバイス名イベントの生成に失敗しました。");
+			}
+			return new MIDIEvent(intPtr);
+		}
+
+		/// <summary>
+		/// チャンネルプリフィックスイベントを生成する。
+		/// </summary>
+		/// <param name="time">絶対時刻</param>
+		/// <param name="num">チャンネル番号(0～15)</param>
+		/// <returns>チャンネルプリフィックスイベント</returns>
+		public static MIDIEvent CreateChannelPrefix(int time, int num)
+		{
+			if (num < 0 || 15 < num)
+			{
+				throw new ArgumentOutOfRangeException(nameof(num), "チャンネル番号は0から15の範囲内である必要があります。");
+			}
+			IntPtr intPtr = MIDIEvent_CreateChannelPrefix(time, num);
+			if (intPtr == IntPtr.Zero)
+			{
+				throw new MIDIDataLibException("チャンネルプリフィックスイベントの生成に失敗しました。");
+			}
+			return new MIDIEvent(intPtr);
+		}
+
+		/// <summary>
+		/// ポートプリフィックスイベントを生成する。
+		/// </summary>
+		/// <param name="time">絶対時刻</param>
+		/// <param name="num">ポート番号(0～255)</param>
+		/// <returns>ポートプリフィックスイベント</returns>
+		public static MIDIEvent CreatePortPrefix(int time, int num)
+		{
+			if (num < 0 || 255 < num)
+			{
+				throw new ArgumentOutOfRangeException(nameof(num), "ポート番号は0から255の範囲内である必要があります。");
+			}
+			IntPtr intPtr = MIDIEvent_CreatePortPrefix(time, num);
+			if (intPtr == IntPtr.Zero)
+			{
+				throw new MIDIDataLibException("ポートプリフィックスイベントの生成に失敗しました。");
+			}
+			return new MIDIEvent(intPtr);
+		}
+
 		#endregion
 
 	}
