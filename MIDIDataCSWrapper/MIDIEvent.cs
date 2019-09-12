@@ -1126,6 +1126,67 @@ namespace MIDIDataCSWrapper
 			}
 			return new MIDIEvent(intPtr);
 		}
+		/// <summary>
+		/// ノートオフイベントを生成する。
+		/// </summary>
+		/// <param name="time">絶対時刻</param>
+		/// <param name="ch">チャンネル番号(0～15)</param>
+		/// <param name="key">キー値(0～127)</param>
+		/// <param name="vel">ベロシティ(離鍵速度)(0～127)</param>
+		/// <returns>ノートオフイベント</returns>
+		public static MIDIEvent CreateNoteOff(int time, int ch, int key, int vel)
+		{
+			if (ch < 0 || 15 < ch)
+			{
+				throw new ArgumentOutOfRangeException(nameof(ch), "チャンネル番号は0から15の範囲内である必要があります。");
+			}
+			if (key < 0 || 127 < key)
+			{
+				throw new ArgumentOutOfRangeException(nameof(key), "キー値は0から127の範囲内である必要があります。");
+			}
+			if (vel < 0 || 127 < vel)
+			{
+				throw new ArgumentOutOfRangeException(nameof(key), "ベロシティは0から127の範囲内である必要があります。");
+			}
+			IntPtr intPtr = MIDIEvent_CreateNoteOff(time, ch, key, vel);
+			if (intPtr == IntPtr.Zero)
+			{
+				throw new MIDIDataLibException("ノートオフイベントの生成に失敗しました。");
+			}
+			return new MIDIEvent(intPtr);
+		}
+
+		/// <summary>
+		/// ノートオンイベントを生成する。
+		/// </summary>
+		/// <param name="time">絶対時刻</param>
+		/// <param name="ch">チャンネル番号(0～15)</param>
+		/// <param name="key">キー値(0～127)</param>
+		/// <param name="vel">ベロシティ(離鍵速度)(0～127)</param>
+		/// <returns>ノートオンイベント</returns>
+		public static MIDIEvent CreateNoteOn(int time, int ch, int key, int vel)
+		{
+			if (ch < 0 || 15 < ch)
+			{
+				throw new ArgumentOutOfRangeException(nameof(ch), "チャンネル番号は0から15の範囲内である必要があります。");
+			}
+			if (key < 0 || 127 < key)
+			{
+				throw new ArgumentOutOfRangeException(nameof(key), "キー値は0から127の範囲内である必要があります。");
+			}
+			if (vel < 0 || 127 < vel)
+			{
+				throw new ArgumentOutOfRangeException(nameof(key), "ベロシティは0から127の範囲内である必要があります。");
+			}
+			IntPtr intPtr = MIDIEvent_CreateNoteOn(time, ch, key, vel);
+			if (intPtr == IntPtr.Zero)
+			{
+				throw new MIDIDataLibException("ノートオンイベントの生成に失敗しました。");
+			}
+			return new MIDIEvent(intPtr);
+		}
+
+
 
 		#endregion
 
