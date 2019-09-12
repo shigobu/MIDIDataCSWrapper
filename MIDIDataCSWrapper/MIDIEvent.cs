@@ -1146,7 +1146,7 @@ namespace MIDIDataCSWrapper
 			}
 			if (vel < 0 || 127 < vel)
 			{
-				throw new ArgumentOutOfRangeException(nameof(key), "ベロシティは0から127の範囲内である必要があります。");
+				throw new ArgumentOutOfRangeException(nameof(vel), "ベロシティは0から127の範囲内である必要があります。");
 			}
 			IntPtr intPtr = MIDIEvent_CreateNoteOff(time, ch, key, vel);
 			if (intPtr == IntPtr.Zero)
@@ -1176,7 +1176,7 @@ namespace MIDIDataCSWrapper
 			}
 			if (vel < 0 || 127 < vel)
 			{
-				throw new ArgumentOutOfRangeException(nameof(key), "ベロシティは0から127の範囲内である必要があります。");
+				throw new ArgumentOutOfRangeException(nameof(vel), "ベロシティは0から127の範囲内である必要があります。");
 			}
 			IntPtr intPtr = MIDIEvent_CreateNoteOn(time, ch, key, vel);
 			if (intPtr == IntPtr.Zero)
@@ -1186,7 +1186,115 @@ namespace MIDIDataCSWrapper
 			return new MIDIEvent(intPtr);
 		}
 
+		/// <summary>
+		/// キーアフタータッチイベントを生成する。
+		/// </summary>
+		/// <param name="time">絶対時刻</param>
+		/// <param name="ch">チャンネル番号</param>
+		/// <param name="key">キー値(0～127)</param>
+		/// <param name="val">値(0～127)</param>
+		/// <returns>キーアフタータッチイベント</returns>
+		public static MIDIEvent CreateKeyAftertouch(int time, int ch, int key, int val)
+		{
+			if (ch < 0 || 15 < ch)
+			{
+				throw new ArgumentOutOfRangeException(nameof(ch), "チャンネル番号は0から15の範囲内である必要があります。");
+			}
+			if (key < 0 || 127 < key)
+			{
+				throw new ArgumentOutOfRangeException(nameof(key), "キー値は0から127の範囲内である必要があります。");
+			}
+			if (val < 0 || 127 < val)
+			{
+				throw new ArgumentOutOfRangeException(nameof(val), "値は0から127の範囲内である必要があります。");
+			}
+			IntPtr intPtr = MIDIEvent_CreateKeyAftertouch(time, ch, key, val);
+			if (intPtr == IntPtr.Zero)
+			{
+				throw new MIDIDataLibException("キーアフタータッチイベントの生成に失敗しました。");
+			}
+			return new MIDIEvent(intPtr);
+		}
 
+		/// <summary>
+		/// コントロールチェンジイベントを生成する。
+		/// </summary>
+		/// <param name="time">絶対時刻</param>
+		/// <param name="ch">チャンネル番号</param>
+		/// <param name="key">コントロールナンバー(0～127)</param>
+		/// <param name="val">値(0～127)</param>
+		/// <returns>コントロールチェンジイベント</returns>
+		public static MIDIEvent CreateControlChange(int time, int ch, int num, int val)
+		{
+			if (ch < 0 || 15 < ch)
+			{
+				throw new ArgumentOutOfRangeException(nameof(ch), "チャンネル番号は0から15の範囲内である必要があります。");
+			}
+			if (num < 0 || 127 < num)
+			{
+				throw new ArgumentOutOfRangeException(nameof(num), "コントロールナンバーは0から127の範囲内である必要があります。");
+			}
+			if (val < 0 || 127 < val)
+			{
+				throw new ArgumentOutOfRangeException(nameof(val), "値は0から127の範囲内である必要があります。");
+			}
+			IntPtr intPtr = MIDIEvent_CreateControlChange(time, ch, num, val);
+			if (intPtr == IntPtr.Zero)
+			{
+				throw new MIDIDataLibException("コントロールチェンジイベントの生成に失敗しました。");
+			}
+			return new MIDIEvent(intPtr);
+		}
+
+		/// <summary>
+		/// プログラムチェンジイベントを生成する。
+		/// </summary>
+		/// <param name="time">絶対時刻</param>
+		/// <param name="ch">チャンネル番号</param>
+		/// <param name="key">プログラムナンバー(0～127)</param>
+		/// <returns>プログラムチェンジイベント</returns>
+		public static MIDIEvent CreateProgramChange(int time, int ch, int num)
+		{
+			if (ch < 0 || 15 < ch)
+			{
+				throw new ArgumentOutOfRangeException(nameof(ch), "チャンネル番号は0から15の範囲内である必要があります。");
+			}
+			if (num < 0 || 127 < num)
+			{
+				throw new ArgumentOutOfRangeException(nameof(num), "プログラムナンバーは0から127の範囲内である必要があります。");
+			}
+			IntPtr intPtr = MIDIEvent_CreateProgramChange(time, ch, num);
+			if (intPtr == IntPtr.Zero)
+			{
+				throw new MIDIDataLibException("プログラムチェンジイベントの生成に失敗しました。");
+			}
+			return new MIDIEvent(intPtr);
+		}
+
+		/// <summary>
+		/// チャンネルアフタータッチイベントを生成する。
+		/// </summary>
+		/// <param name="time">絶対時刻</param>
+		/// <param name="ch">チャンネル番号</param>
+		/// <param name="val">値(0～127)</param>
+		/// <returns>チャンネルアフタータッチイベント</returns>
+		public static MIDIEvent CreateChannelAftertouch(int time, int ch, int val)
+		{
+			if (ch < 0 || 15 < ch)
+			{
+				throw new ArgumentOutOfRangeException(nameof(ch), "チャンネル番号は0から15の範囲内である必要があります。");
+			}
+			if (val < 0 || 127 < val)
+			{
+				throw new ArgumentOutOfRangeException(nameof(val), "値は0から127の範囲内である必要があります。");
+			}
+			IntPtr intPtr = MIDIEvent_CreateChannelAftertouch(time, ch, val);
+			if (intPtr == IntPtr.Zero)
+			{
+				throw new MIDIDataLibException("チャンネルアフタータッチイベントの生成に失敗しました。");
+			}
+			return new MIDIEvent(intPtr);
+		}
 
 		#endregion
 
