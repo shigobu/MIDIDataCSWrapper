@@ -1449,5 +1449,41 @@ namespace MIDIDataCSWrapper
 
 		#endregion
 
+		#region メソッド
+
+		/// <summary>
+		/// 指定したMIDIイベントを削除する。
+		/// 指定MIDIイベントが他のMIDIイベントと結合している場合、結合しているMIDIイベントも同時に削除する。
+		/// すなわち、2つ以上のMIDIイベントが削除されることがある。
+		/// </summary>
+		/// <returns>削除したMIDIイベントの数(1以上)</returns>
+		public int Delete()
+		{
+			int retVal = MIDIEvent_Delete(this.UnManagedObjectPointer);
+			if (retVal == 0)
+			{
+				throw new MIDIDataLibException("MIDIEventオブジェクトの削除に失敗しました。");
+			}
+			this.UnManagedObjectPointer = IntPtr.Zero;
+			return retVal;
+		}
+
+		/// <summary>
+		/// 指定したMIDIイベントを削除する。
+		/// 指定MIDIイベントが他のMIDIイベントと結合している場合、結合を切り離し、指定したイベントのみを削除する。
+		/// すなわち、2つ以上のMIDIイベントが削除されることはない。
+		/// </summary>
+		public void DeleteSingle()
+		{
+			int retVal = MIDIEvent_DeleteSingle(this.UnManagedObjectPointer);
+			if (retVal == 0)
+			{
+				throw new MIDIDataLibException("MIDIEventオブジェクトの削除に失敗しました。");
+			}
+			this.UnManagedObjectPointer = IntPtr.Zero;
+		}
+
+		#endregion
+
 	}
 }
