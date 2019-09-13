@@ -652,6 +652,9 @@ namespace MIDIDataCSWrapper
 			}
 		}
 
+		/// <summary>
+		/// テキストイベントであるかどうか調べる。
+		/// </summary>
 		public bool IsTextEvent
 		{
 			get
@@ -660,6 +663,9 @@ namespace MIDIDataCSWrapper
 			}
 		}
 
+		/// <summary>
+		/// 著作権イベントであるかどうか調べる。
+		/// </summary>
 		public bool IsCopyrightNotice
 		{
 			get
@@ -668,6 +674,9 @@ namespace MIDIDataCSWrapper
 			}
 		}
 
+		/// <summary>
+		/// シーケンス名／トラック名イベントであるかどうか調べる
+		/// </summary>
 		public bool IsTrackName
 		{
 			get
@@ -676,6 +685,9 @@ namespace MIDIDataCSWrapper
 			}
 		}
 
+		/// <summary>
+		/// インストゥルメント名イベントであるかどうか調べる。
+		/// </summary>
 		public bool IsInstrumentName
 		{
 			get
@@ -684,6 +696,9 @@ namespace MIDIDataCSWrapper
 			}
 		}
 
+		/// <summary>
+		/// 歌詞イベントであるかどうか調べる。
+		/// </summary>
 		public bool IsLyric
 		{
 			get
@@ -692,6 +707,9 @@ namespace MIDIDataCSWrapper
 			}
 		}
 
+		/// <summary>
+		/// マーカーイベントであるかどうか調べる。
+		/// </summary>
 		public bool IsMarker
 		{
 			get
@@ -700,6 +718,9 @@ namespace MIDIDataCSWrapper
 			}
 		}
 
+		/// <summary>
+		/// キューポイントイベントであるかどうか調べる。
+		/// </summary>
 		public bool IsCuePoint
 		{
 			get
@@ -708,6 +729,9 @@ namespace MIDIDataCSWrapper
 			}
 		}
 
+		/// <summary>
+		/// プログラム名イベントであるかどうか調べる。
+		/// </summary>
 		public bool IsProgramName
 		{
 			get
@@ -716,6 +740,9 @@ namespace MIDIDataCSWrapper
 			}
 		}
 
+		/// <summary>
+		/// デバイス名イベントであるかどうか調べる。
+		/// </summary>
 		public bool IsDeviceName
 		{
 			get
@@ -724,6 +751,9 @@ namespace MIDIDataCSWrapper
 			}
 		}
 
+		/// <summary>
+		/// チャンネルプリフィックスイベントであるかどうか調べる。
+		/// </summary>
 		public bool IsChannelPrefix
 		{
 			get
@@ -732,6 +762,9 @@ namespace MIDIDataCSWrapper
 			}
 		}
 
+		/// <summary>
+		/// ポートプリフィックスイベントであるかどうか調べる。
+		/// </summary>
 		public bool IsPortPrefix
 		{
 			get
@@ -740,6 +773,9 @@ namespace MIDIDataCSWrapper
 			}
 		}
 
+		/// <summary>
+		/// エンドオブトラックイベントであるかどうか調べる。
+		/// </summary>
 		public bool IsEndofTrack
 		{
 			get
@@ -748,6 +784,9 @@ namespace MIDIDataCSWrapper
 			}
 		}
 
+		/// <summary>
+		/// テンポ設定イベントであるかどうか調べる。
+		/// </summary>
 		public bool IsTempo
 		{
 			get
@@ -756,6 +795,9 @@ namespace MIDIDataCSWrapper
 			}
 		}
 
+		/// <summary>
+		/// SMPTEオフセットイベントであるかどうか調べる。
+		/// </summary>
 		public bool IsSMPTEOffset
 		{
 			get
@@ -764,6 +806,9 @@ namespace MIDIDataCSWrapper
 			}
 		}
 
+		/// <summary>
+		/// 拍子記号イベントであるかどうか調べる。
+		/// </summary>
 		public bool IsTimeSignature
 		{
 			get
@@ -772,6 +817,9 @@ namespace MIDIDataCSWrapper
 			}
 		}
 
+		/// <summary>
+		/// 調性記号イベントであるかどうか調べる。
+		/// </summary>
 		public bool IsKeySignature
 		{
 			get
@@ -780,6 +828,9 @@ namespace MIDIDataCSWrapper
 			}
 		}
 
+		/// <summary>
+		/// シーケンサー独自のイベントであるかどうか調べる。
+		/// </summary>
 		public bool IsSequencerSpecific
 		{
 			get
@@ -788,6 +839,9 @@ namespace MIDIDataCSWrapper
 			}
 		}
 
+		/// <summary>
+		/// MIDIチャンネルイベントであるかどうか調べる。
+		/// </summary>
 		public bool IsMIDIEvent
 		{
 			get
@@ -796,6 +850,9 @@ namespace MIDIDataCSWrapper
 			}
 		}
 
+		/// <summary>
+		/// ノートオフイベントであるかどうか調べる。ノートオンイベントでもベロシティが0のものはノートオフイベントであるとみなす。
+		/// </summary>
 		public bool IsNoteOff
 		{
 			get
@@ -804,6 +861,9 @@ namespace MIDIDataCSWrapper
 			}
 		}
 
+		/// <summary>
+		/// ノートオンイベントであるかどうか調べる。ノートオンイベントでもベロシティが0のものはノートオフイベントであるとみなす。
+		/// </summary>
 		public bool IsNoteOn
 		{
 			get
@@ -812,6 +872,9 @@ namespace MIDIDataCSWrapper
 			}
 		}
 
+		/// <summary>
+		/// キーアフタータッチイベントであるかどうか調べる。
+		/// </summary>
 		public bool IsKeyAftertouch
 		{
 			get
@@ -820,6 +883,9 @@ namespace MIDIDataCSWrapper
 			}
 		}
 
+		/// <summary>
+		/// プログラムチェンジイベントであるかどうか調べる。
+		/// </summary>
 		public bool IsProgramChange
 		{
 			get
@@ -828,6 +894,9 @@ namespace MIDIDataCSWrapper
 			}
 		}
 
+		/// <summary>
+		/// コントロールチェンジイベントであるかどうか調べる。
+		/// </summary>
 		public bool IsControlChange
 		{
 			get
@@ -836,6 +905,9 @@ namespace MIDIDataCSWrapper
 			}
 		}
 
+		/// <summary>
+		/// チャンネルアフタータッチイベントであるかどうか調べる。
+		/// </summary>
 		public bool IsChannelAftertouch
 		{
 			get
@@ -844,6 +916,9 @@ namespace MIDIDataCSWrapper
 			}
 		}
 
+		/// <summary>
+		/// ピッチベンドイベントであるかどうか調べる。
+		/// </summary>
 		public bool IsPitchBend
 		{
 			get
@@ -852,6 +927,9 @@ namespace MIDIDataCSWrapper
 			}
 		}
 
+		/// <summary>
+		/// システムエクスクルーシブイベントであるかどうか調べる。
+		/// </summary>
 		public bool IsSysExEvent
 		{
 			get
@@ -860,6 +938,9 @@ namespace MIDIDataCSWrapper
 			}
 		}
 
+		/// <summary>
+		/// MIDIイベントが浮遊しているかどうか調べる。
+		/// </summary>
 		public bool IsFloating
 		{
 			get
@@ -868,6 +949,9 @@ namespace MIDIDataCSWrapper
 			}
 		}
 
+		/// <summary>
+		/// MIDIイベントが他のMIDIイベントに結合しているかどうか調べる。
+		/// </summary>
 		public bool IsCombined
 		{
 			get
@@ -876,6 +960,9 @@ namespace MIDIDataCSWrapper
 			}
 		}
 
+		/// <summary>
+		/// 結合されたノートオン+ノートオフイベントであるかどうか調べる。
+		/// </summary>
 		public bool IsNoteOnNoteOff
 		{
 			get
@@ -884,6 +971,9 @@ namespace MIDIDataCSWrapper
 			}
 		}
 
+		/// <summary>
+		/// 結合されたノートオン+ノートオン0イベントであるかどうか調べる。
+		/// </summary>
 		public bool IsNoteOnNoteOn0
 		{
 			get
@@ -892,6 +982,9 @@ namespace MIDIDataCSWrapper
 			}
 		}
 
+		/// <summary>
+		/// 結合されたノートオン+ノートオフ又は結合されたノートオン+ノートオン0であるかどうか調べる。
+		/// </summary>
 		public bool IsNote
 		{
 			get
@@ -900,6 +993,9 @@ namespace MIDIDataCSWrapper
 			}
 		}
 
+		/// <summary>
+		/// 結合されたパッチチェンジイベントであるかどうか調べる。
+		/// </summary>
 		public bool IsPatchChange
 		{
 			get
@@ -908,6 +1004,9 @@ namespace MIDIDataCSWrapper
 			}
 		}
 
+		/// <summary>
+		/// 結合されたRPNチェンジイベントであるかどうか調べる。
+		/// </summary>
 		public bool IsRPNChange
 		{
 			get
@@ -916,6 +1015,9 @@ namespace MIDIDataCSWrapper
 			}
 		}
 
+		/// <summary>
+		/// 結合されたNRPNチェンジイベントであるかどうか調べる。
+		/// </summary>
 		public bool IsNRPNChange
 		{
 			get
