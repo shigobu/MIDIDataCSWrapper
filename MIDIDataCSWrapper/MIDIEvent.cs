@@ -419,6 +419,22 @@ namespace MIDIDataCSWrapper
 			/// </summary>
 			NoCharCod = 0,
 			/// <summary>
+			/// 指定なしだが、{@LATIN} (ANSI)であるものと推定される。
+			/// </summary>
+			NoCharCodLATIN = (0x10000 | 1252),
+			/// <summary>
+			/// 指定なしだが、{@JP} (Shift-JIS)であるものと推定される。
+			/// </summary>
+			NoCharCodJP = (0x10000 | 932),
+			/// <summary>
+			/// 指定なしだが、UTF16リトルエンディアンであるものと推定される。
+			/// </summary>
+			NoCharCodUTF16LE = (0x10000 | 1200),
+			/// <summary>
+			/// 指定なしだが、UTF16ビッグエンディアンであるものと推定される。
+			/// </summary>
+			NoCharCodUTF16BE = (0x10000 | 1201),
+			/// <summary>
 			/// {@LATIN} (ANSI)
 			/// </summary>
 			LATIN = 1252,
@@ -1023,6 +1039,100 @@ namespace MIDIDataCSWrapper
 			get
 			{
 				return Convert.ToBoolean(MIDIEvent_IsNRPNChange(this.UnManagedObjectPointer));
+			}
+		}
+
+		/// <summary>
+		/// MIDIイベントの時刻を返す。
+		/// </summary>
+		public int Time
+		{
+			get
+			{
+				return MIDIEvent_GetTime(this.UnManagedObjectPointer);
+			}
+		}
+
+		/// <summary>
+		/// MIDIイベントの種類を示す識別番号を返す。
+		/// </summary>
+		/// <remarks>読み込んだMIDIデータによっては、Kinds列挙型で定義されていない識別番号を返す場合もあるが、あなたのプログラムはこのイベントを無視するか、適切な処置をしなければならない。</remarks>
+		public int Kind
+		{
+			get
+			{
+				return MIDIEvent_GetKind(this.UnManagedObjectPointer);
+			}
+		}
+
+		/// <summary>
+		/// データ部の長さを返す。
+		/// </summary>
+		public int Len
+		{
+			get
+			{
+				return MIDIEvent_GetLen(this.UnManagedObjectPointer);
+			}
+		}
+
+		/// <summary>
+		/// イベントのデータ部を取り込む。
+		/// </summary>
+		public byte[] Data
+		{
+			get
+			{
+				//バッファサイズ
+				int dataSize = 256;
+				IntPtr dataPtr = IntPtr.Zero;
+				try
+				{
+					//メモリ確保が必ず実行され、dataPtr変数へ必ず代入されるための呪文
+					System.Runtime.CompilerServices.RuntimeHelpers.PrepareConstrainedRegions();
+					try { }
+					finally
+					{
+						//メモリ確保
+						dataPtr = Marshal.AllocCoTaskMem(dataSize);
+					}
+
+					//C言語関数呼び出し
+					int dataNum = MIDIEvent_GetData(this.UnManagedObjectPointer, dataPtr, dataSize);
+					//コピー先配列
+					byte[] midiData = new byte[dataNum];
+					//MIDIメッセージ取得できたら
+					if (dataNum > 0)
+					{
+						//配列にコピー
+						Marshal.Copy(dataPtr, midiData, 0, dataNum);
+					}
+					return midiData;
+				}
+				finally
+				{
+					if (dataPtr != IntPtr.Zero)
+					{
+						Marshal.FreeCoTaskMem(dataPtr);
+					}
+				}
+
+			}
+		}
+
+		/// <summary>
+		/// イベントの文字コードを取得する。
+		/// </summary>
+		public CharCodes CharCode
+		{
+			get
+			{
+				if (IsTextEvent || IsCopyrightNotice || IsTrackName || IsInstrumentName || IsLyric || IsMarker || IsCuePoint || IsDeviceName || IsProgramName)
+				{
+					int retVal = MIDIEvent_GetCharCode(this.UnManagedObjectPointer);
+					return (CharCodes)Enum.ToObject(typeof(CharCodes), retVal);
+				}
+				return CharCodes.NoCharCod;
 			}
 		}
 
