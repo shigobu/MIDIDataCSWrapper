@@ -150,6 +150,9 @@ namespace MIDIDataCSWrapper
 		private static extern int MIDIEvent_IsCopyrightNotice(IntPtr pMIDIEvent);
 
 		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern int MIDIEvent_IsTrackName(IntPtr pMIDIEvent);
+
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
 		private static extern int MIDIEvent_IsInstrumentName(IntPtr pMIDIEvent);
 
 		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
@@ -624,6 +627,300 @@ namespace MIDIDataCSWrapper
 			private set
 			{
 				_unManagedObjectPointer = value;
+			}
+		}
+
+		/// <summary>
+		/// メタイベント(0x00～0x7F)であるかどうか調べる。
+		/// </summary>
+		public bool IsMetaEvent
+		{
+			get
+			{
+				return Convert.ToBoolean(MIDIEvent_IsMetaEvent(this.UnManagedObjectPointer));
+			}
+		}
+
+		/// <summary>
+		/// シーケンス番号イベントであるかどうか調べる。
+		/// </summary>
+		public bool IsSequenceNumber
+		{
+			get
+			{
+				return Convert.ToBoolean(MIDIEvent_IsSequenceNumber(this.UnManagedObjectPointer));
+			}
+		}
+
+		public bool IsTextEvent
+		{
+			get
+			{
+				return Convert.ToBoolean(MIDIEvent_IsTextEvent(this.UnManagedObjectPointer));
+			}
+		}
+
+		public bool IsCopyrightNotice
+		{
+			get
+			{
+				return Convert.ToBoolean(MIDIEvent_IsCopyrightNotice(this.UnManagedObjectPointer));
+			}
+		}
+
+		public bool IsTrackName
+		{
+			get
+			{
+				return Convert.ToBoolean(MIDIEvent_IsTrackName(this.UnManagedObjectPointer));
+			}
+		}
+
+		public bool IsInstrumentName
+		{
+			get
+			{
+				return Convert.ToBoolean(MIDIEvent_IsInstrumentName(this.UnManagedObjectPointer));
+			}
+		}
+
+		public bool IsLyric
+		{
+			get
+			{
+				return Convert.ToBoolean(MIDIEvent_IsLyric(this.UnManagedObjectPointer));
+			}
+		}
+
+		public bool IsMarker
+		{
+			get
+			{
+				return Convert.ToBoolean(MIDIEvent_IsMarker(this.UnManagedObjectPointer));
+			}
+		}
+
+		public bool IsCuePoint
+		{
+			get
+			{
+				return Convert.ToBoolean(MIDIEvent_IsCuePoint(this.UnManagedObjectPointer));
+			}
+		}
+
+		public bool IsProgramName
+		{
+			get
+			{
+				return Convert.ToBoolean(MIDIEvent_IsProgramName(this.UnManagedObjectPointer));
+			}
+		}
+
+		public bool IsDeviceName
+		{
+			get
+			{
+				return Convert.ToBoolean(MIDIEvent_IsDeviceName(this.UnManagedObjectPointer));
+			}
+		}
+
+		public bool IsChannelPrefix
+		{
+			get
+			{
+				return Convert.ToBoolean(MIDIEvent_IsChannelPrefix(this.UnManagedObjectPointer));
+			}
+		}
+
+		public bool IsPortPrefix
+		{
+			get
+			{
+				return Convert.ToBoolean(MIDIEvent_IsPortPrefix(this.UnManagedObjectPointer));
+			}
+		}
+
+		public bool IsEndofTrack
+		{
+			get
+			{
+				return Convert.ToBoolean(MIDIEvent_IsEndofTrack(this.UnManagedObjectPointer));
+			}
+		}
+
+		public bool IsTempo
+		{
+			get
+			{
+				return Convert.ToBoolean(MIDIEvent_IsTempo(this.UnManagedObjectPointer));
+			}
+		}
+
+		public bool IsSMPTEOffset
+		{
+			get
+			{
+				return Convert.ToBoolean(MIDIEvent_IsSMPTEOffset(this.UnManagedObjectPointer));
+			}
+		}
+
+		public bool IsTimeSignature
+		{
+			get
+			{
+				return Convert.ToBoolean(MIDIEvent_IsTimeSignature(this.UnManagedObjectPointer));
+			}
+		}
+
+		public bool IsKeySignature
+		{
+			get
+			{
+				return Convert.ToBoolean(MIDIEvent_IsKeySignature(this.UnManagedObjectPointer));
+			}
+		}
+
+		public bool IsSequencerSpecific
+		{
+			get
+			{
+				return Convert.ToBoolean(MIDIEvent_IsSequencerSpecific(this.UnManagedObjectPointer));
+			}
+		}
+
+		public bool IsMIDIEvent
+		{
+			get
+			{
+				return Convert.ToBoolean(MIDIEvent_IsMIDIEvent(this.UnManagedObjectPointer));
+			}
+		}
+
+		public bool IsNoteOff
+		{
+			get
+			{
+				return Convert.ToBoolean(MIDIEvent_IsNoteOff(this.UnManagedObjectPointer));
+			}
+		}
+
+		public bool IsNoteOn
+		{
+			get
+			{
+				return Convert.ToBoolean(MIDIEvent_IsNoteOn(this.UnManagedObjectPointer));
+			}
+		}
+
+		public bool IsKeyAftertouch
+		{
+			get
+			{
+				return Convert.ToBoolean(MIDIEvent_IsKeyAftertouch(this.UnManagedObjectPointer));
+			}
+		}
+
+		public bool IsProgramChange
+		{
+			get
+			{
+				return Convert.ToBoolean(MIDIEvent_IsProgramChange(this.UnManagedObjectPointer));
+			}
+		}
+
+		public bool IsControlChange
+		{
+			get
+			{
+				return Convert.ToBoolean(MIDIEvent_IsControlChange(this.UnManagedObjectPointer));
+			}
+		}
+
+		public bool IsChannelAftertouch
+		{
+			get
+			{
+				return Convert.ToBoolean(MIDIEvent_IsChannelAftertouch(this.UnManagedObjectPointer));
+			}
+		}
+
+		public bool IsPitchBend
+		{
+			get
+			{
+				return Convert.ToBoolean(MIDIEvent_IsPitchBend(this.UnManagedObjectPointer));
+			}
+		}
+
+		public bool IsSysExEvent
+		{
+			get
+			{
+				return Convert.ToBoolean(MIDIEvent_IsSysExEvent(this.UnManagedObjectPointer));
+			}
+		}
+
+		public bool IsFloating
+		{
+			get
+			{
+				return Convert.ToBoolean(MIDIEvent_IsFloating(this.UnManagedObjectPointer));
+			}
+		}
+
+		public bool IsCombined
+		{
+			get
+			{
+				return Convert.ToBoolean(MIDIEvent_IsCombined(this.UnManagedObjectPointer));
+			}
+		}
+
+		public bool IsNoteOnNoteOff
+		{
+			get
+			{
+				return Convert.ToBoolean(MIDIEvent_IsNoteOnNoteOff(this.UnManagedObjectPointer));
+			}
+		}
+
+		public bool IsNoteOnNoteOn0
+		{
+			get
+			{
+				return Convert.ToBoolean(MIDIEvent_IsNoteOnNoteOn0(this.UnManagedObjectPointer));
+			}
+		}
+
+		public bool IsNote
+		{
+			get
+			{
+				return Convert.ToBoolean(MIDIEvent_IsNote(this.UnManagedObjectPointer));
+			}
+		}
+
+		public bool IsPatchChange
+		{
+			get
+			{
+				return Convert.ToBoolean(MIDIEvent_IsPatchChange(this.UnManagedObjectPointer));
+			}
+		}
+
+		public bool IsRPNChange
+		{
+			get
+			{
+				return Convert.ToBoolean(MIDIEvent_IsRPNChange(this.UnManagedObjectPointer));
+			}
+		}
+
+		public bool IsNRPNChange
+		{
+			get
+			{
+				return Convert.ToBoolean(MIDIEvent_IsNRPNChange(this.UnManagedObjectPointer));
 			}
 		}
 
