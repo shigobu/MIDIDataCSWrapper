@@ -1136,6 +1136,497 @@ namespace MIDIDataCSWrapper
 			}
 		}
 
+		/// <summary>
+		/// イベントの文字列を取り込む。
+		/// </summary>
+		public string Text
+		{
+			get
+			{
+				if (IsTextEvent || IsCopyrightNotice || IsTrackName || IsInstrumentName || IsLyric || IsMarker || IsCuePoint || IsDeviceName || IsProgramName)
+				{
+					StringBuilder stringBuilder = new StringBuilder(MIDIDataLib.BufferSize);
+					MIDIEvent_GetText(this.UnManagedObjectPointer, stringBuilder, stringBuilder.Length);
+					return stringBuilder.ToString();
+				}
+				else
+				{
+					throw new MIDIDataLibException("文字列を格納しているイベントではありません。文字列の取得ができません。");
+				}
+			}
+		}
+
+		/// <summary>
+		/// テンポイベントのテンポ値を返す。
+		/// </summary>
+		public int Tempo
+		{
+			get
+			{
+				if (IsTempo)
+				{
+					return MIDIEvent_GetTempo(this.UnManagedObjectPointer);
+				}
+				else
+				{
+					throw new MIDIDataLibException("テンポイベントではありません。テンポの取得ができません。");
+				}
+			}
+		}
+
+		/// <summary>
+		/// SMPTEオフセット
+		/// </summary>
+		public SMPTEOffset SMPTEOffset
+		{
+			get
+			{
+				if (IsSMPTEOffset)
+				{
+					int sMPTEmode, hour, min, sec, frame, subFrame;
+					int err = MIDIEvent_GetSMPTEOffset(this.UnManagedObjectPointer, out sMPTEmode, out hour, out min, out sec, out frame, out subFrame);
+					if (err == 0)
+					{
+						throw new MIDIDataLibException("SMPTEオフセットの取得ができませんでした。");
+					}
+					return new SMPTEOffset((SMPTE)Enum.ToObject(typeof(SMPTE), sMPTEmode), hour, min, sec, frame, subFrame);
+				}
+				else
+				{
+					throw new MIDIDataLibException("SMPTEオフセットイベントではありません。SMPTEオフセットの取得ができません。");
+				}
+			}
+		}
+
+		/// <summary>
+		/// 拍子記号イベント
+		/// </summary>
+		public TimeSignature TimeSignature
+		{
+			get
+			{
+				if (IsTimeSignature)
+				{
+					int nn, dd, cc, bb;
+					int err = MIDIEvent_GetTimeSignature(this.UnManagedObjectPointer, out nn, out dd, out cc, out bb);
+					if (err == 0)
+					{
+						throw new MIDIDataLibException("拍子記号の取得ができませんでした。");
+					}
+					return new TimeSignature(nn, dd, cc, bb);
+				}
+				else
+				{
+					throw new MIDIDataLibException("拍子記号イベントイベントではありません。拍子記号の取得ができません。");
+				}
+			}
+		}
+
+		/// <summary>
+		/// 調性記号
+		/// </summary>
+		public KeySignature KeySignature
+		{
+			get
+			{
+				if (IsKeySignature)
+				{
+					int sf, mi;
+					int err = MIDIEvent_GetKeySignature(this.UnManagedObjectPointer, out sf, out mi);
+					if (err == 0)
+					{
+						throw new MIDIDataLibException("調性記号の取得ができませんでした。");
+					}
+					return new KeySignature(sf, (Keys)Enum.ToObject(typeof(Keys), mi));
+				}
+				else
+				{
+					throw new MIDIDataLibException("調性記号イベントではありません。調性記号の取得ができません。");
+				}
+			}
+		}
+
+		/// <summary>
+		/// MIDIメッセージ
+		/// </summary>
+		public byte[] MIDIMessage
+		{
+			get
+			{
+				if (IsMIDIEvent || IsSysExEvent)
+				{
+					//バッファサイズ
+					int dataSize = 256;
+					IntPtr dataPtr = IntPtr.Zero;
+					try
+					{
+						//メモリ確保が必ず実行され、dataPtr変数へ必ず代入されるための呪文
+						System.Runtime.CompilerServices.RuntimeHelpers.PrepareConstrainedRegions();
+						try { }
+						finally
+						{
+							//メモリ確保
+							dataPtr = Marshal.AllocCoTaskMem(dataSize);
+						}
+
+						//C言語関数呼び出し
+						int dataNum = MIDIEvent_GetData(this.UnManagedObjectPointer, dataPtr, dataSize);
+						//コピー先配列
+						byte[] midiData = new byte[dataNum];
+						//MIDIメッセージ取得できたら
+						if (dataNum > 0)
+						{
+							//配列にコピー
+							Marshal.Copy(dataPtr, midiData, 0, dataNum);
+						}
+						return midiData;
+					}
+					finally
+					{
+						if (dataPtr != IntPtr.Zero)
+						{
+							Marshal.FreeCoTaskMem(dataPtr);
+						}
+					}
+				}
+				else
+				{
+					throw new MIDIDataLibException("MIDIメッセージイベントではありません。MIDIメッセージの取得ができません。");
+				}
+			}
+		}
+
+		/// <summary>
+		/// チャンネル
+		/// </summary>
+		public int Channel
+		{
+			get
+			{
+				if (IsMIDIEvent)
+				{
+					return MIDIEvent_GetChannel(this.UnManagedObjectPointer);
+				}
+				else
+				{
+					throw new MIDIDataLibException("MIDIチャンネルイベントではありません。チャンネルの取得ができません。");
+				}
+			}
+		}
+
+		/// <summary>
+		/// キー
+		/// </summary>
+		public int Key
+		{
+			get
+			{
+				if (IsNoteOff || IsNoteOn || IsKeyAftertouch)
+				{
+					return MIDIEvent_GetKey(this.UnManagedObjectPointer);
+				}
+				else
+				{
+					throw new MIDIDataLibException("ノート・キーアフタータッチイベントではありません。キーの取得ができません。");
+				}
+			}
+		}
+
+		/// <summary>
+		/// ベロシティ
+		/// </summary>
+		public int Velocity
+		{
+			get
+			{
+				if (IsNoteOff || IsNoteOn)
+				{
+					return MIDIEvent_GetVelocity(this.UnManagedObjectPointer);
+				}
+				else
+				{
+					throw new MIDIDataLibException("ノートイベントではありません。ベロシティの取得ができません。");
+				}
+			}
+		}
+
+		/// <summary>
+		/// 音長さ
+		/// </summary>
+		public int Duration
+		{
+			get
+			{
+				if (IsNote)
+				{
+					return MIDIEvent_GetDuration(this.UnManagedObjectPointer);
+				}
+				else
+				{
+					throw new MIDIDataLibException("ノートイベントではありません。音長さの取得ができません。");
+				}
+			}
+		}
+
+		/// <summary>
+		/// ナンバー
+		/// </summary>
+		public int Number
+		{
+			get
+			{
+				if (IsSequenceNumber || IsChannelPrefix || IsPortPrefix || IsControlChange || IsProgramChange)
+				{
+					return MIDIEvent_GetNumber(this.UnManagedObjectPointer);
+				}
+				else
+				{
+					throw new MIDIDataLibException("ナンバーが定義されたイベントではありません。ナンバーの取得ができません。");
+				}
+			}
+		}
+
+		/// <summary>
+		/// 値
+		/// </summary>
+		public int Value
+		{
+			get
+			{
+				if (IsSequenceNumber || IsChannelPrefix || IsPortPrefix || IsKeyAftertouch || IsControlChange || IsProgramChange || IsChannelAftertouch || IsPitchBend)
+				{
+					return MIDIEvent_GetValue(this.UnManagedObjectPointer);
+				}
+				else
+				{
+					throw new MIDIDataLibException("値が定義されたイベントではありません。値の取得ができません。");
+				}
+			}
+		}
+
+		/// <summary>
+		/// バンク
+		/// </summary>
+		public int Bank
+		{
+			get
+			{
+				if (IsPatchChange || IsRPNChange || IsNRPNChange)
+				{
+					return MIDIEvent_GetBank(this.UnManagedObjectPointer);
+				}
+				else
+				{
+					throw new MIDIDataLibException("バンクが定義されたイベントではありません。バンクの取得ができません。");
+				}
+			}
+		}
+
+		/// <summary>
+		/// バンク上位
+		/// </summary>
+		public int BankMSB
+		{
+			get
+			{
+				if (IsPatchChange || IsRPNChange || IsNRPNChange)
+				{
+					return MIDIEvent_GetBankMSB(this.UnManagedObjectPointer);
+				}
+				else
+				{
+					throw new MIDIDataLibException("バンクが定義されたイベントではありません。バンクMSBの取得ができません。");
+				}
+			}
+		}
+
+		/// <summary>
+		/// バンク下位
+		/// </summary>
+		public int BankLSB
+		{
+			get
+			{
+				if (IsPatchChange || IsRPNChange || IsNRPNChange)
+				{
+					return MIDIEvent_GetBankLSB(this.UnManagedObjectPointer);
+				}
+				else
+				{
+					throw new MIDIDataLibException("バンクが定義されたイベントではありません。バンクLSBの取得ができません。");
+				}
+			}
+		}
+
+		/// <summary>
+		/// データエントリーMSB
+		/// </summary>
+		public int DataEntryMSB
+		{
+			get
+			{
+				if (IsRPNChange || IsNRPNChange)
+				{
+					return MIDIEvent_GetDataEntryMSB(this.UnManagedObjectPointer);
+				}
+				else
+				{
+					throw new MIDIDataLibException("RPNチェンジイベント・NRPNチェンジイベントではありません。データエントリーMSBの取得ができません。");
+				}
+			}
+		}
+
+		/// <summary>
+		/// プログラムナンバー
+		/// </summary>
+		public int PatchNum
+		{
+			get
+			{
+				if (IsPatchChange)
+				{
+					return MIDIEvent_GetPatchNum(this.UnManagedObjectPointer);
+				}
+				else
+				{
+					throw new MIDIDataLibException("パッチチェンジチェンジイベントではありません。プログラムナンバーの取得ができません。");
+				}
+			}
+		}
+
+		/// <summary>
+		/// 次のMIDIイベント
+		/// </summary>
+		public MIDIEvent NextEvent
+		{
+			get
+			{
+				IntPtr intPtr = MIDIEvent_GetNextEvent(this.UnManagedObjectPointer);
+				if (intPtr == IntPtr.Zero)
+				{
+					return null;
+				}
+				else
+				{
+					return new MIDIEvent(intPtr);
+				}
+			}
+		}
+
+		/// <summary>
+		/// 前のMIDIイベント
+		/// </summary>
+		public MIDIEvent PrevEvent
+		{
+			get
+			{
+				IntPtr intPtr = MIDIEvent_GetPrevEvent(this.UnManagedObjectPointer);
+				if (intPtr == IntPtr.Zero)
+				{
+					return null;
+				}
+				else
+				{
+					return new MIDIEvent(intPtr);
+				}
+			}
+		}
+
+		/// <summary>
+		/// 次の同種のMIDIイベント
+		/// </summary>
+		public MIDIEvent NextSameKindEvent
+		{
+			get
+			{
+				IntPtr intPtr = MIDIEvent_GetNextSameKindEvent(this.UnManagedObjectPointer);
+				if (intPtr == IntPtr.Zero)
+				{
+					return null;
+				}
+				else
+				{
+					return new MIDIEvent(intPtr);
+				}
+			}
+		}
+
+		/// <summary>
+		/// 前の同種のMIDIイベント
+		/// </summary>
+		public MIDIEvent PrevSameKindEvent
+		{
+			get
+			{
+				IntPtr intPtr = MIDIEvent_GetPrevSameKindEvent(this.UnManagedObjectPointer);
+				if (intPtr == IntPtr.Zero)
+				{
+					return null;
+				}
+				else
+				{
+					return new MIDIEvent(intPtr);
+				}
+			}
+		}
+
+		/// <summary>
+		/// 結合イベントの場合、結合している最初のイベント
+		/// </summary>
+		public MIDIEvent FirstCombinedEvent
+		{
+			get
+			{
+				IntPtr intPtr = MIDIEvent_GetFirstCombinedEvent(this.UnManagedObjectPointer);
+				if (intPtr == IntPtr.Zero)
+				{
+					return null;
+				}
+				else
+				{
+					return new MIDIEvent(intPtr);
+				}
+			}
+		}
+
+		/// <summary>
+		/// 結合イベントの場合、結合している最後のイベント
+		/// </summary>
+		public MIDIEvent LastCombinedEvent
+		{
+			get
+			{
+				IntPtr intPtr = MIDIEvent_GetLastCombinedEvent(this.UnManagedObjectPointer);
+				if (intPtr == IntPtr.Zero)
+				{
+					return null;
+				}
+				else
+				{
+					return new MIDIEvent(intPtr);
+				}
+			}
+		}
+
+		/// <summary>
+		/// このMIDIイベントが含まれるMIDIトラック
+		/// </summary>
+		public MIDITrack Parent
+		{
+			get
+			{
+				IntPtr intPtr = MIDIEvent_GetParent(this.UnManagedObjectPointer);
+				if (intPtr == IntPtr.Zero)
+				{
+					return null;
+				}
+				else
+				{
+					return new MIDITrack(intPtr);
+				}
+			}
+		}
+
 		#endregion
 
 		#region コンストラクタ
