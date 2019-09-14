@@ -2356,6 +2356,18 @@ namespace MIDIDataCSWrapper
 		}
 		#endregion
 
+		#region イテレータ
+
+		public IEnumerator<MIDIEvent> GetEnumerator()
+		{
+			for (MIDIEvent @event = this.FirstEvent; @event != null; @event = @event.NextEvent)
+			{
+				yield return @event;
+			}
+		}
+
+		#endregion
+
 		#region ファイナライザー
 		~MIDITrack()
 		{
