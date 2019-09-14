@@ -354,7 +354,7 @@ namespace MIDIDataCSWrapper
 		private static extern int MIDIEvent_SetTempo(IntPtr pMIDIEvent, int lTempo);
 
 		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
-		private static extern IntPtr MIDIEvent_SetSMPTEOffset(IntPtr pMIDIEvent, int pMode, int lHour, int lMin, int lSec, int lFrame, int lff);
+		private static extern int MIDIEvent_SetSMPTEOffset(IntPtr pMIDIEvent, int pMode, int lHour, int lMin, int lSec, int lFrame, int lff);
 
 		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
 		private static extern int MIDIEvent_SetTimeSignature(IntPtr pMIDIEvent, int lnn, int ldd, int lcc, int lbb);
@@ -1043,7 +1043,7 @@ namespace MIDIDataCSWrapper
 		}
 
 		/// <summary>
-		/// MIDIイベントの時刻を返す。
+		/// 時刻
 		/// </summary>
 		public int Time
 		{
@@ -1051,10 +1051,33 @@ namespace MIDIDataCSWrapper
 			{
 				return MIDIEvent_GetTime(this.UnManagedObjectPointer);
 			}
+			set
+			{
+				int err = MIDIEvent_SetTime(this.UnManagedObjectPointer, value);
+				if (err == 0)
+				{
+					throw new MIDIDataLibException("時刻の設定に失敗しました。");
+				}
+			}
 		}
 
 		/// <summary>
-		/// MIDIイベントの種類を示す識別番号を返す。
+		/// 時刻(単独のイベントに対して設定する)
+		/// </summary>
+		public int TimeSingle
+		{
+			set
+			{
+				int err = MIDIEvent_SetTimeSingle(this.UnManagedObjectPointer, value);
+				if (err == 0)
+				{
+					throw new MIDIDataLibException("時刻の設定に失敗しました。");
+				}
+			}
+		}
+
+		/// <summary>
+		/// MIDIイベントの種類
 		/// </summary>
 		/// <remarks>読み込んだMIDIデータによっては、Kinds列挙型で定義されていない識別番号を返す場合もあるが、あなたのプログラムはこのイベントを無視するか、適切な処置をしなければならない。</remarks>
 		public int Kind
@@ -1063,10 +1086,14 @@ namespace MIDIDataCSWrapper
 			{
 				return MIDIEvent_GetKind(this.UnManagedObjectPointer);
 			}
+			set
+			{
+				MIDIEvent_SetKind(this.UnManagedObjectPointer, value);
+			}
 		}
 
 		/// <summary>
-		/// データ部の長さを返す。
+		/// データ部の長さ
 		/// </summary>
 		public int Len
 		{
@@ -1077,7 +1104,7 @@ namespace MIDIDataCSWrapper
 		}
 
 		/// <summary>
-		/// イベントのデータ部を取り込む。
+		/// イベントのデータ部
 		/// </summary>
 		public byte[] Data
 		{
@@ -1118,10 +1145,14 @@ namespace MIDIDataCSWrapper
 				}
 
 			}
+			set
+			{
+				MIDIEvent_SetData(this.UnManagedObjectPointer, value, value.Length);
+			}
 		}
 
 		/// <summary>
-		/// イベントの文字コードを取得する。
+		/// イベントの文字コード
 		/// </summary>
 		public CharCodes CharCode
 		{
@@ -1134,10 +1165,21 @@ namespace MIDIDataCSWrapper
 				}
 				return CharCodes.NoCharCod;
 			}
+			set
+			{
+				if (IsTextEvent || IsCopyrightNotice || IsTrackName || IsInstrumentName || IsLyric || IsMarker || IsCuePoint || IsDeviceName || IsProgramName)
+				{
+					int err = MIDIEvent_SetCharCode(this.UnManagedObjectPointer, (int)value);
+					if (err == 0)
+					{
+						throw new MIDIDataLibException("文字コードの設定に失敗しました。");
+					}
+				}
+			}
 		}
 
 		/// <summary>
-		/// イベントの文字列を取り込む。
+		/// イベントの文字列
 		/// </summary>
 		public string Text
 		{
@@ -1154,12 +1196,27 @@ namespace MIDIDataCSWrapper
 					throw new MIDIDataLibException("文字列を格納しているイベントではありません。文字列の取得ができません。");
 				}
 			}
+			set
+			{
+				if (IsTextEvent || IsCopyrightNotice || IsTrackName || IsInstrumentName || IsLyric || IsMarker || IsCuePoint || IsDeviceName || IsProgramName)
+				{
+					int err = MIDIEvent_SetText(this.UnManagedObjectPointer, value);
+					if (err == 0)
+					{
+						throw new MIDIDataLibException("文字列の設定に失敗しました。");
+					}
+				}
+				else
+				{
+					throw new MIDIDataLibException("文字列を格納しているイベントではありません。文字列の設定ができません。");
+				}
+			}
 		}
 
-		/// <summary>
-		/// テンポイベントのテンポ値を返す。
-		/// </summary>
-		public int Tempo
+	/// <summary>
+	/// テンポイベントのテンポ値を返す。
+	/// </summary>
+	public int Tempo
 		{
 			get
 			{
@@ -1170,6 +1227,21 @@ namespace MIDIDataCSWrapper
 				else
 				{
 					throw new MIDIDataLibException("テンポイベントではありません。テンポの取得ができません。");
+				}
+			}
+			set
+			{
+				if (IsTempo)
+				{
+					int err = MIDIEvent_SetTempo(this.UnManagedObjectPointer, value);
+					if (err == 0)
+					{
+						throw new MIDIDataLibException("テンポの設定に失敗しました。");
+					}
+				}
+				else
+				{
+					throw new MIDIDataLibException("テンポイベントではありません。テンポの設定ができません。");
 				}
 			}
 		}
@@ -1194,6 +1266,21 @@ namespace MIDIDataCSWrapper
 				else
 				{
 					throw new MIDIDataLibException("SMPTEオフセットイベントではありません。SMPTEオフセットの取得ができません。");
+				}
+			}
+			set
+			{
+				if (IsSMPTEOffset)
+				{
+					int err = MIDIEvent_SetSMPTEOffset(this.UnManagedObjectPointer, (int)value.Mode, value.Hour, value.Min, value.Sec, value.Frame, value.SubFrame);
+					if (err == 0)
+					{
+						throw new MIDIDataLibException("SMPTEオフセットの設定に失敗しました。");
+					}
+				}
+				else
+				{
+					throw new MIDIDataLibException("SMPTEオフセットイベントではありません。SMPTEオフセットの設定ができません。");
 				}
 			}
 		}
