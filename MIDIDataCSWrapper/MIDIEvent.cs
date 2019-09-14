@@ -2824,5 +2824,16 @@ namespace MIDIDataCSWrapper
 
 		#endregion
 
+		#region ファイナライザー
+		~MIDIEvent()
+		{
+			//浮遊イベントのときのみメモリ上から削除
+			if (IsFloating)
+			{
+				DeleteSingle();
+			}
+		}
+		#endregion
+
 	}
 }
