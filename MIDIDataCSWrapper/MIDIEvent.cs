@@ -1191,7 +1191,7 @@ namespace MIDIDataCSWrapper
 				if (IsTextEvent || IsCopyrightNotice || IsTrackName || IsInstrumentName || IsLyric || IsMarker || IsCuePoint || IsDeviceName || IsProgramName)
 				{
 					StringBuilder stringBuilder = new StringBuilder(MIDIDataLib.BufferSize);
-					MIDIEvent_GetText(this.UnManagedObjectPointer, stringBuilder, stringBuilder.Length);
+					MIDIEvent_GetText(this.UnManagedObjectPointer, stringBuilder, stringBuilder.Capacity);
 					return stringBuilder.ToString();
 				}
 				else
@@ -2828,7 +2828,7 @@ namespace MIDIDataCSWrapper
 		public override string ToString()
 		{
 			StringBuilder stringBuilder = new StringBuilder(MIDIDataLib.BufferSize);
-			MIDIEvent_ToString(this.UnManagedObjectPointer, stringBuilder, stringBuilder.Length);
+			MIDIEvent_ToString(this.UnManagedObjectPointer, stringBuilder, stringBuilder.Capacity);
 			return stringBuilder.ToString();
 		}
 

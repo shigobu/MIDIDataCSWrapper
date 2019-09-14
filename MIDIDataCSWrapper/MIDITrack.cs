@@ -1321,7 +1321,7 @@ namespace MIDIDataCSWrapper
 			get
 			{
 				StringBuilder stringBuilder = new StringBuilder(MIDIDataLib.BufferSize);
-				MIDITrack_GetName(this.UnManagedObjectPointer, stringBuilder, stringBuilder.Length);
+				MIDITrack_GetName(this.UnManagedObjectPointer, stringBuilder, stringBuilder.Capacity);
 				return stringBuilder.ToString();
 			}
 			set

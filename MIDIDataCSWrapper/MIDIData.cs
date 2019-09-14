@@ -633,7 +633,7 @@ namespace MIDIDataCSWrapper
 			get
 			{
 				StringBuilder stringBuilder = new StringBuilder(MIDIDataLib.BufferSize);
-				MIDIData_GetTitle(this.UnManagedObjectPointer, stringBuilder, stringBuilder.Length);
+				MIDIData_GetTitle(this.UnManagedObjectPointer, stringBuilder, stringBuilder.Capacity);
 				return stringBuilder.ToString();
 			}
 			set
@@ -650,7 +650,7 @@ namespace MIDIDataCSWrapper
 			get
 			{
 				StringBuilder stringBuilder = new StringBuilder(MIDIDataLib.BufferSize);
-				MIDIData_GetCopyright(this.UnManagedObjectPointer, stringBuilder, stringBuilder.Length);
+				MIDIData_GetCopyright(this.UnManagedObjectPointer, stringBuilder, stringBuilder.Capacity);
 				return stringBuilder.ToString();
 			}
 			set
@@ -667,7 +667,7 @@ namespace MIDIDataCSWrapper
 			get
 			{
 				StringBuilder stringBuilder = new StringBuilder(MIDIDataLib.BufferSize);
-				MIDIData_GetComment(this.UnManagedObjectPointer, stringBuilder, stringBuilder.Length);
+				MIDIData_GetComment(this.UnManagedObjectPointer, stringBuilder, stringBuilder.Capacity);
 				return stringBuilder.ToString();
 			}
 			set
