@@ -404,6 +404,9 @@ namespace MIDIDataCSWrapper
 		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
 		private static extern int MIDIEvent_Chop(IntPtr pMIDIEvent);
 
+		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]
+		private static extern IntPtr MIDIEvent_ToString(IntPtr pMIDIEvent, StringBuilder pBuf, int lLen);
+
 		#endregion
 
 		#region 列挙型
@@ -2820,6 +2823,13 @@ namespace MIDIDataCSWrapper
 		public void Chop()
 		{
 			MIDIEvent_Chop(this.UnManagedObjectPointer);
+		}
+
+		public override string ToString()
+		{
+			StringBuilder stringBuilder = new StringBuilder(MIDIDataLib.BufferSize);
+			MIDIEvent_ToString(this.UnManagedObjectPointer, stringBuilder, stringBuilder.Length);
+			return stringBuilder.ToString();
 		}
 
 		#endregion
