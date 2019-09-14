@@ -2094,12 +2094,12 @@ namespace MIDIDataCSWrapper
 		{
 			if (ch < 0 || 15 < ch)
 			{
-				throw new ArgumentOutOfRangeException(nameof(ch), "チャンネル番号は0～15の範囲内である必要があります。");
+				throw new ArgumentOutOfRangeException(nameof(ch), MIDIDataLib.MessageChannelOutOfRange);
 			}
 
 			if (key < 0 || 127 < key)
 			{
-				throw new ArgumentOutOfRangeException(nameof(key), "キー値は0～127の範囲内である必要があります。");
+				throw new ArgumentOutOfRangeException(nameof(key), MIDIDataLib.MessageKeyOutOfRange);
 			}
 
 			if (vel < 0 || 127 < vel)
@@ -2125,12 +2125,12 @@ namespace MIDIDataCSWrapper
 		{
 			if (ch < 0 || 15 < ch)
 			{
-				throw new ArgumentOutOfRangeException(nameof(ch), "チャンネル番号は0～15の範囲内である必要があります。");
+				throw new ArgumentOutOfRangeException(nameof(ch), MIDIDataLib.MessageChannelOutOfRange);
 			}
 
 			if (key < 0 || 127 < key)
 			{
-				throw new ArgumentOutOfRangeException(nameof(key), "キー値は0～127の範囲内である必要があります。");
+				throw new ArgumentOutOfRangeException(nameof(key), MIDIDataLib.MessageKeyOutOfRange);
 			}
 
 			if (vel < 0 || 127 < vel)
@@ -2156,12 +2156,12 @@ namespace MIDIDataCSWrapper
 		{
 			if (ch < 0 || 15 < ch)
 			{
-				throw new ArgumentOutOfRangeException(nameof(ch), "チャンネル番号は0～15の範囲内である必要があります。");
+				throw new ArgumentOutOfRangeException(nameof(ch), MIDIDataLib.MessageChannelOutOfRange);
 			}
 
 			if (key < 0 || 127 < key)
 			{
-				throw new ArgumentOutOfRangeException(nameof(key), "キー値は0～127の範囲内である必要があります。");
+				throw new ArgumentOutOfRangeException(nameof(key), MIDIDataLib.MessageKeyOutOfRange);
 			}
 
 			if (val < 0 || 127 < val)
@@ -2187,7 +2187,7 @@ namespace MIDIDataCSWrapper
 		{
 			if (ch < 0 || 15 < ch)
 			{
-				throw new ArgumentOutOfRangeException(nameof(ch), "チャンネル番号は0～15の範囲内である必要があります。");
+				throw new ArgumentOutOfRangeException(nameof(ch), MIDIDataLib.MessageChannelOutOfRange);
 			}
 
 			if (num < 0 || 127 < num)
@@ -2217,7 +2217,7 @@ namespace MIDIDataCSWrapper
 		{
 			if (ch < 0 || 15 < ch)
 			{
-				throw new ArgumentOutOfRangeException(nameof(ch), "チャンネル番号は0～15の範囲内である必要があります。");
+				throw new ArgumentOutOfRangeException(nameof(ch), MIDIDataLib.MessageChannelOutOfRange);
 			}
 
 			if (num < 0 || 127 < num)
@@ -2242,7 +2242,7 @@ namespace MIDIDataCSWrapper
 		{
 			if (ch < 0 || 15 < ch)
 			{
-				throw new ArgumentOutOfRangeException(nameof(ch), "チャンネル番号は0～15の範囲内である必要があります。");
+				throw new ArgumentOutOfRangeException(nameof(ch), MIDIDataLib.MessageChannelOutOfRange);
 			}
 
 			if (val < 0 || 127 < val)
@@ -2267,7 +2267,7 @@ namespace MIDIDataCSWrapper
 		{
 			if (ch < 0 || 15 < ch)
 			{
-				throw new ArgumentOutOfRangeException(nameof(ch), "チャンネル番号は0～15の範囲内である必要があります。");
+				throw new ArgumentOutOfRangeException(nameof(ch), MIDIDataLib.MessageChannelOutOfRange);
 			}
 
 			if (val < 0 || 16383 < val)
@@ -2308,12 +2308,12 @@ namespace MIDIDataCSWrapper
 		{
 			if (ch < 0 || 15 < ch)
 			{
-				throw new ArgumentOutOfRangeException(nameof(ch), "チャンネル番号は0～15の範囲内である必要があります。");
+				throw new ArgumentOutOfRangeException(nameof(ch), MIDIDataLib.MessageChannelOutOfRange);
 			}
 
 			if (key < 0 || 127 < key)
 			{
-				throw new ArgumentOutOfRangeException(nameof(key), "キー値は0～127の範囲内である必要があります。");
+				throw new ArgumentOutOfRangeException(nameof(key), MIDIDataLib.MessageKeyOutOfRange);
 			}
 
 			if (vel < 0 || 127 < vel)

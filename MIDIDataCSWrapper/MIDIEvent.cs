@@ -1286,7 +1286,7 @@ namespace MIDIDataCSWrapper
 		}
 
 		/// <summary>
-		/// 拍子記号イベント
+		/// 拍子記号
 		/// </summary>
 		public TimeSignature TimeSignature
 		{
@@ -1305,6 +1305,21 @@ namespace MIDIDataCSWrapper
 				else
 				{
 					throw new MIDIDataLibException("拍子記号イベントイベントではありません。拍子記号の取得ができません。");
+				}
+			}
+			set
+			{
+				if (IsTimeSignature)
+				{
+					int err = MIDIEvent_SetTimeSignature(this.UnManagedObjectPointer, value.nn, value.dd, value.cc, value.bb);
+					if (err == 0)
+					{
+						throw new MIDIDataLibException("拍子記号の設定に失敗しました。");
+					}
+				}
+				else
+				{
+					throw new MIDIDataLibException("拍子記号イベントイベントではありません。拍子記号の設定ができません。");
 				}
 			}
 		}
@@ -1331,12 +1346,27 @@ namespace MIDIDataCSWrapper
 					throw new MIDIDataLibException("調性記号イベントではありません。調性記号の取得ができません。");
 				}
 			}
+			set
+			{
+				if (IsKeySignature)
+				{
+					int err = MIDIEvent_SetKeySignature(this.UnManagedObjectPointer, value.sf, (int)value.mi);
+					if (err == 0)
+					{
+						throw new MIDIDataLibException("調性記号の設定に失敗しました。");
+					}
+				}
+				else
+				{
+					throw new MIDIDataLibException("調性記号イベントではありません。調性記号の設定ができません。");
+				}
+			}
 		}
 
 		/// <summary>
 		/// MIDIメッセージ
 		/// </summary>
-		public byte[] MIDIMessage
+		public sbyte[] MIDIMessage
 		{
 			get
 			{
@@ -1366,7 +1396,7 @@ namespace MIDIDataCSWrapper
 							//配列にコピー
 							Marshal.Copy(dataPtr, midiData, 0, dataNum);
 						}
-						return midiData;
+						return midiData.Cast<sbyte>().ToArray();
 					}
 					finally
 					{
@@ -1379,6 +1409,17 @@ namespace MIDIDataCSWrapper
 				else
 				{
 					throw new MIDIDataLibException("MIDIメッセージイベントではありません。MIDIメッセージの取得ができません。");
+				}
+			}
+			set
+			{
+				if (IsMIDIEvent || IsSysExEvent)
+				{
+					MIDIEvent_SetMIDIMessage(this.UnManagedObjectPointer, value, value.Length);
+				}
+				else
+				{
+					throw new MIDIDataLibException("MIDIメッセージイベントではありません。MIDIメッセージの設定ができません。");
 				}
 			}
 		}
@@ -1399,6 +1440,25 @@ namespace MIDIDataCSWrapper
 					throw new MIDIDataLibException("MIDIチャンネルイベントではありません。チャンネルの取得ができません。");
 				}
 			}
+			set
+			{
+				if (IsMIDIEvent)
+				{
+					if (value < 0 || 15 < value)
+					{
+						throw new ArgumentOutOfRangeException(null, MIDIDataLib.MessageChannelOutOfRange);
+					}
+					int err = MIDIEvent_SetChannel(this.UnManagedObjectPointer, value);
+					if (err == 0)
+					{
+						throw new MIDIDataLibException("チャンネルの設定に失敗しました。");
+					}
+				}
+				else
+				{
+					throw new MIDIDataLibException("MIDIチャンネルイベントではありません。チャンネルの設定ができません。");
+				}
+			}
 		}
 
 		/// <summary>
@@ -1415,6 +1475,25 @@ namespace MIDIDataCSWrapper
 				else
 				{
 					throw new MIDIDataLibException("ノート・キーアフタータッチイベントではありません。キーの取得ができません。");
+				}
+			}
+			set
+			{
+				if (IsNoteOff || IsNoteOn || IsKeyAftertouch)
+				{
+					if (value < 0 || 127 < value)
+					{
+						throw new ArgumentOutOfRangeException(null, MIDIDataLib.MessageKeyOutOfRange);
+					}
+					int err = MIDIEvent_SetKey(this.UnManagedObjectPointer, value);
+					if (err == 0)
+					{
+						throw new MIDIDataLibException("キーの設定に失敗しました。");
+					}
+				}
+				else
+				{
+					throw new MIDIDataLibException("ノート・キーアフタータッチイベントではありません。キーの設定ができません。");
 				}
 			}
 		}
@@ -1435,6 +1514,21 @@ namespace MIDIDataCSWrapper
 					throw new MIDIDataLibException("ノートイベントではありません。ベロシティの取得ができません。");
 				}
 			}
+			set
+			{
+				if (IsNoteOff || IsNoteOn)
+				{
+					if (value < 0 || 127 < value)
+					{
+						throw new ArgumentOutOfRangeException(null, "ベロシティは0～127の範囲内である必要があります。");
+					}
+					int err = MIDIEvent_SetVelocity(this.UnManagedObjectPointer, value);
+					if (err == 0)
+					{
+						throw new MIDIDataLibException("ベロシティの設定に失敗しました。");
+					}
+				}
+			}
 		}
 
 		/// <summary>
@@ -1451,6 +1545,35 @@ namespace MIDIDataCSWrapper
 				else
 				{
 					throw new MIDIDataLibException("ノートイベントではありません。音長さの取得ができません。");
+				}
+			}
+			set
+			{
+				if (IsNote)
+				{
+					if (IsNoteOn)
+					{
+						if (value < 0)
+						{
+							throw new ArgumentOutOfRangeException(null, "ノートオンイベントに対しては、音長さは正の値である必要があります。");
+						}
+					}
+					if (IsNoteOff)
+					{
+						if (value > 0)
+						{
+							throw new ArgumentOutOfRangeException(null, "ノートオフイベントに対しては、音長さは負の値である必要があります。");
+						}
+					}
+					int err = MIDIEvent_SetDuration(this.UnManagedObjectPointer, value);
+					if (err == 0)
+					{
+						throw new MIDIDataLibException("音長さの設定に失敗しました。");
+					}
+				}
+				else
+				{
+					throw new MIDIDataLibException("ノートイベントではありません。音長さの設定ができません。");
 				}
 			}
 		}
@@ -1471,6 +1594,21 @@ namespace MIDIDataCSWrapper
 					throw new MIDIDataLibException("ナンバーが定義されたイベントではありません。ナンバーの取得ができません。");
 				}
 			}
+			set
+			{
+				if (IsSequenceNumber || IsChannelPrefix || IsPortPrefix || IsControlChange || IsProgramChange)
+				{
+					int err = MIDIEvent_SetNumber(this.UnManagedObjectPointer, value);
+					if (err == 0)
+					{
+						throw new MIDIDataLibException("ナンバーの設定に失敗しました。");
+					}
+				}
+				else
+				{
+					throw new MIDIDataLibException("ナンバーが定義されたイベントではありません。ナンバーの設定ができません。");
+				}
+			}
 		}
 
 		/// <summary>
@@ -1487,6 +1625,21 @@ namespace MIDIDataCSWrapper
 				else
 				{
 					throw new MIDIDataLibException("値が定義されたイベントではありません。値の取得ができません。");
+				}
+			}
+			set
+			{
+				if (IsSequenceNumber || IsChannelPrefix || IsPortPrefix || IsKeyAftertouch || IsControlChange || IsProgramChange || IsChannelAftertouch || IsPitchBend)
+				{
+					int err = MIDIEvent_SetValue(this.UnManagedObjectPointer, value);
+					if (err == 0)
+					{
+						throw new MIDIDataLibException("値の設定に失敗しました。");
+					}
+				}
+				else
+				{
+					throw new MIDIDataLibException("値が定義されたイベントではありません。値の設定ができません。");
 				}
 			}
 		}
@@ -1507,6 +1660,21 @@ namespace MIDIDataCSWrapper
 					throw new MIDIDataLibException("バンクが定義されたイベントではありません。バンクの取得ができません。");
 				}
 			}
+			set
+			{
+				if (IsPatchChange || IsRPNChange || IsNRPNChange)
+				{
+					if (value < 0 || 16383 < value)
+					{
+						throw new ArgumentOutOfRangeException(null, "バンクは0～16383の範囲内である必要があります。");
+					}
+					int err = MIDIEvent_SetBank(this.UnManagedObjectPointer, value);
+					if (err == 0)
+					{
+						throw new MIDIDataLibException("バンクの設定に失敗しました。");
+					}
+				}
+			}
 		}
 
 		/// <summary>
@@ -1523,6 +1691,25 @@ namespace MIDIDataCSWrapper
 				else
 				{
 					throw new MIDIDataLibException("バンクが定義されたイベントではありません。バンクMSBの取得ができません。");
+				}
+			}
+			set
+			{
+				if (IsPatchChange || IsRPNChange || IsNRPNChange)
+				{
+					if (value < 0 || 127 < value)
+					{
+						throw new ArgumentOutOfRangeException(null, "バンクMSBは0～127の範囲内である必要があります。");
+					}
+					int err = MIDIEvent_SetBankMSB(this.UnManagedObjectPointer, value);
+					if (err == 0)
+					{
+						throw new MIDIDataLibException("バンクMSBの設定に失敗しました。");
+					}
+				}
+				else
+				{
+					throw new MIDIDataLibException("バンクが定義されたイベントではありません。バンクMSBの設定ができません。");
 				}
 			}
 		}
@@ -1543,6 +1730,25 @@ namespace MIDIDataCSWrapper
 					throw new MIDIDataLibException("バンクが定義されたイベントではありません。バンクLSBの取得ができません。");
 				}
 			}
+			set
+			{
+				if (IsPatchChange || IsRPNChange || IsNRPNChange)
+				{
+					if (value < 0 || 127 < value)
+					{
+						throw new ArgumentOutOfRangeException(null, "バンクLSBは0～127の範囲内である必要があります。");
+					}
+					int err = MIDIEvent_SetBankLSB(this.UnManagedObjectPointer, value);
+					if (err == 0)
+					{
+						throw new MIDIDataLibException("バンクLSBの設定に失敗しました。");
+					}
+				}
+				else
+				{
+					throw new MIDIDataLibException("バンクが定義されたイベントではありません。バンクLSBの設定ができません。");
+				}
+			}
 		}
 
 		/// <summary>
@@ -1561,6 +1767,21 @@ namespace MIDIDataCSWrapper
 					throw new MIDIDataLibException("RPNチェンジイベント・NRPNチェンジイベントではありません。データエントリーMSBの取得ができません。");
 				}
 			}
+			set
+			{
+				if (IsRPNChange || IsNRPNChange)
+				{
+					if (value < 0 || 127 < value)
+					{
+						throw new ArgumentOutOfRangeException(null, "データエントリーMSBは0～127の範囲内である必要があります。");
+					}
+					int err = MIDIEvent_SetDataEntryMSB(this.UnManagedObjectPointer, value);
+					if (err == 0)
+					{
+						throw new MIDIDataLibException("データエントリーMSBの設定に失敗しました。");
+					}
+				}
+			}
 		}
 
 		/// <summary>
@@ -1577,6 +1798,21 @@ namespace MIDIDataCSWrapper
 				else
 				{
 					throw new MIDIDataLibException("パッチチェンジチェンジイベントではありません。プログラムナンバーの取得ができません。");
+				}
+			}
+			set
+			{
+				if (IsPatchChange)
+				{
+					if (value < 0 || 127 < value)
+					{
+						throw new ArgumentOutOfRangeException(null, "ログラムナンバーは0～127の範囲内である必要があります。");
+					}
+					int err = MIDIEvent_SetPatchNum(this.UnManagedObjectPointer, value);
+					if (err == 0)
+					{
+						throw new MIDIDataLibException("ログラムナンバーの設定に失敗しました。");
+					}
 				}
 			}
 		}

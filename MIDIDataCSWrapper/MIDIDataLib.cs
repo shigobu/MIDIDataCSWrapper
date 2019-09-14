@@ -28,7 +28,10 @@ namespace MIDIDataCSWrapper
 		/// <summary>
 		/// MIDIDataライブラリ内で使用する文字列バッファのサイズ。
 		/// </summary>		
-		internal static int BufferSize { get; } = 1024;
+		internal const int BufferSize = 1024;
+
+		internal const string MessageChannelOutOfRange = "チャンネル番号は0～15の範囲内である必要があります。";
+		internal const string MessageKeyOutOfRange = "キー値は0～127の範囲内である必要があります。";
 
 	}
 }
