@@ -2806,6 +2806,22 @@ namespace MIDIDataCSWrapper
 			this.UnManagedObjectPointer = IntPtr.Zero;
 		}
 
+		/// <summary>
+		/// 結合されていないMIDIイベントで、結合できるものがある場合は結合する。
+		/// </summary>
+		public void Combine()
+		{
+			MIDIEvent_Combine(this.UnManagedObjectPointer);
+		}
+
+		/// <summary>
+		/// 結合されているMIDIイベントを、バラバラに切り離す。
+		/// </summary>
+		public void Chop()
+		{
+			MIDIEvent_Chop(this.UnManagedObjectPointer);
+		}
+
 		#endregion
 
 	}
