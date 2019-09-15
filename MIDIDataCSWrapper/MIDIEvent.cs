@@ -1390,7 +1390,7 @@ namespace MIDIDataCSWrapper
 						}
 
 						//C言語関数呼び出し
-						int dataNum = MIDIEvent_GetData(this.UnManagedObjectPointer, dataPtr, dataSize);
+						int dataNum = MIDIEvent_GetMIDIMessage(this.UnManagedObjectPointer, dataPtr, dataSize);
 						//コピー先配列
 						byte[] midiData = new byte[dataNum];
 						//MIDIメッセージ取得できたら
