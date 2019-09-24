@@ -1009,7 +1009,7 @@ namespace MIDIDataCSWrapper
 					break;
 
 				default:
-					throw new ArgumentException("非対応の拡張子です。", nameof(fileName));
+					throw new ArgumentException("非対応の拡張子です。", paramName: null);
 					break;
 			}
 
@@ -1183,6 +1183,20 @@ namespace MIDIDataCSWrapper
 				throw new MIDIDataLibException("タイムベース取得に失敗しました。");
 			}
 			timeMode = (TimeModes)tempTimeMode;
+		}
+
+		/// <summary>
+		/// MIDIデータのタイムモードとタイムレゾリューションを同時に設定する。
+		/// </summary>
+		/// <param name="timeMode">タイムモード</param>
+		/// <param name="resolution">タイムレゾリューション(分解能)</param>
+		public void SetTimeBase(TimeModes timeMode, int resolution)
+		{
+			int err = MIDIData_SetTimeBase(this.UnManagedObjectPointer, (int)timeMode, resolution);
+			if (err == 0)
+			{
+				throw new MIDIDataLibException("タイムベース変換に失敗しました。");
+			}
 		}
 
 		/// <summary>
@@ -1385,8 +1399,13 @@ namespace MIDIDataCSWrapper
 		#region ファイナライザー
 		~MIDIData()
 		{
-			MIDIData_Delete(UnManagedObjectPointer);
-			UnManagedObjectPointer = IntPtr.Zero;
+			try
+			{
+				MIDIData_Delete(UnManagedObjectPointer);
+				UnManagedObjectPointer = IntPtr.Zero;
+			}
+			catch (Exception)
+			{/*例外の握りつぶし*/}
 		}
 		#endregion
 	}
