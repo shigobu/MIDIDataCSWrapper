@@ -1840,6 +1840,29 @@ namespace MIDIDataCSWrapper
 		}
 
 		/// <summary>
+		/// ラッパー独自プロパティ。
+		/// MIDI再生用。
+		/// このプロパティは、自分自身に持っているアンマネージド・オブジェクトのポインタを次のイベントのポインタに変更し、自分自身を返す。
+		/// イベントの列挙には使えない。NextEventプロパティより高速(であってほしい)
+		/// </summary>
+		public MIDIEvent NextEventForPlay
+		{
+			get
+			{
+				IntPtr intPtr = MIDIEvent_GetNextEvent(this.UnManagedObjectPointer);
+				if (intPtr == IntPtr.Zero)
+				{
+					return null;
+				}
+				else
+				{
+					this.UnManagedObjectPointer = intPtr;
+					return this;
+				}
+			}
+		}
+
+		/// <summary>
 		/// 前のMIDIイベント
 		/// </summary>
 		public MIDIEvent PrevEvent
