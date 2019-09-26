@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace MIDIDataCSWrapper
 {
+	/// <summary>
+	/// MIDIイベント
+	/// </summary>
 	public class MIDIEvent
 	{
 		#region DllImport
@@ -2547,7 +2550,7 @@ namespace MIDIDataCSWrapper
 		/// </summary>
 		/// <param name="time">絶対時刻</param>
 		/// <param name="ch">チャンネル番号</param>
-		/// <param name="key">コントロールナンバー(0～127)</param>
+		/// <param name="num">コントロールナンバー(0～127)</param>
 		/// <param name="val">値(0～127)</param>
 		/// <returns>コントロールチェンジイベント</returns>
 		public static MIDIEvent CreateControlChange(int time, int ch, int num, int val)
@@ -2577,7 +2580,7 @@ namespace MIDIDataCSWrapper
 		/// </summary>
 		/// <param name="time">絶対時刻</param>
 		/// <param name="ch">チャンネル番号</param>
-		/// <param name="key">プログラムナンバー(0～127)</param>
+		/// <param name="num">プログラムナンバー(0～127)</param>
 		/// <returns>プログラムチェンジイベント</returns>
 		public static MIDIEvent CreateProgramChange(int time, int ch, int num)
 		{
@@ -2825,6 +2828,10 @@ namespace MIDIDataCSWrapper
 			MIDIEvent_Chop(this.UnManagedObjectPointer);
 		}
 
+		/// <summary>
+		/// デバッグようMIDIEvent_ToString関数を呼びます。
+		/// </summary>
+		/// <returns>イベント内容</returns>
 		public override string ToString()
 		{
 			StringBuilder stringBuilder = new StringBuilder(MIDIDataLib.BufferSize);

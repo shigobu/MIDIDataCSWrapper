@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace MIDIDataCSWrapper
 {
+	/// <summary>
+	/// ライブラリ全体の設定
+	/// </summary>
 	public static class MIDIDataLib
 	{
 		[DllImport("MIDIData.dll", CharSet = CharSet.Unicode)]

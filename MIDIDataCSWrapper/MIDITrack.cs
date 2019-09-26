@@ -621,7 +621,6 @@ namespace MIDIDataCSWrapper
 		/// <summary>
 		/// MIDIトラックが非コンダクタートラックとして正しいことを確認する。
 		/// </summary>
-		/// <param name="pMIDITrack"></param>
 		/// <param name="pMIDITrack">MIDIトラックへのポインタ</param>
 		/// <returns>
 		/// 正しい:1
