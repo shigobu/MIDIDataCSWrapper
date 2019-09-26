@@ -35,6 +35,15 @@ namespace MIDIDataCSWrapper
 		/// ティック
 		/// </summary>
 		public int Tick { get; set; }
+
+		/// <summary>
+		/// 小節:拍:ティックの書式で文字列化します。
+		/// </summary>
+		/// <returns></returns>
+		public override string ToString()
+		{
+			return $"{Measure:0000}:{Beat}:{Tick:000}";
+		}
 	}
 
 	/// <summary>
