@@ -44,6 +44,21 @@ namespace MIDIDataCSWrapper
 		{
 			return $"{Measure:0000}:{Beat}:{Tick:000}";
 		}
+
+		/// <summary>
+		/// 文字列を解析して、小節:拍:ティックオブジェクトを返します。
+		/// </summary>
+		/// <param name="s"></param>
+		/// <returns></returns>
+		public static MeasureBeatTick Parse(string s)
+		{
+			string[] splited = s.Split(':');
+			MeasureBeatTick retVal = new MeasureBeatTick();
+			retVal.Measure = int.Parse(splited[0]);
+			retVal.Beat = int.Parse(splited[1]);
+			retVal.Tick = int.Parse(splited[2]);
+			return retVal;
+		}
 	}
 
 	/// <summary>
