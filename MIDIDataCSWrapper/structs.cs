@@ -48,8 +48,8 @@ namespace MIDIDataCSWrapper
 		/// <summary>
 		/// 文字列を解析して、小節:拍:ティックオブジェクトを返します。
 		/// </summary>
-		/// <param name="s"></param>
-		/// <returns></returns>
+		/// <param name="s">解析対象の文字列</param>
+		/// <returns>MeasureBeatTickオブジェクト</returns>
 		public static MeasureBeatTick Parse(string s)
 		{
 			string[] splited = s.Split(':');
