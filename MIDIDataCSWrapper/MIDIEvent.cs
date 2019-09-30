@@ -1219,10 +1219,10 @@ namespace MIDIDataCSWrapper
 			}
 		}
 
-	/// <summary>
-	/// テンポイベントのテンポ値を返す。
-	/// </summary>
-	public int Tempo
+		/// <summary>
+		/// テンポイベントのテンポ値を返す。
+		/// </summary>
+		public int Tempo
 		{
 			get
 			{
