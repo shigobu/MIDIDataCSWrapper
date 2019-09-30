@@ -42,7 +42,7 @@ namespace MIDIDataCSWrapper
 		/// <returns></returns>
 		public override string ToString()
 		{
-			return $"{Measure:0000}:{Beat}:{Tick:000}";
+			return $"{Measure, 5}.{Beat + 1, 2}.{Tick, 3}";
 		}
 
 		/// <summary>
