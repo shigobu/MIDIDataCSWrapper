@@ -5,13 +5,14 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Drawing;
 using System.Threading.Tasks;
+using System.Collections;
 
 namespace MIDIDataCSWrapper
 {
 	/// <summary>
 	/// MIDIトラックは、単数又は複数のMIDIイベントを子に持つ。
 	/// </summary>
-	public class MIDITrack
+	public class MIDITrack : IEnumerable<MIDIEvent>
 	{
 		#region DllImport
 
@@ -2356,6 +2357,14 @@ namespace MIDIDataCSWrapper
 		#endregion
 
 		#region イテレータ
+
+		IEnumerator IEnumerable.GetEnumerator()
+		{
+			for (MIDIEvent @event = this.FirstEvent; @event != null; @event = @event.NextEvent)
+			{
+				yield return @event;
+			}
+		}
 
 		public IEnumerator<MIDIEvent> GetEnumerator()
 		{

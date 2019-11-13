@@ -13,9 +13,9 @@ namespace TestApp
 		static void Main(string[] args)
 		{
 			MIDIData mIDIData = new MIDIData(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory), "無題1.skj"));
-			foreach (MIDITrack track in mIDIData)
+			foreach (var track in mIDIData)
 			{
-				foreach(MIDIEvent @event in track)
+				foreach(var @event in track)
 				{
 					Console.WriteLine(@event.ToString());
 				}

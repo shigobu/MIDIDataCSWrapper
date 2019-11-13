@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace MIDIDataCSWrapper
 	/// <summary>
 	/// MIDIデータは、フォーマット、トラック数、タイムベース(タイムモード及び分解能)の情報を持ち、子に単数又は複数のトラックを持つことができる。
 	/// </summary>
-	public class MIDIData
+	public class MIDIData : IEnumerable<MIDITrack>
 	{
 		#region DLLImport
 
@@ -1364,6 +1365,14 @@ namespace MIDIDataCSWrapper
 		#region イテレータ
 
 		public IEnumerator<MIDITrack> GetEnumerator()
+		{
+			for (MIDITrack track = this.FirstTrack; track != null; track = track.NextTrack)
+			{
+				yield return track;
+			}
+		}
+
+		IEnumerator IEnumerable.GetEnumerator()
 		{
 			for (MIDITrack track = this.FirstTrack; track != null; track = track.NextTrack)
 			{
