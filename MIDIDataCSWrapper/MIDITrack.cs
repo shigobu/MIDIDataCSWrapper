@@ -2360,10 +2360,7 @@ namespace MIDIDataCSWrapper
 
 		IEnumerator IEnumerable.GetEnumerator()
 		{
-			for (MIDIEvent @event = this.FirstEvent; @event != null; @event = @event.NextEvent)
-			{
-				yield return @event;
-			}
+			return this.GetEnumerator();
 		}
 
 		public IEnumerator<MIDIEvent> GetEnumerator()

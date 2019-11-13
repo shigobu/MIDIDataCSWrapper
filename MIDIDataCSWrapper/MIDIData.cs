@@ -1374,10 +1374,7 @@ namespace MIDIDataCSWrapper
 
 		IEnumerator IEnumerable.GetEnumerator()
 		{
-			for (MIDITrack track = this.FirstTrack; track != null; track = track.NextTrack)
-			{
-				yield return track;
-			}
+			return this.GetEnumerator();
 		}
 
 		#endregion
